@@ -1,12 +1,26 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function DesktopNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
 
+  const handleLoginClick = () => {
+    setShowLoginForm(true);
+  };
+
+  const handleCloseLoginForm = () => {
+    setShowLoginForm(false);
+  };
+
+  const handleGoToLogin = () => {
+    navigate("/login");
+  };
   return (
     <div className="min-h-screen">
       <div className="">
@@ -23,13 +37,7 @@ function DesktopNavbar() {
                 className="focus:shadow-outline rounded-lg focus:outline-none md:hidden"
                 onClick={toggleMenu}
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  className="h-6 w-6"
-                >
-                  {/* SVG paths for menu icon */}
-                </svg>
+                {/* Your menu icon */}
               </button>
             </div>
             <nav
@@ -63,7 +71,7 @@ function DesktopNavbar() {
               </a>
               <a
                 className="shadow-outline mt-2 rounded-lg bg-first px-4  py-2 text-sm font-semibold text-blue-900 hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-                href="#"
+                onClick={handleGoToLogin}
               >
                 Login
               </a>
@@ -71,6 +79,7 @@ function DesktopNavbar() {
           </div>
         </div>
       </div>
+      {showLoginForm && <LoginForm onClose={handleCloseLoginForm} />}
     </div>
   );
 }

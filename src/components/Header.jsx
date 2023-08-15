@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 function Header() {
   return (
     <div>
-      <DesktopNavbar className="hidden md:block" />{" "}
+      <DesktopNavbar className="hidden md:block" />
       <Navbar className="block md:hidden" />
     </div>
   );
