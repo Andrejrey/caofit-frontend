@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        'primary': '#fce38a',
-        'secondary': '#0e5f76',
-        'dark-blue-light': '#083d56',
+        'first': '#fce38a',
+        'dark-blue-light': '#0e5f76',
+        'second': '#083d56',
         'dark-blue': '#0c2233',
       },
     },
