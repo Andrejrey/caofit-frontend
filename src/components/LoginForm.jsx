@@ -71,14 +71,14 @@ function LoginForm({ onClose }) {
             </div>
             <button
               type="submit"
-              className="mb-2 mt-5 block w-full rounded-2xl bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-dark-blue-light"
+              className="mb-2 mt-5 block w-full rounded-lg bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-dark-blue-light"
             >
               Login
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="mb-2 mt-3 block w-full rounded-2xl bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-yellow-400"
+              className="mb-2 mt-3 block w-full rounded-lg bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-yellow-400"
             >
               Close
             </button>
