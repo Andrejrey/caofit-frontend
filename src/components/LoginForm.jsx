@@ -17,7 +17,6 @@ function LoginForm({ onClose }) {
     // Add your login logic here
   };
   return (
-   
     <div className="flex h-screen ">
       <div className="flex w-full items-center justify-center space-y-8 bg-white lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
@@ -72,24 +71,24 @@ function LoginForm({ onClose }) {
             </div>
             <button
               type="submit"
-              className="mb-2 mt-5 block w-full rounded-2xl bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-indigo-700"
+              className="mb-2 mt-5 block w-full rounded-2xl bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-dark-blue-light"
             >
               Login
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="mb-2 mt-3 block w-full rounded-2xl bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-gray-400"
+              className="mb-2 mt-3 block w-full rounded-2xl bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-yellow-400"
             >
               Close
             </button>
             <div className="mt-4 flex justify-between">
-              <span className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-500">
+              <span className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-900">
                 Forgot Password?
               </span>
               <a
                 href="#"
-                className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-500"
+                className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-900"
               >
                 Don't have an account yet?
               </a>
