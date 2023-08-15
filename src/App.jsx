@@ -1,7 +1,8 @@
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <>
-      <h1>Hallo CaoFit</h1>
+      <Navbar />
     </>
   );
 }
