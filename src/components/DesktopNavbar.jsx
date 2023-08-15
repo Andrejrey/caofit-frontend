@@ -70,7 +70,7 @@ function DesktopNavbar() {
                 Contact
               </a>
               <a
-                className="shadow-outline mt-2 rounded-lg bg-first px-4  py-2 text-sm font-semibold text-blue-900 hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
+                className="shadow-outline text-bold mt-2 cursor-pointer rounded-lg bg-first  px-4 py-2 text-sm font-semibold text-blue-900   hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
                 onClick={handleGoToLogin}
               >
                 Login

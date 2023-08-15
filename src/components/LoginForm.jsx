@@ -30,7 +30,7 @@ function LoginForm({ onClose }) {
             <p className="mb-8 text-sm font-normal text-gray-600">
               Welcome Back
             </p>
-            <div className="mb-8 flex items-center rounded-2xl border-2 px-3 py-2">
+            <div className="mb-8 flex items-center rounded-lg border-2 px-3 py-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-400"
@@ -50,7 +50,7 @@ function LoginForm({ onClose }) {
                 onChange={handleEmailChange}
               />
             </div>
-            <div className="mb-12 flex items-center rounded-2xl border-2 px-3 py-2 ">
+            <div className="mb-12 flex items-center rounded-lg border-2 px-3 py-2 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-400"
@@ -71,14 +71,14 @@ function LoginForm({ onClose }) {
             </div>
             <button
               type="submit"
-              className="mb-2 mt-5 block w-full rounded-lg bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-dark-blue-light"
+              className="mb-2 mt-5 block w-full rounded-lg bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-yellow-400"
             >
               Login
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="mb-2 mt-3 block w-full rounded-lg bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-yellow-400"
+              className="mb-2 mt-3 block w-full rounded-lg bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-dark-blue-light"
             >
               Close
             </button>
