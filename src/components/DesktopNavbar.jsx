@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function DesktopNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,17 +10,17 @@ function DesktopNavbar() {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
 
-  const handleLoginClick = () => {
-    setShowLoginForm(true);
-  };
+  // const handleLoginClick = () => {
+  //   setShowLoginForm(true);
+  // };
 
-  const handleCloseLoginForm = () => {
-    setShowLoginForm(false);
-  };
+  // const handleCloseLoginForm = () => {
+  //   setShowLoginForm(false);
+  // };
 
-  const handleGoToLogin = () => {
-    navigate("/login");
-  };
+  // const handleGoToLogin = () => {
+  //   navigate("/login");
+  // };
   return (
     <div className="min-h-screen">
       <div className="">
@@ -45,41 +45,44 @@ function DesktopNavbar() {
                 menuOpen ? "flex" : "hidden"
               } md:flex md:flex-row md:justify-end`}
             >
-              <a
+              <Link
+                to={"/shop"}
                 className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Shopping
-              </a>
-              <a
+              </Link>
+              <Link
+                to={"/calculator"}
                 className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Calculator
-              </a>
-              <a
+              </Link>
+              <Link
+                to={"/diary"}
                 className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Diary
-              </a>
-              <a
+              </Link>
+              <Link
+                to={"/contact"}
                 className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Contact
-              </a>
-              <a
+              </Link>
+              <Link
+                to={"/login"}
                 className="shadow-outline text-bold mt-2 cursor-pointer rounded-lg bg-first  px-4 py-2 text-sm font-semibold text-blue-900   hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-                onClick={handleGoToLogin}
               >
                 Login
-              </a>
+              </Link>
             </nav>
           </div>
         </div>
       </div>
-      {showLoginForm && <LoginForm onClose={handleCloseLoginForm} />}
     </div>
   );
 }

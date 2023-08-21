@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function LoginForm({ onClose }) {
   const [email, setEmail] = useState("");
@@ -90,7 +90,7 @@ function LoginForm({ onClose }) {
                 href="#"
                 className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-900"
               >
-                Don't have an account yet?
+                {`Don't have an account yet?`}
               </a>
             </div>
           </form>
