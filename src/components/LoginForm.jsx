@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function LoginForm({ onClose }) {
   const [email, setEmail] = useState("");
@@ -16,16 +16,17 @@ function LoginForm({ onClose }) {
     e.preventDefault();
     // Add your login logic here
   };
+
   return (
-    <div className="flex h-screen ">
-      <div className="flex w-full items-center justify-center space-y-8 bg-white lg:w-1/2">
+    <div className="flex h-screen bg-first">
+      <div className="flex w-full items-center justify-center space-y-8 bg-second lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
           <form
             onSubmit={handleSubmit}
             className="rounded-md bg-white p-5 shadow-2xl"
           >
             <h1 className="mb-1 text-2xl font-bold text-gray-800">
-              Hello Again!
+              Hello Again
             </h1>
             <p className="mb-8 text-sm font-normal text-gray-600">
               Welcome Back
@@ -38,7 +39,12 @@ function LoginForm({ onClose }) {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {/* SVG path for email icon */}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                />
               </svg>
               <input
                 id="email"
@@ -50,14 +56,18 @@ function LoginForm({ onClose }) {
                 onChange={handleEmailChange}
               />
             </div>
-            <div className="mb-12 flex items-center rounded-lg border-2 px-3 py-2 ">
+            <div className="mb-12 flex items-center rounded-lg border-2 px-3 py-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-400"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
-                {/* SVG path for password icon */}
+                <path
+                  fillRule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clipRule="evenodd"
+                />
               </svg>
               <input
                 className="w-full border-none pl-2 outline-none"
@@ -83,14 +93,14 @@ function LoginForm({ onClose }) {
               Close
             </button>
             <div className="mt-4 flex justify-between">
-              <span className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-900">
+              <span className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-yellow-700">
                 Forgot Password?
               </span>
               <a
                 href="#"
-                className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-blue-900"
+                className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-yellow-700"
               >
-                {`Don't have an account yet?`}
+                Don't have an account yet?
               </a>
             </div>
           </form>

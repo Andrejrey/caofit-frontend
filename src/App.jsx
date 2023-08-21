@@ -7,6 +7,7 @@ import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
 import Contact from "./components/Contact";
 import ShopArticle from "./components/ShopArticle";
+import Footer from "./components/Footer";
 ShopArticle;
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/diary" element={<Diary />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </>
   );
 }
