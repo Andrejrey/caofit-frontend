@@ -1,6 +1,6 @@
 function Navbar() {
   return (
-    <nav className="fixed bottom-0 flex w-full overflow-x-auto border bg-dark-blue p-2 md:hidden">
+    <nav className="fixed bottom-0 z-10 flex w-full overflow-x-auto  border-t bg-dark-blue p-2 md:hidden">
       <a
         href="."
         className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
