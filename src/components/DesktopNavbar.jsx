@@ -47,28 +47,28 @@ function DesktopNavbar() {
             >
               <Link
                 to={"/shop"}
-                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white focus:outline-none md:ml-4 md:mt-0"
+                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  hover:text-yellow-400 focus:outline-none md:ml-4  md:mt-0"
                 href="#"
               >
                 Shopping
               </Link>
               <Link
                 to={"/calculator"}
-                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  focus:outline-none md:ml-4 md:mt-0"
+                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white   hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Calculator
               </Link>
               <Link
                 to={"/diary"}
-                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  focus:outline-none md:ml-4 md:mt-0"
+                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white   hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Diary
               </Link>
               <Link
                 to={"/contact"}
-                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white focus:outline-none md:ml-4 md:mt-0"
+                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
                 href="#"
               >
                 Contact

@@ -8,6 +8,7 @@ import Diary from "./components/Diary";
 import Contact from "./components/Contact";
 import ShopArticle from "./components/ShopArticle";
 import Footer from "./components/Footer";
+import DesktopNavbar from "./components/DesktopNavbar";
 ShopArticle;
 
 function App() {
