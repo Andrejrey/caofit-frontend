@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
@@ -8,8 +9,6 @@ import Diary from "./components/Diary";
 import Contact from "./components/Contact";
 import ShopArticle from "./components/ShopArticle";
 import Footer from "./components/Footer";
-import DesktopNavbar from "./components/DesktopNavbar";
-ShopArticle;
 
 function App() {
   return (
