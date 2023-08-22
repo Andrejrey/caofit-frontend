@@ -23,7 +23,7 @@ function DesktopNavbar() {
               >
                 <img
                   src={logo}
-                  alt=""
+                  alt="logo"
                   className="h-8 w-32 cursor-pointer object-cover"
                 />
               </a>

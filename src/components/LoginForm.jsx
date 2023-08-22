@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from "../assets/logo/logo-dark-removedBG.png";
 
 function LoginForm({ onClose }) {
   const [email, setEmail] = useState("");
@@ -18,7 +19,14 @@ function LoginForm({ onClose }) {
   };
 
   return (
-    <div className="flex h-screen bg-first">
+    <div className="flex h-screen justify-evenly bg-second">
+      <div className="flex items-center justify-center">
+        <img
+          src={logo}
+          alt="logo"
+          className="flex w-80 items-center  justify-center hidden lg:block"
+        />
+      </div>
       <div className="flex w-full items-center justify-center space-y-8 bg-second lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
           <form
