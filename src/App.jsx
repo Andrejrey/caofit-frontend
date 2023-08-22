@@ -11,6 +11,9 @@ import ShopArticle from "./components/ShopArticle";
 import Footer from "./components/Footer";
 
 function App() {
+const ExampleShop =[
+  {}
+]
   return (
     <>
       <Header />

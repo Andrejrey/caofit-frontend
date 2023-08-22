@@ -1,5 +1,6 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
+import logo from "../assets/logo/logo-dark-removedBG.png";
 
 function Footer() {
   return (
@@ -70,9 +71,9 @@ function Footer() {
           </div>
         </div>
         <hr className="my-6 border-gray-200 md:my-8" />
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-evenly">
           <a href="/">
-            <img className="h-7 w-auto text-white" src="" alt="Logo" />
+            <img className="h-32 w-32" src={logo} alt="" />
           </a>
           <div className="-mx-2 flex">
             <a
