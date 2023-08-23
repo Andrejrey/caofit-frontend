@@ -77,25 +77,34 @@ function Footer() {
           </a>
           <div className="-mx-2 flex">
             <a
-              href="https://github.com/iomid23"
+              href="https://github.com/claudia-sikorski"
               className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
               aria-label="Github"
             >
-              <FaGithub className="h-5 w-5 fill-current" />
+              <FaGithub className="h-8 w-8 fill-current" />
+              <span className="flex items-center justify-center font-sans text-xl">
+                C
+              </span>
             </a>
             <a
               href="https://github.com/Andrejrey"
               className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
               aria-label="Github"
             >
-              <FaGithub className="h-5 w-5 fill-current" />
+              <FaGithub className="h-8 w-8 fill-current" />
+              <span className="flex items-center justify-center font-sans text-xl">
+                A
+              </span>
             </a>
             <a
-              href="https://github.com/claudia-sikorski"
+              href="https://github.com/iomid23"
               className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
               aria-label="Github"
             >
-              <FaGithub className="h-5 w-5 fill-current" />
+              <FaGithub className="h-8 w-8 fill-current" />
+              <span className="flex items-center justify-center font-sans text-xl">
+                O
+              </span>
             </a>
           </div>
         </div>
