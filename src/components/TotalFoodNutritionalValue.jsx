@@ -1,6 +1,12 @@
-const TotalFoodNutritionalValue = ({ totalFood }) => {
+import DeleteIcon from "@mui/icons-material/Delete";
+
+const TotalFoodNutritionalValue = ({
+  totalFood,
+  deleteFoodNutritionalValueId,
+}) => {
+  console.log(totalFood && totalFood.id);
   return (
-    <div className="flex mb-3 ">
+    <div className="flex items-center mb-3  shadow-lg rounded-xl p-3 font-medium text-dark-blue-light">
       <img src={totalFood.foodIcon} alt="" className="w-8 mr-3" />
       <p className="mr-3">
         {totalFood.name.charAt(0).toUpperCase() + totalFood.name.slice(1)}:
@@ -15,17 +21,18 @@ const TotalFoodNutritionalValue = ({ totalFood }) => {
         ,{" "}
       </p>
       <p className="mr-3">
-        Total carbs: {Math.round(totalFood.totalFoodCarbs * 100) / 100}g,
+        Carbs: {Math.round(totalFood.totalFoodCarbs * 100) / 100}g,
       </p>
       <p className="mr-3">
-        Total fat: {Math.round(totalFood.totalFoodFat * 100) / 100}g,
+        Fat: {Math.round(totalFood.totalFoodFat * 100) / 100}g,
       </p>
       <p className="mr-3">
-        Total kcal: {Math.round(totalFood.totalFoodKcal * 100) / 100},
+        Kcal: {Math.round(totalFood.totalFoodKcal * 100) / 100},
       </p>
       <p className="mr-3">
-        Total proteins: {Math.round(totalFood.totalFoodproteins * 100) / 100}g
+        Proteins: {Math.round(totalFood.totalFoodProteins * 100) / 100}g
       </p>
+      <DeleteIcon onClick={() => deleteFoodNutritionalValueId(totalFood.id)} />
     </div>
   );
 };
