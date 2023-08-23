@@ -1,5 +1,3 @@
-
-import React, { useState } from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -13,11 +11,19 @@ import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
 import image1 from "../src/assets/ESN.jpg";
+import axios from "axios";
 
 function App() {
   const [selectedProductCount, setSelectedProductCount] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [cartModalOpen, setCartModalOpen] = useState(false);
+  const [food, setFood] = useState();
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/foodlist").then((response) => {
+      setFood(response.data);
+    });
+  }, []);
 
   const incrementSelectedProductCount = () => {
     setSelectedProductCount((prevCount) => prevCount + 1);
@@ -64,17 +70,7 @@ function App() {
     cartItems ? cartItems.includes(product.id) : false
   );
 
-import axios from "axios";
-
-function App() {
-  const [food, setFood] = useState();
-  // console.log(food && food);
-
-  useEffect(() => {
-    axios.get("http://localhost:8080/foodlist").then((response) => {
-      setFood(response.data);
-    });
-  }, []);
+  const name = "Andrej";
   const ExampleShop = [{}];
 
   return (
@@ -113,7 +109,10 @@ function App() {
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:id" element={<ShopArticle />} />
-        <Route path="/calculator" element={<Calculator food={food} />} />
+        <Route
+          path="/calculator"
+          element={<Calculator food={food} name={name} />}
+        />
         <Route path="/diary" element={<Diary />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
@@ -123,10 +122,8 @@ function App() {
         isOpen={cartModalOpen}
         onClose={() => setCartModalOpen(false)}
       />
-
       <Footer />
     </>
   );
 }
-
 export default App;
