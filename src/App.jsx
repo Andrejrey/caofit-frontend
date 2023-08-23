@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
-import Shop from "./components/Shop";
+import Shop from "./components/Shop"; // Updated import
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
 import Contact from "./components/Contact";
@@ -37,31 +37,6 @@ function App() {
     setCartModalOpen((prevModalOpen) => !prevModalOpen);
   };
 
-  const testProducts = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 10,
-      image: image1,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 20,
-      image: image1,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 30,
-      image: image1,
-    },
-  ];
-
-  const filteredCartItems = testProducts.filter((product) =>
-    cartItems ? cartItems.includes(product.id) : false
-  );
-
   return (
     <>
       <Header
@@ -77,7 +52,6 @@ function App() {
           path="/shop"
           element={
             <Shop
-              products={testProducts}
               incrementSelectedProductCount={incrementSelectedProductCount}
               decrementSelectedProductCount={decrementSelectedProductCount}
               addToCart={addToCart}
@@ -89,7 +63,6 @@ function App() {
           path="/shop/:id"
           element={
             <ShopArticle
-              products={testProducts}
               incrementSelectedProductCount={incrementSelectedProductCount}
               decrementSelectedProductCount={decrementSelectedProductCount}
             />
@@ -101,7 +74,7 @@ function App() {
       </Routes>
 
       <CartModal
-        cartItems={filteredCartItems}
+        cartItems={cartItems}
         isOpen={cartModalOpen}
         onClose={() => setCartModalOpen(false)}
       />
