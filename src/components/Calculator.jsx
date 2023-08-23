@@ -95,7 +95,7 @@ const Calculator = ({ food, name }) => {
       : day === 5
       ? "Friday"
       : day === 6
-      ? "day === 5"
+      ? "Saturday"
       : "";
 
   return (
