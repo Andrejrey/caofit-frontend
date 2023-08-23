@@ -1,3 +1,5 @@
+
+import React, { useState } from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -8,7 +10,60 @@ import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
 import Contact from "./components/Contact";
 import ShopArticle from "./components/ShopArticle";
+import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
+import image1 from "../src/assets/ESN.jpg";
+
+function App() {
+  const [selectedProductCount, setSelectedProductCount] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+
+  const incrementSelectedProductCount = () => {
+    setSelectedProductCount((prevCount) => prevCount + 1);
+  };
+
+  const decrementSelectedProductCount = () => {
+    setSelectedProductCount((prevCount) => prevCount - 1);
+  };
+
+  const addToCart = (productId) => {
+    if (cartItems.includes(productId)) {
+      setCartItems(cartItems.filter((id) => id !== productId));
+    } else {
+      setCartItems([...cartItems, productId]);
+    }
+  };
+
+  const toggleCartModal = () => {
+    setCartModalOpen((prevModalOpen) => !prevModalOpen);
+  };
+
+  const testProducts = [
+    {
+      id: 1,
+      name: "Product 1",
+      price: 10,
+      image: image1,
+    },
+    {
+      id: 2,
+      name: "Product 2",
+      price: 20,
+      image: image1,
+    },
+    {
+      id: 3,
+      name: "Product 3",
+      price: 30,
+      image: image1,
+    },
+  ];
+
+  const filteredCartItems = testProducts.filter((product) =>
+    cartItems ? cartItems.includes(product.id) : false
+  );
+
 import axios from "axios";
 
 function App() {
@@ -21,18 +76,54 @@ function App() {
     });
   }, []);
   const ExampleShop = [{}];
+
   return (
     <>
-      <Header />
+      <Header
+        selectedProductCount={selectedProductCount}
+        incrementSelectedProductCount={incrementSelectedProductCount}
+        toggleCartModal={toggleCartModal}
+      />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route
+          path="/shop"
+          element={
+            <Shop
+              products={testProducts}
+              incrementSelectedProductCount={incrementSelectedProductCount}
+              decrementSelectedProductCount={decrementSelectedProductCount}
+              addToCart={addToCart}
+              cartItems={cartItems}
+            />
+          }
+        />
+        <Route
+          path="/shop/:id"
+          element={
+            <ShopArticle
+              products={testProducts}
+              incrementSelectedProductCount={incrementSelectedProductCount}
+              decrementSelectedProductCount={decrementSelectedProductCount}
+            />
+          }
+        />
+        <Route path="/calculator" element={<Calculator />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:id" element={<ShopArticle />} />
         <Route path="/calculator" element={<Calculator food={food} />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+
+      <CartModal
+        cartItems={filteredCartItems}
+        isOpen={cartModalOpen}
+        onClose={() => setCartModalOpen(false)}
+      />
+
       <Footer />
     </>
   );

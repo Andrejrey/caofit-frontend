@@ -20,11 +20,11 @@ function LoginForm({ onClose }) {
 
   return (
     <div className="flex h-screen justify-evenly bg-second">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center ">
         <img
           src={logo}
           alt="logo"
-          className="flex w-80 items-center  justify-center hidden lg:block"
+          className="hidden w-80  items-center justify-center lg:block"
         />
       </div>
       <div className="flex w-full items-center justify-center space-y-8 bg-second lg:w-1/2">
