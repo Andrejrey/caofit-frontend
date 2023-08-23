@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
@@ -62,6 +64,19 @@ function App() {
     cartItems ? cartItems.includes(product.id) : false
   );
 
+import axios from "axios";
+
+function App() {
+  const [food, setFood] = useState();
+  // console.log(food && food);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/foodlist").then((response) => {
+      setFood(response.data);
+    });
+  }, []);
+  const ExampleShop = [{}];
+
   return (
     <>
       <Header
@@ -96,6 +111,9 @@ function App() {
           }
         />
         <Route path="/calculator" element={<Calculator />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/:id" element={<ShopArticle />} />
+        <Route path="/calculator" element={<Calculator food={food} />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
