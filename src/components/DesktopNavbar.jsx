@@ -12,8 +12,8 @@ function DesktopNavbar() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="">
+    <div>
+      <div>
         <div className="w-full bg-dark-blue text-white">
           <div className="mx-auto flex max-w-screen-xl flex-col px-4 md:flex-row md:items-center md:justify-between md:px-6 lg:px-8">
             <div className="flex flex-row items-center justify-between p-4">
