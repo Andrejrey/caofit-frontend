@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 function ShopArticle({
   product,
   incrementSelectedProductCount,
   decrementSelectedProductCount,
+  cartItems,
+  addToCart,
 }) {
-  const [cartItems, setCartItems] = useState([]);
+  const isProductInCart = cartItems && cartItems.includes(product.id);
 
-  const addToCart = (productId) => {
-    if (cartItems.includes(productId)) {
-      setCartItems(cartItems.filter((id) => id !== productId));
+  const handleAddToCart = () => {
+    if (isProductInCart) {
       decrementSelectedProductCount();
     } else {
-      setCartItems([...cartItems, productId]);
       incrementSelectedProductCount();
     }
+    addToCart(product.id);
   };
 
   return (
@@ -30,11 +31,11 @@ function ShopArticle({
           <p className="text-lg font-bold text-black">${product.item_price}</p>
           <div
             className={`flex items-center space-x-1.5 rounded-lg ${
-              cartItems.includes(product.id)
+              isProductInCart
                 ? "bg-second text-white hover:bg-dark-blue"
                 : "bg-first "
             } px-4 py-1.5 text-blue-900 duration-100 hover:bg-yellow-400`}
-            onClick={() => addToCart(product.id)}
+            onClick={handleAddToCart}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +52,7 @@ function ShopArticle({
               />
             </svg>
             <button className="text-sm">
-              {cartItems.includes(product.id) ? "Added to Cart" : "Add to Cart"}
+              {isProductInCart ? "Added to Cart" : "Add to Cart"}
             </button>
           </div>
         </div>

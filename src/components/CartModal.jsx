@@ -40,7 +40,6 @@ function CartModal({ cartItems, setCartItems, isOpen, onClose, products }) {
                         <p className="text-sm text-gray-500">
                           ${product.price}
                         </p>
-                        {/* Add any other product details you want to display */}
                       </div>
                     </li>
                   );
