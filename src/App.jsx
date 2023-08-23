@@ -20,6 +20,7 @@ function App() {
       setFood(response.data);
     });
   }, []);
+  const ExampleShop = [{}];
   return (
     <>
       <Header />
