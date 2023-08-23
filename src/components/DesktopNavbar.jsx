@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/text-dark.png";
 
@@ -54,7 +54,7 @@ function DesktopNavbar({
                   alt="logo"
                   className="h-8 w-32 cursor-pointer object-cover"
                 />
-              </a>
+              </Link>
               <Link
                 to="/shop"
                 onClick={incrementSelectedProductCount}
@@ -65,16 +65,12 @@ function DesktopNavbar({
                   {selectedProductCount}
                 </span>
               </Link>
-
-                CaoFIT
-              </Link>
               <button
                 className="focus:shadow-outline rounded-lg focus:outline-none md:hidden"
                 onClick={toggleMenu}
               >
                 {/* Your menu icon */}
               </button>
-
             </div>
             <nav
               className={`flex-grow flex-col ${
@@ -82,12 +78,8 @@ function DesktopNavbar({
               } md:flex md:flex-row md:justify-end`}
             >
               <Link
-                to="/shop"
                 className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-
                 to={"/"}
-                className="shadow-outline mt-2 rounded-lg  px-4 py-2 text-sm font-semibold text-white  hover:text-yellow-400 focus:outline-none md:ml-4  md:mt-0"
-                href="#"
               >
                 Home
               </Link>
@@ -125,7 +117,7 @@ function DesktopNavbar({
             </nav>
             {selectedProductCount > 0 && (
               <div
-                className="relative ml-5 flex hidden cursor-pointer items-center text-white md:block"
+                className="relative ml-5 flex cursor-pointer items-center text-white md:block"
                 onClick={openCartModal}
               >
                 {cartIcon}
