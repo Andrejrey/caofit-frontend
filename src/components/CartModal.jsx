@@ -1,6 +1,12 @@
 import React from "react";
 
-function CartModal({ cartItems, setCartItems, isOpen, onClose, products }) {
+function CartModal({
+  cartItems = [],
+  setCartItems,
+  isOpen,
+  onClose,
+  products,
+}) {
   return (
     <div
       className={`fixed inset-0 z-50 overflow-y-auto ${
@@ -22,12 +28,12 @@ function CartModal({ cartItems, setCartItems, isOpen, onClose, products }) {
           <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
               <ul className="divide-y divide-gray-200">
-                {cartItems.map((productId, index) => {
+                {cartItems.map((productId) => {
                   const product = products.find((p) => p.id === productId);
                   if (!product) return null;
 
                   return (
-                    <li key={index} className="flex py-4">
+                    <li key={product.id} className="flex py-4">
                       <img
                         src={product.image}
                         alt={product.name}
