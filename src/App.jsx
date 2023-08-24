@@ -106,9 +106,6 @@ function App() {
             />
           }
         />
-        <Route path="/calculator" element={<Calculator />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/shop/:id" element={<ShopArticle />} />
         <Route
           path="/calculator"
           element={<Calculator food={food} name={name} />}
@@ -116,7 +113,6 @@ function App() {
         <Route path="/diary" element={<Diary />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-
       <CartModal
         cartItems={filteredCartItems}
         isOpen={cartModalOpen}
