@@ -4,7 +4,6 @@ const TotalFoodNutritionalValue = ({
   totalFood,
   deleteFoodNutritionalValueId,
 }) => {
-  console.log(totalFood && totalFood.id);
   return (
     <div className="flex items-center mb-3  shadow-lg rounded-xl p-3 font-bold text-dark-blue-light">
       <img src={totalFood.foodIcon} alt="" className="w-8 mr-3" />
@@ -32,7 +31,7 @@ const TotalFoodNutritionalValue = ({
         Proteins: {Math.round(totalFood.totalFoodProteins * 100) / 100}g
       </p>
       <button
-        className="bg-first pl-1 pr-1 mb-3 ml-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
+        className="bg-first p-1 ml-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
         onClick={() => deleteFoodNutritionalValueId(totalFood.id)}
       >
         <DeleteIcon />

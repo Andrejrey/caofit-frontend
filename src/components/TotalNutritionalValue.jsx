@@ -5,7 +5,7 @@ const TotalNutritionalValue = ({
   totalProteins,
 }) => {
   return (
-    <div className="flex items-center mb-5  shadow-lg rounded-xl p-3 font-bold text-dark-blue-light bg-first">
+    <div className="flex items-center mb-5  shadow-lg rounded-xl p-3 font-bold text-dark-blue-light bg-gray-100">
       <img src="src\assets\groceryIcon.png" alt="" className="w-8 mr-3" />
       <p className="mr-3 p-1 rounded-lg shadow font-extrabold">Total</p>
       <p className="mr-3 p-1 rounded-lg shadow">
