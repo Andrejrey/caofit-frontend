@@ -51,8 +51,6 @@ function App() {
     setCartModalOpen((prevModalOpen) => !prevModalOpen);
   };
 
-  const name = "Andrej";
-
   return (
     <>
       <Header

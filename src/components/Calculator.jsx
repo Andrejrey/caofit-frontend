@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import TotalFoodNutritionalValue from "./TotalFoodNutritionalValue";
 import TotalNutritionalValue from "./TotalNutritionalValue";
+import axios from "axios";
 
 const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
-const Calculator = ({ food, name }) => {
+const Calculator = ({ food }) => {
   const [measureValue, setMeasureValue] = useState("");
   const [selectedFood, setSelectedFood] = useState(null);
   const [totalFoodNutritionalValue, setTotalFoodNutritionalValue] = useState(
@@ -20,6 +21,8 @@ const Calculator = ({ food, name }) => {
       setTotalFoodNutritionalValue(JSON.parse(saved));
     }
   }
+
+  // console.log(totalFoodNutritionalValue && totalFoodNutritionalValue);
 
   useEffect(() => {
     loadSavedTotalFoodNutritionalValue();
@@ -66,26 +69,43 @@ const Calculator = ({ food, name }) => {
     // setSelectedFood(null);
   }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post('http://localhost:8000/posts', newBook)
-  //     .then((response) => {
-  //       console.log('Success:', response.data);
-  //       alert('Book created successfully!');
-  //       setBooks((prevBooks) => [...prevBooks, response.data]);
-  //       setNewBook({
-  //         name: '',
-  //         author: '',
-  //         isbn: '',
-  //         release_date: '',
-  //         image_url: '',
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
+  const handleSaveTotalNutritionalValueToDiary = () => {
+    axios
+      .post("http://localhost:8080/total_nutritional_value", {
+        total_carbs: totalCarbs,
+        total_fats: totalFat,
+        total_proteins: totalProteins,
+        total_kcal: totalKcal,
+        date: selectedDate,
+        day: selectedDayOfWeek,
+      })
+      .then((response) => {
+        console.log("Success:", response.data);
+        alert("Saved to diary!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleSaveTotalNutritionalValueToDiary2 = async () => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8080/total_nutritional_value",
+        {
+          total_carbs: totalCarbs,
+          total_fats: totalFat,
+          total_proteins: totalProteins,
+          total_kcal: totalKcal,
+          date: selectedDate,
+          day: selectedDayOfWeek,
+        }
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const totalCarbs =
     totalFoodNutritionalValue &&
@@ -124,7 +144,7 @@ const Calculator = ({ food, name }) => {
   }
 
   const splitedDate = date && date.split("-");
-  const germanDate =
+  const selectedDate =
     splitedDate && splitedDate[1] + "/" + splitedDate[2] + "/" + splitedDate[0];
   const selectedDay = new Date(`${date}`);
   const day = selectedDay.getDay();
@@ -146,7 +166,7 @@ const Calculator = ({ food, name }) => {
       : "";
 
   return (
-    <div className="ml-5 mt-2 mr-5">
+    <div className="h-full ml-5 mt-2 mr-5">
       <h1 className="text-5xl font-extrabold text-dark-blue">
         CaoFIT
         <span className="text-3xl font-bold text-dark-blue-light">
@@ -161,7 +181,7 @@ const Calculator = ({ food, name }) => {
       {date && (
         <p className="mt-5 font-bold text-lg">
           {selectedDayOfWeek}{" "}
-          <span className="font-semibold">{germanDate}</span>
+          <span className="font-semibold">{selectedDate}</span>
         </p>
       )}
 
@@ -244,7 +264,10 @@ const Calculator = ({ food, name }) => {
         </button>
       )}
       {totalFoodNutritionalValue.length > 0 && (
-        <button className="bg-first p-2 mb-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer">
+        <button
+          onClick={handleSaveTotalNutritionalValueToDiary2}
+          className="bg-first p-2 mb-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
+        >
           Save to diary
         </button>
       )}
