@@ -5,7 +5,8 @@ function CartModal({
   setCartItems,
   isOpen,
   onClose,
-  products,
+  selectedItems = [],
+  products = [],
 }) {
   return (
     <div
@@ -28,7 +29,7 @@ function CartModal({
           <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
               <ul className="divide-y divide-gray-200">
-                {cartItems.map((productId) => {
+                {selectedItems.map((productId) => {
                   const product = products.find((p) => p.id === productId);
                   if (!product) return null;
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
@@ -16,8 +16,8 @@ function App() {
   const [selectedProductCount, setSelectedProductCount] = useState(0);
   const [shopItems, setShopItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const [cartModalOpen, setCartModalOpen] = useState(false);
   const [food, setFood] = useState([]);
+  const [isCartModalOpen, setCartModalOpen] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:8080/foodlist").then((response) => {
@@ -51,6 +51,10 @@ function App() {
     setCartModalOpen((prevModalOpen) => !prevModalOpen);
   };
 
+  const closeCartModal = () => {
+    setCartModalOpen(false);
+  };
+
   const name = "Andrej";
 
   return (
@@ -73,6 +77,7 @@ function App() {
               decrementSelectedProductCount={decrementSelectedProductCount}
               addToCart={addToCart}
               cartItems={cartItems}
+              setCartItems={setCartItems} // Pass setCartItems to Shop component
             />
           }
         />
@@ -95,8 +100,11 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <CartModal
-        isOpen={cartModalOpen}
-        onClose={() => setCartModalOpen(false)}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+        isOpen={isCartModalOpen}
+        onClose={closeCartModal}
+        products={shopItems}
       />
       <Footer />
     </>
