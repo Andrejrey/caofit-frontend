@@ -19,7 +19,7 @@ const ShopArticle = ({
       updatedSelectedItems.add(product.id);
     }
 
-    setSelectedItems(Array.from(updatedSelectedItems)); // Convert Set back to Array
+    setSelectedItems(Array.from(updatedSelectedItems));
   };
 
   const cartIcon = (
@@ -58,7 +58,7 @@ const ShopArticle = ({
                 ${product.item_price}
               </p>
               <div
-                className={`flex items-center space-x-1.5 rounded-lg h-10 ${
+                className={`flex h-10 items-center space-x-1.5 rounded-lg ${
                   isProductInCart
                     ? "bg-second text-white hover:bg-dark-blue"
                     : "bg-first "
@@ -66,8 +66,8 @@ const ShopArticle = ({
                 onClick={handleAddToCart}
               >
                 {cartIcon}
-                <button className="text-sm">
-                  {isProductInCart ? "Added" : "Add"}
+                <button className="text-sm md:text-xs">
+                  {isProductInCart ? "Added to Cart" : "Add to Cart"}
                 </button>
               </div>
             </div>
