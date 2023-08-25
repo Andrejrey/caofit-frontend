@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/text-dark.png";
 
@@ -65,18 +65,13 @@ function DesktopNavbar({
                   {selectedProductCount}
                 </span>
               </Link>
-              <button
-                className="focus:shadow-outline rounded-lg focus:outline-none md:hidden"
-                onClick={toggleMenu}
-              >
-                {/* Your menu icon */}
-              </button>
             </div>
             <nav
               className={`flex-grow flex-col ${
                 menuOpen ? "flex" : "hidden"
               } md:flex md:flex-row md:justify-end`}
             >
+              {/* Navigation links */}
               <Link
                 className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
                 to={"/"}
