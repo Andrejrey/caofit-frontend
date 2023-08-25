@@ -146,7 +146,7 @@ const Calculator = ({ food, name }) => {
       : "";
 
   return (
-    <div className="ml-5 mt-2 mr-5">
+    <div className="ml-5 mr-5 mt-2">
       <h1 className="text-5xl font-extrabold text-dark-blue">
         CaoFIT
         <span className="text-3xl font-bold text-dark-blue-light">
@@ -156,16 +156,16 @@ const Calculator = ({ food, name }) => {
       <input
         onChange={onChangeDateInputHandler}
         type="date"
-        className="mt-5 border border-dark-blue-light rounded-lg p-1"
+        className="mt-5 rounded-lg border border-dark-blue-light p-1"
       />
       {date && (
-        <p className="mt-5 font-bold text-lg">
+        <p className="mt-5 text-lg font-bold">
           {selectedDayOfWeek}{" "}
           <span className="font-semibold">{germanDate}</span>
         </p>
       )}
 
-      <div className="flex-col mt-5 mb-3">
+      <div className="mb-3 mt-5 flex-col">
         <div className="flex">
           {food && (
             <Select
@@ -175,7 +175,7 @@ const Calculator = ({ food, name }) => {
                   label: f.name.charAt(0).toUpperCase() + f.name.slice(1),
                 };
               })}
-              className="w-72 mr-5"
+              className="mr-5 w-72"
               onChange={onChangeSelectHandler}
             />
           )}
@@ -184,7 +184,7 @@ const Calculator = ({ food, name }) => {
               onChange={onChangeInputHandler}
               value={measureValue}
               type="text"
-              className="h-9 mr-5 bg-gray-50 border border-first text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="mr-5 block h-9 w-36 rounded-lg border border-first bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-dark-blue dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder={selectedFood.unit}
             />
           )}
@@ -193,7 +193,7 @@ const Calculator = ({ food, name }) => {
               onChange={onChangeInputHandler}
               value={measureValue}
               type="text"
-              className="h-9 mr-5 bg-gray-50 border border-first text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="mr-5 block h-9 w-36 rounded-lg border border-first bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-dark-blue dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="ml"
             />
           )}
@@ -202,12 +202,12 @@ const Calculator = ({ food, name }) => {
               onChange={onChangeInputHandler}
               value={measureValue}
               type="text"
-              className="h-9 mr-5 bg-gray-50 border border-dark-blue-light text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="mr-5 block h-9 w-36 rounded-lg border border-dark-blue-light bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-dark-blue dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="piece"
             />
           )}
           <button
-            className="bg-first pl-3 pr-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
+            className="cursor-pointer rounded-lg bg-first pl-3 pr-3 font-semibold text-dark-blue-light hover:bg-yellow-400"
             onClick={addFoodCalculation}
           >
             Add
@@ -215,7 +215,7 @@ const Calculator = ({ food, name }) => {
         </div>
         <div>
           {!message && (
-            <p className="text-red-500 mt-1">Pleae enter quantity</p>
+            <p className="mt-1 text-red-500">Pleae enter quantity</p>
           )}
         </div>
       </div>
@@ -238,13 +238,13 @@ const Calculator = ({ food, name }) => {
       {totalFoodNutritionalValue.length > 1 && (
         <button
           onClick={clearAllNutritionalValue}
-          className="bg-first p-2 mb-3 mr-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
+          className="mb-3 mr-3 cursor-pointer rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
         >
           Clear all
         </button>
       )}
       {totalFoodNutritionalValue.length > 0 && (
-        <button className="bg-first p-2 mb-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer">
+        <button className="mb-3 cursor-pointer rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400">
           Save to diary
         </button>
       )}
