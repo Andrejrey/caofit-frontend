@@ -10,7 +10,7 @@ const Diary = () => {
       total_kcal: 1600,
       food: [
         {
-          food_id: crypto.randomUUID(),
+          id: 1,
           food_name: "chicken",
           food_icon:
             "https://firebasestorage.googleapis.com/v0/b/caofit-84e5f.appspot.com/o/food-icons%2Ficon-chicken.png?alt=media&token=8e99902f-7de5-41eb-9ba6-ba41c6ff5c56",
@@ -22,7 +22,31 @@ const Diary = () => {
           food_total_kcal: 250,
         },
         {
-          food_id: crypto.randomUUID(),
+          id: 2,
+          food_name: "broccoli",
+          food_icon:
+            "https://firebasestorage.googleapis.com/v0/b/caofit-84e5f.appspot.com/o/food-icons%2Ficon-broccoli.png?alt=media&token=1266d29b-587b-46a8-869a-4d27e4491b61",
+          food_quantity: 100,
+          food_unit: "g",
+          food_total_carbs: 50,
+          food_total_fats: 0,
+          food_total_proteins: 20,
+          food_total_kcal: 250,
+        },
+        {
+          id: 3,
+          food_name: "chicken",
+          food_icon:
+            "https://firebasestorage.googleapis.com/v0/b/caofit-84e5f.appspot.com/o/food-icons%2Ficon-chicken.png?alt=media&token=8e99902f-7de5-41eb-9ba6-ba41c6ff5c56",
+          food_quantity: 200,
+          food_unit: "g",
+          food_total_carbs: 250,
+          food_total_fats: 50,
+          food_total_proteins: 100,
+          food_total_kcal: 250,
+        },
+        {
+          id: 4,
           food_name: "broccoli",
           food_icon:
             "https://firebasestorage.googleapis.com/v0/b/caofit-84e5f.appspot.com/o/food-icons%2Ficon-broccoli.png?alt=media&token=1266d29b-587b-46a8-869a-4d27e4491b61",
@@ -46,7 +70,7 @@ const Diary = () => {
       total_kcal: 1600,
       food: [
         {
-          food_id: crypto.randomUUID(),
+          id: 3,
           food_name: "chicken",
           food_icon:
             "https://firebasestorage.googleapis.com/v0/b/caofit-84e5f.appspot.com/o/food-icons%2Ficon-chicken.png?alt=media&token=8e99902f-7de5-41eb-9ba6-ba41c6ff5c56",
@@ -58,7 +82,7 @@ const Diary = () => {
           food_total_kcal: 250,
         },
         {
-          food_id: crypto.randomUUID(),
+          id: 4,
           food_name: "broccoli",
           food_icon:
             "https://firebasestorage.googleapis.com/v0/b/caofit-84e5f.appspot.com/o/food-icons%2Ficon-broccoli.png?alt=media&token=1266d29b-587b-46a8-869a-4d27e4491b61",
@@ -77,8 +101,8 @@ const Diary = () => {
   ];
 
   return (
-    <div>
-      <div>
+    <div className="flex flex-col lg:items-center">
+      <div className="mx-2 lg:w-4/6 2xl:w-2/4">
         <h1 className="text-5xl font-extrabold text-dark-blue">
           CaoFIT
           <span className="text-3xl font-bold text-dark-blue-light">Diary</span>
