@@ -15,6 +15,10 @@ export default {
         second: "#083d56",
         "dark-blue": "#0c2233",
       },
+      backgroundImage: {
+        bowls:
+          "url('src/assets/background/luisa-brimble-2RrBE90w0T8-unsplash-blur.jpg')",
+      },
     },
   },
   plugins: [],

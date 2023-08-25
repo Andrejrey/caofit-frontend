@@ -101,14 +101,18 @@ const Diary = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:items-center">
-      <div className="mx-2 lg:w-4/6 2xl:w-2/4">
-        <h1 className="text-5xl font-extrabold text-dark-blue">
-          CaoFIT
-          <span className="text-3xl font-bold text-dark-blue-light">Diary</span>
-        </h1>
+    <div className="flex flex-col lg:items-center bg-bowls bg-cover">
+      <div className="bg-white rounded-md shadow-xl lg:my-8 lg:w-4/6 2xl:w-2/4">
+        <div className="px-2 py-2">
+          <h1 className="text-5xl font-extrabold text-dark-blue">
+            CaoFIT
+            <span className="text-3xl font-bold text-dark-blue-light">
+              Diary
+            </span>
+          </h1>
+        </div>
+        <DiaryAccordion data={diary} />
       </div>
-      <DiaryAccordion data={diary} />
     </div>
   );
 };
