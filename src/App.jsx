@@ -10,14 +10,14 @@ import Contact from "./components/Contact";
 import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
-import image1 from "../src/assets/ESN.jpg";
 import axios from "axios";
 
 function App() {
   const [selectedProductCount, setSelectedProductCount] = useState(0);
+  const [shopItems, setShopItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [cartModalOpen, setCartModalOpen] = useState(false);
-  const [food, setFood] = useState();
+  const [food, setFood] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8080/foodlist").then((response) => {
@@ -25,13 +25,11 @@ function App() {
     });
   }, []);
 
-  const incrementSelectedProductCount = () => {
-    setSelectedProductCount((prevCount) => prevCount + 1);
-  };
-
-  const decrementSelectedProductCount = () => {
-    setSelectedProductCount((prevCount) => prevCount - 1);
-  };
+  useEffect(() => {
+    axios.get("http://localhost:8080/shopitems").then((response) => {
+      setShopItems(response.data);
+    });
+  }, []);
 
   const addToCart = (productId) => {
     if (cartItems.includes(productId)) {
@@ -41,37 +39,19 @@ function App() {
     }
   };
 
+  const incrementSelectedProductCount = () => {
+    setSelectedProductCount((prevCount) => prevCount + 1);
+  };
+
+  const decrementSelectedProductCount = () => {
+    setSelectedProductCount((prevCount) => prevCount - 1);
+  };
+
   const toggleCartModal = () => {
     setCartModalOpen((prevModalOpen) => !prevModalOpen);
   };
 
-  const testProducts = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 10,
-      image: image1,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 20,
-      image: image1,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 30,
-      image: image1,
-    },
-  ];
-
-  const filteredCartItems = testProducts.filter((product) =>
-    cartItems ? cartItems.includes(product.id) : false
-  );
-
   const name = "Andrej";
-  const ExampleShop = [{}];
 
   return (
     <>
@@ -88,7 +68,7 @@ function App() {
           path="/shop"
           element={
             <Shop
-              products={testProducts}
+              products={shopItems}
               incrementSelectedProductCount={incrementSelectedProductCount}
               decrementSelectedProductCount={decrementSelectedProductCount}
               addToCart={addToCart}
@@ -100,9 +80,10 @@ function App() {
           path="/shop/:id"
           element={
             <ShopArticle
-              products={testProducts}
               incrementSelectedProductCount={incrementSelectedProductCount}
               decrementSelectedProductCount={decrementSelectedProductCount}
+              cartItems={cartItems}
+              addToCart={addToCart}
             />
           }
         />
@@ -114,7 +95,6 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <CartModal
-        cartItems={filteredCartItems}
         isOpen={cartModalOpen}
         onClose={() => setCartModalOpen(false)}
       />
@@ -122,4 +102,5 @@ function App() {
     </>
   );
 }
+
 export default App;
