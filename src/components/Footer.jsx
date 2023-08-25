@@ -33,13 +33,13 @@ function Footer() {
                 Home
               </a>
               <a
-                href="#"
+                href="shop"
                 className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
               >
                 Shopping
               </a>
               <a
-                href="#"
+                href="calculator"
                 className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
               >
                 Calculator
@@ -56,7 +56,7 @@ function Footer() {
                 BMI
               </a>
               <a
-                href="#"
+                href="diary"
                 className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
               >
                 Diary
@@ -73,7 +73,7 @@ function Footer() {
         <hr className="my-6 border-gray-200 md:my-8" />
         <div className="flex items-center justify-evenly">
           <a href="/">
-            <img className="h-32 w-32" src={logo} alt="" />
+            <img className="h-32 w-32" src={logo} alt="Logo" />
           </a>
           <div className="-mx-2 flex">
             <a
