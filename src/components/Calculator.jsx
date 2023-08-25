@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import TotalFoodNutritionalValue from "./TotalFoodNutritionalValue";
 import TotalNutritionalValue from "./TotalNutritionalValue";
+
+const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
 const Calculator = ({ food, name }) => {
   const [measureValue, setMeasureValue] = useState("");
@@ -9,36 +11,81 @@ const Calculator = ({ food, name }) => {
   const [totalFoodNutritionalValue, setTotalFoodNutritionalValue] = useState(
     []
   );
-
-  console.log("name", name);
-  console.log("food calculator", food && food);
   const [date, setDate] = useState();
+  const [message, setMessage] = useState(true);
 
-  // console.log("calculator food", calFood);
+  function loadSavedTotalFoodNutritionalValue() {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (saved) {
+      setTotalFoodNutritionalValue(JSON.parse(saved));
+    }
+  }
+
+  useEffect(() => {
+    loadSavedTotalFoodNutritionalValue();
+  }, []);
+
+  function setTotalFoodNutritionalValueAndSave(newTotalFoodNutritionalValue) {
+    setTotalFoodNutritionalValue(newTotalFoodNutritionalValue);
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify(newTotalFoodNutritionalValue)
+    );
+  }
 
   function addFoodCalculation() {
-    setTotalFoodNutritionalValue([
-      ...totalFoodNutritionalValue,
-      {
-        id: crypto.randomUUID(),
-        foodImage: selectedFood.image,
-        foodIcon: selectedFood.icon,
-        name: selectedFood.name,
-        quantity: measureValue,
-        unit: selectedFood.unit,
-        totalFoodCarbs:
-          (selectedFood.carbs / selectedFood.quantity) * Number(measureValue),
-        totalFoodFat:
-          (selectedFood.fat / selectedFood.quantity) * Number(measureValue),
-        totalFoodKcal:
-          (selectedFood.kcal / selectedFood.quantity) * Number(measureValue),
-        totalFoodProteins:
-          (selectedFood.proteins / selectedFood.quantity) *
-          Number(measureValue),
-      },
-    ]);
+    if (measureValue) {
+      setTotalFoodNutritionalValueAndSave([
+        ...totalFoodNutritionalValue,
+        {
+          id: crypto.randomUUID(),
+          foodImage: selectedFood.image,
+          foodIcon: selectedFood.icon,
+          name: selectedFood.name,
+          quantity: measureValue,
+          unit: selectedFood.unit,
+          totalFoodCarbs:
+            (selectedFood.carbs / selectedFood.quantity) * Number(measureValue),
+          totalFoodFat:
+            (selectedFood.fat / selectedFood.quantity) * Number(measureValue),
+          totalFoodKcal:
+            (selectedFood.kcal / selectedFood.quantity) * Number(measureValue),
+          totalFoodProteins:
+            (selectedFood.proteins / selectedFood.quantity) *
+            Number(measureValue),
+        },
+      ]);
+    }
     setMeasureValue("");
+    if (!measureValue) {
+      setMessage(false);
+    } else {
+      setMessage(true);
+    }
+
+    // setSelectedFood(null);
   }
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post('http://localhost:8000/posts', newBook)
+  //     .then((response) => {
+  //       console.log('Success:', response.data);
+  //       alert('Book created successfully!');
+  //       setBooks((prevBooks) => [...prevBooks, response.data]);
+  //       setNewBook({
+  //         name: '',
+  //         author: '',
+  //         isbn: '',
+  //         release_date: '',
+  //         image_url: '',
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
+  // };
 
   const totalCarbs =
     totalFoodNutritionalValue &&
@@ -78,7 +125,7 @@ const Calculator = ({ food, name }) => {
 
   const splitedDate = date && date.split("-");
   const germanDate =
-    splitedDate && splitedDate[2] + "." + splitedDate[1] + "." + splitedDate[0];
+    splitedDate && splitedDate[1] + "/" + splitedDate[2] + "/" + splitedDate[0];
   const selectedDay = new Date(`${date}`);
   const day = selectedDay.getDay();
   const selectedDayOfWeek =
@@ -99,7 +146,7 @@ const Calculator = ({ food, name }) => {
       : "";
 
   return (
-    <div className="ml-5 mt-2">
+    <div className="ml-5 mt-2 mr-5">
       <h1 className="text-5xl font-extrabold text-dark-blue">
         CaoFIT
         <span className="text-3xl font-bold text-dark-blue-light">
@@ -118,50 +165,61 @@ const Calculator = ({ food, name }) => {
         </p>
       )}
 
-      <div className="flex mt-5 mb-5">
-        {food && (
-          <Select
-            options={food.map((f) => {
-              return {
-                value: f,
-                label: f.name.charAt(0).toUpperCase() + f.name.slice(1),
-              };
-            })}
-            className="w-72 mr-5"
-            onChange={onChangeSelectHandler}
-          />
-        )}
-        {selectedFood && selectedFood.unit === "g" && (
-          <input
-            onChange={onChangeInputHandler}
-            type="text"
-            className="h-9 mr-5 bg-gray-50 border border-first text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder={selectedFood.unit}
-          />
-        )}
-        {selectedFood && selectedFood.unit === "ml" && (
-          <input
-            onChange={onChangeInputHandler}
-            type="text"
-            className="h-9 mr-5 bg-gray-50 border border-first text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="ml"
-          />
-        )}
-        {selectedFood && selectedFood.unit === "piece(s)" && (
-          <input
-            onChange={onChangeInputHandler}
-            type="text"
-            className="h-9 mr-5 bg-gray-50 border border-dark-blue-light text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="piece"
-          />
-        )}
-        <button
-          className="bg-first pl-3 pr-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
-          onClick={addFoodCalculation}
-        >
-          Add
-        </button>
+      <div className="flex-col mt-5 mb-3">
+        <div className="flex">
+          {food && (
+            <Select
+              options={food.map((f) => {
+                return {
+                  value: f,
+                  label: f.name.charAt(0).toUpperCase() + f.name.slice(1),
+                };
+              })}
+              className="w-72 mr-5"
+              onChange={onChangeSelectHandler}
+            />
+          )}
+          {selectedFood && selectedFood.unit === "g" && (
+            <input
+              onChange={onChangeInputHandler}
+              value={measureValue}
+              type="text"
+              className="h-9 mr-5 bg-gray-50 border border-first text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder={selectedFood.unit}
+            />
+          )}
+          {selectedFood && selectedFood.unit === "ml" && (
+            <input
+              onChange={onChangeInputHandler}
+              value={measureValue}
+              type="text"
+              className="h-9 mr-5 bg-gray-50 border border-first text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="ml"
+            />
+          )}
+          {selectedFood && selectedFood.unit === "piece(s)" && (
+            <input
+              onChange={onChangeInputHandler}
+              value={measureValue}
+              type="text"
+              className="h-9 mr-5 bg-gray-50 border border-dark-blue-light text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-36 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark-blue dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="piece"
+            />
+          )}
+          <button
+            className="bg-first pl-3 pr-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
+            onClick={addFoodCalculation}
+          >
+            Add
+          </button>
+        </div>
+        <div>
+          {!message && (
+            <p className="text-red-500 mt-1">Pleae enter quantity</p>
+          )}
+        </div>
       </div>
+
       {totalFoodNutritionalValue.map((t, i) => {
         return (
           <TotalFoodNutritionalValue
