@@ -18,6 +18,8 @@ export default {
       backgroundImage: {
         bowls:
           "url('src/assets/background/luisa-brimble-2RrBE90w0T8-unsplash-blur.jpg')",
+        diaryBg:
+          "url('src/assets/background/top-view-salad-plate-with-copy-space.jpg')",
       },
     },
   },
