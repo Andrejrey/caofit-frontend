@@ -1,25 +1,37 @@
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 const TotalNutritionalValue = ({
   totalCarbs,
   totalFat,
   totalKcal,
   totalProteins,
+  totalFoodNutritionalValue,
+  clearAllNutritionalValue,
 }) => {
   return (
-    <div className="flex items-center mb-5  shadow-lg rounded-xl p-3 font-bold text-dark-blue-light bg-gray-100">
+    <div className="grid grid-cols-8 gap-4 items-center mb-5  shadow-lg rounded-xl p-3 font-semibold text-dark-blue-light bg-gray-100">
       <img src="src\assets\groceryIcon.png" alt="" className="w-8 mr-3" />
-      <p className="mr-3 p-1 rounded-lg shadow font-extrabold">Total</p>
-      <p className="mr-3 p-1 rounded-lg shadow">
-        Carbs: {Math.round(totalCarbs * 100) / 100}g
+      <LocalGroceryStoreIcon className="text-dark-blue-light" />
+      <p className="mr-3 p-1 rounded-lg font-extrabold">Total</p>
+      <p className="mr-3 p-1 rounded-lg ">
+        {Math.round(totalCarbs * 100) / 100}g
       </p>
-      <p className="mr-3 p-1 rounded-lg shadow">
-        Fat: {Math.round(totalFat * 100) / 100}g
+      <p className="mr-3 p-1 rounded-lg ">
+        {Math.round(totalFat * 100) / 100}g
       </p>
-      <p className="mr-3 p-1 rounded-lg shadow">
-        Kcal: {Math.round(totalKcal * 100) / 100}
+      <p className="mr-3 p-1 rounded-lg ">
+        {Math.round(totalKcal * 100) / 100}
       </p>
-      <p className="mr-3 p-1 rounded-lg shadow">
-        Proteins: {Math.round(totalProteins * 100) / 100}g
+      <p className="mr-3 p-1 rounded-lg ">
+        {Math.round(totalProteins * 100) / 100}g
       </p>
+      {totalFoodNutritionalValue.length > 1 && (
+        <button
+          onClick={clearAllNutritionalValue}
+          className="cursor-pointer rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
+        >
+          Clear all
+        </button>
+      )}
     </div>
   );
 };
