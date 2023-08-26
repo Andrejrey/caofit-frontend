@@ -11,7 +11,7 @@ const DiaryAccordion = ({ data }) => {
   };
 
   return (
-    <div className="lg:w-4/6 2xl:w-2/4 lg:flex lg:flex-col">
+    <div className="lg:flex lg:flex-col mx-2">
       {data &&
         data.map((item) => {
           return (

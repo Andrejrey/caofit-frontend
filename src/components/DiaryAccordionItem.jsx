@@ -18,7 +18,7 @@ const DiaryAccordionItem = ({
     <div className={`group ${id === open ? "is-active" : ""}`}>
       {/* Accordion Header */}
       <div
-        className="flex flex-nowrap items-center justify-between mb-3 shadow-lg rounded-xl p-3 font-medium text-dark-blue-light"
+        className="flex flex-nowrap items-center justify-between mb-3 shadow-lg rounded-xl p-3 font-medium text-dark-blue-light bg-white"
         onClick={() => handleToggleOpen(id)}
       >
         <h2>{`${day}, ${date}`}</h2>
@@ -59,9 +59,13 @@ const DiaryAccordionItem = ({
               </div>
             );
           })}
-        <div className="grid grid-cols-5 grid-flow-row bg-gray-300 mx-2 pl-2 h-8 rounded-sm items-center">
+        <div className="grid grid-cols-5 grid-flow-row bg-second text-slate-50 mx-2 pl-2 h-8 rounded-sm items-center">
           <div className="flex flex-nowrap items-center ">
-            <img src={GraphBar} alt="Graph bar" className="w-5 h-5 mr-3" />
+            <img
+              src={GraphBar}
+              alt="Graph bar"
+              className="w-5 h-5 mr-3 invert"
+            />
             <p className="font-bold">Total</p>
           </div>
           <p className="text-right font-bold">{total_carbs}g</p>

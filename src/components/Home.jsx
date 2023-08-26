@@ -4,12 +4,8 @@ import logo from "../assets/logo/logo-dark-withoutText-removedBG.png";
 
 const Home = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-second">
-      <img
-        src={logo}
-        alt="Logo"
-        className="mb-4 hidden h-48 w-auto animate-bounce md:block"
-      />
+    <div className="flex h-screen flex-col items-center justify-center  bg-second">
+      <img src={logo} alt="logo" className="h-48 w-auto" />
       <div className="max-w-xl text-center">
         <h1 className="mb-6 mt-16 text-4xl font-semibold text-gray-100">
           Your Ultimate Protein Destination
