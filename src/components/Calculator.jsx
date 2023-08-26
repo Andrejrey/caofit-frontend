@@ -147,7 +147,7 @@ const Calculator = ({ food }) => {
       : "";
 
   return (
-    <div className="flex justify-center lg:bg-diaryBg bg-cover">
+    <div className="flex justify-center lg:items-center lg:bg-diaryBg bg-cover bg-right">
       <div className="h-full ml-5 mr-5 mt-8 mb-8 w-9/12 bg-gray-200 p-8 rounded-md">
         <h1 className="text-5xl font-extrabold text-dark-blue">
           CaoFIT
