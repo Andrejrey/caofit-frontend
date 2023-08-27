@@ -3,7 +3,7 @@ import Select from "react-select";
 import TotalFoodNutritionalValue from "./TotalFoodNutritionalValue";
 import TotalNutritionalValue from "./TotalNutritionalValue";
 import axios from "axios";
-import Logo from "../assets/logo/logo-light-withoutText.png";
+import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
 
 const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
@@ -14,7 +14,8 @@ const Calculator = ({ food }) => {
     []
   );
   const [date, setDate] = useState();
-  const [message, setMessage] = useState(true);
+  const [messageEmptyValue, setMessageEmptyValue] = useState(true);
+  const [messagePositiveNumber, setMessagePositiveNumber] = useState(true);
 
   function loadSavedTotalFoodNutritionalValue() {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -38,7 +39,7 @@ const Calculator = ({ food }) => {
   }
 
   function addFoodCalculation() {
-    if (measureValue) {
+    if (measureValue && measureValue > 0) {
       setTotalFoodNutritionalValueAndSave([
         ...totalFoodNutritionalValue,
         {
@@ -60,12 +61,15 @@ const Calculator = ({ food }) => {
         },
       ]);
     }
-    setMeasureValue("");
     if (!measureValue) {
-      setMessage(false);
+      setMessageEmptyValue(false);
+    } else if (measureValue < 0) {
+      setMessagePositiveNumber(false);
     } else {
-      setMessage(true);
+      setMessageEmptyValue(true);
+      setMessagePositiveNumber(true);
     }
+    setMeasureValue("");
 
     // setSelectedFood(null);
   }
@@ -147,7 +151,7 @@ const Calculator = ({ food }) => {
       : "";
 
   return (
-    <div className="flex justify-center lg:bg-diaryBg bg-cover">
+    <div className="flex justify-center lg:items-center lg:bg-diaryBg bg-cover bg-right">
       <div className="h-full ml-5 mr-5 mt-8 mb-8 w-9/12 bg-gray-200 p-8 rounded-md">
         <h1 className="text-5xl font-extrabold text-dark-blue">
           CaoFIT
@@ -166,9 +170,8 @@ const Calculator = ({ food }) => {
             <span className="font-semibold">{selectedDate}</span>
           </p>
         )}
-
-        <div className="mb-3 mt-5 flex-col">
-          <div className="flex mb-6">
+        <div className="mt-5 flex">
+          <div className="flex">
             {food && (
               <Select
                 options={food.map((f) => {
@@ -196,14 +199,17 @@ const Calculator = ({ food }) => {
               Add
             </button>
           </div>
-          <div>
-            {!message && (
-              <p className="mt-1 text-red-500">Please enter quantity</p>
+          <div className="flex justify-center items-center">
+            {!messageEmptyValue && (
+              <p className="ml-5 text-red-500">Please enter quantity</p>
+            )}
+            {!messagePositiveNumber && (
+              <p className="ml-5 text-red-500">Please enter a valid number</p>
             )}
           </div>
         </div>
-        <div className="grid grid-cols-8 gap-4 font-extrabold items-center mb-3  shadow-lg rounded-xl p-3 text-dark-blue-light bg-white">
-          <div></div>
+        <div className="grid grid-cols-8 gap-4 font-extrabold items-center mb-3 mt-5 shadow-lg rounded-xl p-3 text-dark-blue-light bg-white">
+          <img src={logo} alt="" className="w-16" />
           <div className="font-extrabold">Grocerie</div>
           <p>Quantity</p>
           <p>Carbs</p>
