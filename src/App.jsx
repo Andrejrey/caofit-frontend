@@ -19,14 +19,16 @@ function App() {
   const [food, setFood] = useState([]);
   const [isCartModalOpen, setCartModalOpen] = useState(false);
 
+  console.log(food && food);
+
   useEffect(() => {
-    axios.get("http://localhost:8080/foodlist").then((response) => {
+    axios.get("http://localhost:8080/food_list").then((response) => {
       setFood(response.data);
     });
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/shopitems").then((response) => {
+    axios.get("http://localhost:8080/shop_items").then((response) => {
       setShopItems(response.data);
     });
   }, []);
