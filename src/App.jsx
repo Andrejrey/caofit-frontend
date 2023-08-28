@@ -22,13 +22,13 @@ function App() {
   console.log(food && food);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/food_list").then((response) => {
+    axios.get("http://localhost:8080/foodlist").then((response) => {
       setFood(response.data);
     });
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/shop_items").then((response) => {
+    axios.get("http://localhost:8080/shopitems").then((response) => {
       setShopItems(response.data);
     });
   }, []);
