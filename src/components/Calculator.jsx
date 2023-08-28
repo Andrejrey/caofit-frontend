@@ -146,7 +146,7 @@ const Calculator = ({ food }) => {
       ? "Thursday"
       : day === 5
       ? "Friday"
-      : day === 6
+      : day === 6 
       ? "Saturday"
       : "";
 

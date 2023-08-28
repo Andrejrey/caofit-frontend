@@ -79,7 +79,7 @@ function App() {
               decrementSelectedProductCount={decrementSelectedProductCount}
               addToCart={addToCart}
               cartItems={cartItems}
-              setCartItems={setCartItems} // Pass setCartItems to Shop component
+              setCartItems={setCartItems}
             />
           }
         />
