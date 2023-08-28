@@ -47,7 +47,7 @@ const Home = () => {
           to="/calculator"
           className="transform rounded-lg bg-first px-6 py-3 font-semibold text-blue-900 shadow-md transition duration-300 hover:scale-105 hover:bg-yellow-400"
         >
-          Calculator
+          Calculatorw
         </Link>
       </div>
     </div>
