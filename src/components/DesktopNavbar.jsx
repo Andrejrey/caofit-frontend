@@ -15,11 +15,7 @@ function DesktopNavbar({
   };
 
   const openCartModal = () => {
-    if (window.innerWidth <= 640) {
-      setCartModalOpen(true);
-    } else {
-      toggleCartModal();
-    }
+    toggleCartModal();
   };
 
   const cartIcon = (
@@ -107,7 +103,7 @@ function DesktopNavbar({
         </nav>
         {selectedProductCount > 0 && (
           <div
-            className="relative ml-5 flex cursor-pointer items-center text-white hidden md:block"
+            className="relative ml-5 flex hidden cursor-pointer items-center text-white md:block"
             onClick={openCartModal}
           >
             {cartIcon}
@@ -117,14 +113,7 @@ function DesktopNavbar({
           </div>
         )}
       </div>
-      <CartModal
-        cartItems={[]}
-        setCartItems={() => {}}
-        isOpen={cartModalOpen}
-        onClose={() => setCartModalOpen(false)}
-        selectedItems={[]}
-        products={[]}
-      />
+   
     </div>
   );
 }

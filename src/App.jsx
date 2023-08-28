@@ -107,6 +107,7 @@ function App() {
         isOpen={isCartModalOpen}
         onClose={closeCartModal}
         products={shopItems}
+        selectedItems={cartItems}
       />
       <Footer />
     </>
