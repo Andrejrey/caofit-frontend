@@ -2,27 +2,27 @@ import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import TotalFoodNutritionalValue from "./TotalFoodNutritionalValue";
 import TotalNutritionalValue from "./TotalNutritionalValue";
+import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
 
 const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
 const Calculator = ({ food }) => {
-  const [measureValue, setMeasureValue] = useState("");
+  const [measureValue, setMeasureValue] = useState(null);
   const [selectedFood, setSelectedFood] = useState(null);
   const [totalFoodNutritionalValue, setTotalFoodNutritionalValue] = useState(
     []
   );
   const [date, setDate] = useState();
-  const [messageEmptyValue, setMessageEmptyValue] = useState(true);
-  const [messagePositiveNumber, setMessagePositiveNumber] = useState(true);
-
   function loadSavedTotalFoodNutritionalValue() {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (saved) {
       setTotalFoodNutritionalValue(JSON.parse(saved));
     }
   }
+
+  console.log(typeof measureValue);
 
   const inputRef = useRef();
 
@@ -39,7 +39,13 @@ const Calculator = ({ food }) => {
   }
 
   function addFoodCalculation() {
-    if (measureValue && measureValue > 0) {
+    if (
+      selectedFood &&
+      measureValue &&
+      measureValue > 0 &&
+      typeof measureValue === "number" &&
+      date
+    ) {
       setTotalFoodNutritionalValueAndSave([
         ...totalFoodNutritionalValue,
         {
@@ -61,20 +67,78 @@ const Calculator = ({ food }) => {
         },
       ]);
     }
-    if (!measureValue) {
-      setMessageEmptyValue(false);
+    if (!date) {
+      toast.error("Please select a date", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (!selectedFood) {
+      toast.error("Please select a grocerie", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else if (measureValue < 0) {
-      setMessagePositiveNumber(false);
-    } else {
-      setMessageEmptyValue(true);
-      setMessagePositiveNumber(true);
+      toast.error("Please enter a valid number", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (!measureValue) {
+      toast.error("Please enter quantity", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (typeof measureValue !== "number") {
+      toast.error("Please enter a valid number", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     setMeasureValue("");
-
-    // setSelectedFood(null);
   }
 
   const handleSaveTotalNutritionalValueToDiary = async () => {
+    setTotalFoodNutritionalValueAndSave([]);
+    setDate("");
+    toast.success(" You have successfully saved to diary!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     try {
       const { data } = await axios.post("http://localhost:8080/save_to_diary", {
         total_carbs: totalCarbs,
@@ -110,7 +174,7 @@ const Calculator = ({ food }) => {
   };
 
   const onChangeInputHandler = (event) => {
-    setMeasureValue(event.target.value);
+    setMeasureValue(Number(event.target.value));
   };
 
   const onChangeDateInputHandler = (event) => {
@@ -130,7 +194,7 @@ const Calculator = ({ food }) => {
 
   const splitedDate = date && date.split("-");
   const selectedDate =
-    splitedDate && splitedDate[1] + "/" + splitedDate[2] + "/" + splitedDate[0];
+    splitedDate && splitedDate[2] + "/" + splitedDate[1] + "/" + splitedDate[0];
   const selectedDay = new Date(`${date}`);
   const day = selectedDay.getDay();
   const selectedDayOfWeek =
@@ -159,18 +223,21 @@ const Calculator = ({ food }) => {
             Calculator
           </span>
         </h1>
-        <input
-          onChange={onChangeDateInputHandler}
-          type="date"
-          className="mt-5 rounded-lg border border-dark-blue-light p-1"
-        />
-        {date && (
-          <p className="mt-5 text-lg font-bold">
-            {selectedDayOfWeek}{" "}
-            <span className="font-semibold">{selectedDate}</span>
-          </p>
-        )}
-        <div className="mt-5 flex">
+        <div className="flex items-center mt-5">
+          <input
+            onChange={onChangeDateInputHandler}
+            type="date"
+            value={date}
+            className="rounded-lg border border-dark-blue-light p-1"
+          />
+          {date && (
+            <p className="ml-5 text-lg font-bold">
+              {selectedDayOfWeek}{" "}
+              <span className="font-semibold">{selectedDate}</span>
+            </p>
+          )}
+        </div>
+        <div className="mt-5 flex rounded-md ">
           <div className="flex">
             {food && (
               <Select
@@ -199,14 +266,7 @@ const Calculator = ({ food }) => {
               Add
             </button>
           </div>
-          <div className="flex justify-center items-center">
-            {!messageEmptyValue && (
-              <p className="ml-5 text-red-500">Please enter quantity</p>
-            )}
-            {!messagePositiveNumber && (
-              <p className="ml-5 text-red-500">Please enter a valid number</p>
-            )}
-          </div>
+          <div className="flex justify-center items-center"></div>
         </div>
         <div className="grid grid-cols-8 gap-4 font-extrabold items-center mb-3 mt-5 shadow-lg rounded-xl p-3 text-dark-blue-light bg-white">
           <img src={logo} alt="" className="w-16" />
@@ -216,14 +276,7 @@ const Calculator = ({ food }) => {
           <p>Fat</p>
           <p>Kcal</p>
           <p>Proteins</p>
-          {totalFoodNutritionalValue.length > 0 && (
-            <button
-              onClick={handleSaveTotalNutritionalValueToDiary}
-              className="cursor-pointer rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
-            >
-              Save to diary
-            </button>
-          )}
+          <div></div>
         </div>
         {totalFoodNutritionalValue.map((t, i) => {
           return (
@@ -239,9 +292,25 @@ const Calculator = ({ food }) => {
           totalFat={totalFat}
           totalKcal={totalKcal}
           totalProteins={totalProteins}
-          totalFoodNutritionalValue={totalFoodNutritionalValue}
-          clearAllNutritionalValue={clearAllNutritionalValue}
         />
+        <div className="flex justify-end p-3 rounded-md">
+          {totalFoodNutritionalValue.length > 1 && (
+            <button
+              onClick={clearAllNutritionalValue}
+              className="cursor-pointer rounded-lg bg-dark-blue-light p-2 font-semibold text-white hover:bg-dark-blue"
+            >
+              Clear all
+            </button>
+          )}
+          {totalFoodNutritionalValue.length > 0 && (
+            <button
+              onClick={handleSaveTotalNutritionalValueToDiary}
+              className="cursor-pointer ml-5 rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
+            >
+              Save to diary
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
