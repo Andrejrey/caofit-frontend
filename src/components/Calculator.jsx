@@ -22,8 +22,6 @@ const Calculator = ({ food }) => {
     }
   }
 
-  console.log(typeof measureValue);
-
   const inputRef = useRef();
 
   useEffect(() => {
@@ -210,7 +208,7 @@ const Calculator = ({ food }) => {
       ? "Thursday"
       : day === 5
       ? "Friday"
-      : day === 6 
+      : day === 6
       ? "Saturday"
       : "";
 
