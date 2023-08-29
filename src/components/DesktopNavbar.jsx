@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/text-dark.png";
 import CartModal from "./CartModal";
+
 function DesktopNavbar({
   selectedProductCount,
   incrementSelectedProductCount,
   toggleCartModal,
+  cartItems,
+  clearCart,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartModalOpen, setCartModalOpen] = useState(false);
@@ -15,11 +18,8 @@ function DesktopNavbar({
   };
 
   const openCartModal = () => {
-    if (window.innerWidth <= 640) {
-      setCartModalOpen(true);
-    } else {
-      toggleCartModal();
-    }
+    toggleCartModal();
+    setCartModalOpen(true);
   };
 
   const cartIcon = (
@@ -107,7 +107,7 @@ function DesktopNavbar({
         </nav>
         {selectedProductCount > 0 && (
           <div
-            className="relative ml-5 flex cursor-pointer items-center text-white hidden md:block"
+            className="relative ml-5 flex hidden cursor-pointer items-center text-white md:block"
             onClick={openCartModal}
           >
             {cartIcon}
@@ -118,12 +118,12 @@ function DesktopNavbar({
         )}
       </div>
       <CartModal
-        cartItems={[]}
-        setCartItems={() => {}}
+        cartItems={cartItems}
+        clearCart={clearCart}
         isOpen={cartModalOpen}
         onClose={() => setCartModalOpen(false)}
-        selectedItems={[]}
         products={[]}
+        selectedItems={cartItems}
       />
     </div>
   );
