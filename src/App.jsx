@@ -24,8 +24,6 @@ function App() {
     axios.get("http://localhost:8080/foodlist").then((response) => {
       setFood(response.data);
     });
-
-  useEffect(() => {
     axios.get("http://localhost:8080/shopitems").then((response) => {
       setShopItems(response.data);
     });
@@ -45,14 +43,11 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  useEffect(() => {
     localStorage.setItem(
       "selectedProductCount",
       selectedProductCount.toString()
     );
-  }, [selectedProductCount]);
+  }, [cartItems, selectedProductCount]);
 
   const addToCart = (productId) => {
     if (cartItems.includes(productId)) {
@@ -101,8 +96,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />{" "}
-        {/* Add the RegisterForm route */}
+        <Route path="/register" element={<RegisterForm />} />
         <Route
           path="/shop"
           element={
