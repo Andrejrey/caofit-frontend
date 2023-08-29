@@ -31,7 +31,7 @@ const TotalFoodNutritionalValue = ({
       </p>
       <div className="flex justify-end">
         <button
-          className="bg-first flex items-center justify-center  w-12 p-1 ml-3 rounded-lg text-dark-blue-light font-semibold hover:bg-yellow-400 cursor-pointer"
+          className="flex items-center justify-center  w-12 p-1 ml-3 rounded-lg text-red-600 hover:text-red-400 font-semibol cursor-pointer"
           onClick={() => deleteFoodNutritionalValueId(totalFood.id)}
         >
           <DeleteIcon />

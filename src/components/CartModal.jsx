@@ -2,7 +2,6 @@ import React from "react";
 
 function CartModal({
   cartItems = [],
-  setCartItems,
   isOpen,
   onClose,
   selectedItems = [],
@@ -36,16 +35,16 @@ function CartModal({
                   return (
                     <li key={product.id} className="flex py-4">
                       <img
-                        src={product.image}
-                        alt={product.name}
+                        src={product.item_image}
+                        alt={product.item_name}
                         className="h-16 w-16"
                       />
                       <div className="ml-4">
                         <h3 className="text-lg font-medium text-gray-900">
-                          {product.name}
+                          {product.item_name}
                         </h3>
                         <p className="text-sm text-gray-500">
-                          ${product.price}
+                          ${product.item_price}
                         </p>
                       </div>
                     </li>
