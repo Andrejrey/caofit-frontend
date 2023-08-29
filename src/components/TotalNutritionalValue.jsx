@@ -4,8 +4,6 @@ const TotalNutritionalValue = ({
   totalFat,
   totalKcal,
   totalProteins,
-  totalFoodNutritionalValue,
-  clearAllNutritionalValue,
 }) => {
   return (
     <div className="grid grid-cols-8 gap-4 items-center mb-5  shadow-lg rounded-xl p-3 font-semibold text-dark-blue-light bg-gray-100">
@@ -24,14 +22,6 @@ const TotalNutritionalValue = ({
       <p className="mr-3 p-1 rounded-lg ">
         {Math.round(totalProteins * 100) / 100}g
       </p>
-      {totalFoodNutritionalValue.length > 1 && (
-        <button
-          onClick={clearAllNutritionalValue}
-          className="cursor-pointer rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
-        >
-          Clear all
-        </button>
-      )}
     </div>
   );
 };
