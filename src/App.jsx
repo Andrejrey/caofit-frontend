@@ -25,6 +25,7 @@ function App() {
       setFood(response.data);
     });
 
+  useEffect(() => {
     axios.get("http://localhost:8080/shopitems").then((response) => {
       setShopItems(response.data);
     });
