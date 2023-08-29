@@ -6,6 +6,8 @@ function Header({
   selectedProductCount,
   incrementSelectedProductCount,
   toggleCartModal,
+  cartItems,
+  clearCart,
 }) {
   return (
     <div>
@@ -13,6 +15,8 @@ function Header({
         selectedProductCount={selectedProductCount}
         incrementSelectedProductCount={incrementSelectedProductCount}
         toggleCartModal={toggleCartModal}
+        cartItems={cartItems}
+        clearCart={clearCart}
         className="hidden md:block"
       />
       <Navbar className="block md:hidden" />

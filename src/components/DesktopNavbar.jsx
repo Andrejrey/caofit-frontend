@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/text-dark.png";
 import CartModal from "./CartModal";
+
 function DesktopNavbar({
   selectedProductCount,
   incrementSelectedProductCount,
   toggleCartModal,
+  cartItems,
+  clearCart,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartModalOpen, setCartModalOpen] = useState(false);
@@ -16,6 +19,7 @@ function DesktopNavbar({
 
   const openCartModal = () => {
     toggleCartModal();
+    setCartModalOpen(true);
   };
 
   const cartIcon = (
@@ -113,7 +117,14 @@ function DesktopNavbar({
           </div>
         )}
       </div>
-   
+      <CartModal
+        cartItems={cartItems}
+        clearCart={clearCart}
+        isOpen={cartModalOpen}
+        onClose={() => setCartModalOpen(false)}
+        products={[]}
+        selectedItems={cartItems}
+      />
     </div>
   );
 }
