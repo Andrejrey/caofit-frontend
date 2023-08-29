@@ -26,7 +26,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/shopi_tems").then((response) => {
+    axios.get("http://localhost:8080/shop_items").then((response) => {
       setShopItems(response.data);
     });
   }, []);
