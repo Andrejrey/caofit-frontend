@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
@@ -20,7 +21,7 @@ function App() {
   const [isCartModalOpen, setCartModalOpen] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/food_list").then((response) => {
+    axios.get("http://localhost:8080/foodlist").then((response) => {
       setFood(response.data);
     });
   }, []);
@@ -31,12 +32,28 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem(
+      "selectedProductCount",
+      selectedProductCount.toString()
+    );
+  }, [cartItems, selectedProductCount]);
+
   const addToCart = (productId) => {
     if (cartItems.includes(productId)) {
       setCartItems(cartItems.filter((id) => id !== productId));
     } else {
       setCartItems([...cartItems, productId]);
     }
+  };
+
+  const deleteProduct = (productId) => {
+    setCartItems(cartItems.filter((id) => id !== productId));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
   };
 
   const incrementSelectedProductCount = () => {
@@ -63,11 +80,14 @@ function App() {
         selectedProductCount={selectedProductCount}
         incrementSelectedProductCount={incrementSelectedProductCount}
         toggleCartModal={toggleCartModal}
+        cartItems={cartItems}
+        clearCart={clearCart}
       />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
         <Route
           path="/shop"
           element={
@@ -101,10 +121,13 @@ function App() {
       </Routes>
       <CartModal
         cartItems={cartItems}
-        setCartItems={setCartItems}
         isOpen={isCartModalOpen}
         onClose={closeCartModal}
         products={shopItems}
+        selectedItems={cartItems}
+        deleteProduct={deleteProduct}
+        clearCart={clearCart}
+        selectedProductCount={selectedProductCount}
       />
       <Footer />
     </>

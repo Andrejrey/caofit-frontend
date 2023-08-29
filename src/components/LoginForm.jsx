@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo/logo-dark-removedBG.png";
 
 function LoginForm({ onClose }) {
@@ -20,11 +21,11 @@ function LoginForm({ onClose }) {
 
   return (
     <div className="flex h-screen justify-evenly bg-second">
-      <div className="flex items-center justify-center ">
+      <div className="flex items-center justify-center">
         <img
           src={logo}
           alt="logo"
-          className="hidden w-80  items-center justify-center lg:block"
+          className="hidden w-80 items-center justify-center lg:block"
         />
       </div>
       <div className="flex w-full items-center justify-center space-y-8 bg-second lg:w-1/2">
@@ -104,12 +105,12 @@ function LoginForm({ onClose }) {
               <span className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-yellow-700">
                 Forgot Password?
               </span>
-              <a
-                href="#"
+              <Link
+                to="/register"
                 className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-yellow-700"
               >
                 Don't have an account yet?
-              </a>
+              </Link>
             </div>
           </form>
         </div>
