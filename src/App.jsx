@@ -19,17 +19,13 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [food, setFood] = useState([]);
   const [isCartModalOpen, setCartModalOpen] = useState(false);
-  const [diary, setDiary] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/food_list").then((response) => {
+    axios.get("http://localhost:8080/foodlist").then((response) => {
       setFood(response.data);
     });
     axios.get("http://localhost:8080/shopitems").then((response) => {
       setShopItems(response.data);
-    });
-    axios.get("http://localhost:8080/get_user_diary").then((response) => {
-      setDiary(response.data);
     });
 
     const storedCartItems = localStorage.getItem("cartItems");
@@ -85,7 +81,9 @@ function App() {
     setCartModalOpen(false);
   };
 
-  const name = "Andrej";
+  const updateSelectedProductCount = (count) => {
+    setSelectedProductCount(count);
+  };
 
   return (
     <>
@@ -122,6 +120,7 @@ function App() {
               decrementSelectedProductCount={decrementSelectedProductCount}
               cartItems={cartItems}
               addToCart={addToCart}
+              removeFromCart={deleteProduct}
             />
           }
         />
@@ -129,7 +128,7 @@ function App() {
           path="/calculator"
           element={<Calculator food={food} name={name} />}
         />
-        <Route path="/diary" element={<Diary diary={diary} />} />
+        <Route path="/diary" element={<Diary />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <CartModal
@@ -141,6 +140,7 @@ function App() {
         deleteProduct={deleteProduct}
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
+        updateSelectedProductCount={updateSelectedProductCount}
       />
       <Footer />
     </>
