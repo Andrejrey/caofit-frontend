@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ShopArticle from "./ShopArticle";
 import CartModal from "./CartModal";
 
@@ -14,16 +14,29 @@ const Shop = ({
   const [selectedItems, setSelectedItems] = useState([]);
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
+  useEffect(() => {
+    const storedSelectedItems = localStorage.getItem("selectedItems");
+    if (storedSelectedItems) {
+      setSelectedItems(JSON.parse(storedSelectedItems));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+  }, [selectedItems]);
+
   const handleAddToCart = (productId) => {
+    if (!selectedItems.includes(productId)) {
+      setSelectedItems([...selectedItems, productId]);
+      incrementSelectedProductCount();
+    }
     addToCart(productId);
-    setSelectedItems((prevSelectedItems) => [...prevSelectedItems, productId]);
-    incrementSelectedProductCount();
   };
 
   const handleRemoveFromCart = (productId) => {
-    addToCart(productId);
     setSelectedItems(selectedItems.filter((id) => id !== productId));
     decrementSelectedProductCount();
+    addToCart(productId);
   };
 
   const toggleCartModal = () => {

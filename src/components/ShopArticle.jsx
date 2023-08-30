@@ -49,10 +49,10 @@ const ShopArticle = ({
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="mt-1 p-2">
+          <div className="mt-1 p-2 ">
             <h2 className="font-bold text-slate-900">{product.item_name}</h2>
             <p className="text-slate-700">{product.item_flavour}</p>
-            <div className="mt-3 flex items-end justify-between">
+            <div className="mt-3 flex items-center justify-between">
               <p className="text-lg font-bold text-black">
                 ${product.item_price}
               </p>
@@ -60,13 +60,13 @@ const ShopArticle = ({
                 className={`flex h-10 items-center space-x-1.5 rounded-lg ${
                   isProductInCart
                     ? "bg-second text-white hover:bg-dark-blue"
-                    : "bg-first"
-                } px-4 text-blue-900 duration-100 hover:bg-yellow-400`}
+                    : "bg-first hover:bg-yellow-400"
+                } px-4 text-blue-900 duration-100 `}
                 onClick={handleToggleCart}
               >
                 {cartIcon}
                 <button className="text-sm md:text-xs">
-                  {isProductInCart ? "Added to cart" : "Add to Cart"}
+                  {isProductInCart ? "Remove" : "Add to Cart"}
                 </button>
                 <span className="ml-2 text-sm md:text-xs">
                   {isProductInCart ? selectedProductCount : null}

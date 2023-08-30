@@ -81,7 +81,9 @@ function App() {
     setCartModalOpen(false);
   };
 
-  const name = "Andrej";
+  const updateSelectedProductCount = (count) => {
+    setSelectedProductCount(count);
+  };
 
   return (
     <>
@@ -118,6 +120,7 @@ function App() {
               decrementSelectedProductCount={decrementSelectedProductCount}
               cartItems={cartItems}
               addToCart={addToCart}
+              removeFromCart={deleteProduct}
             />
           }
         />
@@ -137,6 +140,7 @@ function App() {
         deleteProduct={deleteProduct}
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
+        updateSelectedProductCount={updateSelectedProductCount}
       />
       <Footer />
     </>
