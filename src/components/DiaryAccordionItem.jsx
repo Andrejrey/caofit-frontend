@@ -26,8 +26,8 @@ const DiaryAccordionItem = ({
       </div>
       {/* Accordion Content */}
       <div className="overflow-hidden h-0 group-[.is-active]:h-fit mb-2">
-        <div className="grid grid-cols-5 grid-flow-row ml-4 mr-2">
-          <div></div>
+        <div className="ml-4 mr-2 grid grid-flow-row grid-cols-5 md:grid-cols-6">
+          <div className="md:col-span-2"></div>
           <div className="text-right italic">carbs</div>
           <div className="text-right italic">fats</div>
           <div className="text-right italic">proteins</div>
@@ -38,9 +38,9 @@ const DiaryAccordionItem = ({
             return (
               <div
                 key={f.id}
-                className="grid grid-cols-5 grid-flow-row my-2 mx-2 pl-2 even:bg-gray-100"
+                className="bg-gray-100 rounded my-2 mx-2 pl-2 grid grid-flow-row grid-cols-5 md:grid-cols-6 md:h-7 md:items-center"
               >
-                <div className="flex flex-row">
+                <div className="flex flex-row md:col-span-2">
                   <img
                     src={f.food_icon}
                     alt="Icon of saved food"
@@ -52,15 +52,23 @@ const DiaryAccordionItem = ({
                     {f.food_unit}
                   </p>
                 </div>
-                <div className="text-right">{f.food_total_carbs}g</div>
-                <div className="text-right">{f.food_total_fats}g</div>
-                <div className="text-right">{f.food_total_proteins}g</div>
-                <div className="text-right pr-2">{f.food_total_kcal}kcal</div>
+                <div className="text-right">
+                  {Math.round(f.food_total_carbs * 100) / 100}g
+                </div>
+                <div className="text-right">
+                  {Math.round(f.food_total_fats * 100) / 100}g
+                </div>
+                <div className="text-right">
+                  {Math.round(f.food_total_proteins * 100) / 100}g
+                </div>
+                <div className="text-right pr-2">
+                  {Math.round(f.food_total_kcal * 100) / 100}kcal
+                </div>
               </div>
             );
           })}
-        <div className="grid grid-cols-5 grid-flow-row bg-second text-slate-50 mx-2 pl-2 h-8 rounded-sm items-center">
-          <div className="flex flex-nowrap items-center ">
+        <div className="bg-second text-slate-50 mx-2 pl-2 h-8 rounded-sm items-center grid grid-flow-row grid-cols-5 md:grid-cols-6">
+          <div className="flex flex-nowrap items-center md:col-span-2">
             <img
               src={GraphBar}
               alt="Graph bar"
@@ -68,10 +76,18 @@ const DiaryAccordionItem = ({
             />
             <p className="font-bold">Total</p>
           </div>
-          <p className="text-right font-bold">{total_carbs}g</p>
-          <p className="text-right font-bold">{total_fats}g</p>
-          <p className="text-right font-bold">{total_proteins}g</p>
-          <p className="text-right font-bold pr-2">{total_kcal}kcal</p>
+          <p className="font-bold flex flex-nowrap justify-end">
+            {Math.round(total_carbs * 100) / 100}g
+          </p>
+          <p className="font-bold flex flex-nowrap justify-end">
+            {Math.round(total_fats * 100) / 100}g
+          </p>
+          <p className="font-bold flex flex-nowrap justify-end">
+            {Math.round(total_proteins * 100) / 100}g
+          </p>
+          <p className="font-bold flex flex-nowrap justify-end pr-2">
+            {Math.round(total_kcal * 100) / 100}kcal
+          </p>
         </div>
       </div>
     </div>

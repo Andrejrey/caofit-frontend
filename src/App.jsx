@@ -25,7 +25,7 @@ function App() {
     axios.get("http://localhost:8080/food_list").then((response) => {
       setFood(response.data);
     });
-    axios.get("http://localhost:8080/shopitems").then((response) => {
+    axios.get("http://localhost:8080/shop_items").then((response) => {
       setShopItems(response.data);
     });
     axios.get("http://localhost:8080/get_user_diary").then((response) => {
