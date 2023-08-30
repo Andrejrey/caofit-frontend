@@ -12,7 +12,7 @@ const DiaryAccordion = ({ data }) => {
 
   return (
     <div className="mx-2 mb-5 lg:flex lg:flex-col">
-      <div className="lg:overflow-y-scroll lg:h-[700px]">
+      <div className="lg:overflow-y-scroll lg:h-[75vh] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
         {data &&
           data.map((item) => {
             return (

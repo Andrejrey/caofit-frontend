@@ -15,7 +15,7 @@ const DiaryAccordionItem = ({
   setOpen,
 }) => {
   return (
-    <div className={`group ${id === open ? "is-active" : ""}`}>
+    <div className={`group ${id === open ? "is-active mr-2" : "mr-2"}`}>
       {/* Accordion Header */}
       <div
         className="flex flex-nowrap items-center justify-between mb-3 shadow-lg rounded-xl p-3 font-medium text-dark-blue-light bg-white"
