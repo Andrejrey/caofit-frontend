@@ -10,6 +10,7 @@ import CartModal from "./CartModal";
 function DesktopNavbar({
   selectedProductCount,
   incrementSelectedProductCount,
+  updateSelectedProductCount,
   toggleCartModal,
   cartItems,
   clearCart,
@@ -175,6 +176,7 @@ function DesktopNavbar({
         onClose={() => setCartModalOpen(false)}
         products={[]}
         selectedItems={cartItems}
+        updateSelectedProductCount={updateSelectedProductCount}
       />
     </div>
   );

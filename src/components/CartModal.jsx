@@ -12,6 +12,8 @@ function CartModal({
   deleteProduct,
   clearCart,
   isMobile,
+  selectedProductCount,
+  updateSelectedProductCount,
 }) {
   const [quantities, setQuantities] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
@@ -40,6 +42,7 @@ function CartModal({
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + getProductPrice(productId)
     );
+    updateSelectedProductCount(selectedProductCount + 1);
   };
 
   const decreaseQuantity = (productId) => {
@@ -51,8 +54,10 @@ function CartModal({
       setTotalPrice(
         (prevTotalPrice) => prevTotalPrice - getProductPrice(productId)
       );
+      updateSelectedProductCount((prevCount) => prevCount - 1);
     } else {
       deleteProduct(productId);
+      updateSelectedProductCount(selectedProductCount - quantities[productId]);
     }
   };
 
@@ -66,23 +71,34 @@ function CartModal({
     totalItems === 0 || (totalItems === 1 && quantities[cartItems[0]] === 0);
 
   const handleCloseModal = () => {
-    onClose();
+    setTimeout(() => {
+      onClose();
+    }, 300);
   };
 
   const handleClearCart = () => {
     clearCart();
-    onClose();
+    updateSelectedProductCount(0);
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("selectedProductCount");
+    handleCloseModal();
   };
 
+  if (!isOpen) {
+    return null;
+  }
   return (
     <div
       className={`fixed inset-0 z-50 overflow-y-auto ${
         isOpen ? "visible" : "hidden"
       }`}
     >
-      <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
+      <div className="flex min-h-screen items-center justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity">
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+          <div
+            className="absolute inset-0 bg-gray-500 opacity-75"
+            onClick={handleCloseModal}
+          ></div>
         </div>
         <span className="hidden sm:inline-block sm:h-screen sm:align-middle"></span>
         &#8203;
@@ -102,11 +118,14 @@ function CartModal({
                   if (!product) return null;
 
                   return (
-                    <li key={product.id} className="flex py-4">
+                    <li
+                      key={product.id}
+                      className="flex items-center justify-center py-4"
+                    >
                       <img
                         src={product.item_image}
                         alt={product.item_name}
-                        className="h-16 w-16"
+                        className="h-28 w-28 object-contain"
                       />
                       <div className="ml-4">
                         <h3 className="text-lg font-medium text-gray-900">
@@ -131,9 +150,14 @@ function CartModal({
                           </button>
                           <button
                             className="h-8 w-8 text-red-500"
-                            onClick={() => deleteProduct(product.id)}
+                            onClick={() => {
+                              deleteProduct(product.id);
+                              updateSelectedProductCount(
+                                selectedProductCount - quantities[product.id]
+                              );
+                            }}
                           >
-                            <FaTrash className="h-5 w-5 hover:text-red-600" />
+                            <FaTrash className="h-5 w-5 transform hover:text-red-600" />
                           </button>
                         </div>
                       </div>
@@ -143,41 +167,38 @@ function CartModal({
               </ul>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 md:flex md:flex-col">
             <button
               type="button"
-              className={`inline-flex w-full justify-center rounded-md border border-transparent ${
+              className={`inline-flex w-full items-center justify-center rounded-md border border-transparent ${
                 isMobile ? "bg-red-500" : "bg-first"
-              } px-4 py-2 text-base font-medium text-dark-blue shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm`}
-              onClick={handleCloseModal}
+              } flex items-center justify-center px-4 py-2 text-base font-medium text-dark-blue shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm md:text-xl`}
+              onClick={() => {
+                handleCloseModal();
+              }}
             >
               {isMobile ? "Close" : "Continue Shopping"}
             </button>
             <div className="mt-2 flex items-center justify-center space-x-2">
               <div className="flex items-center space-x-2">
-                <div className="text-lg font-semibold text-gray-700">
+                <div className="text-lg font-semibold text-gray-700 md:text-xl">
                   Total:
                 </div>
-                <div className="text-lg font-semibold text-gray-700">
+                <div className=" text-lg font-normal text-gray-700 md:text-xl">
                   ${totalPrice.toFixed(2)}
                 </div>
               </div>
               <button
                 onClick={handleClearCart}
-                className="flex items-center rounded-md bg-red-500 px-3 py-1 text-white hover:bg-red-600"
+                className="flex w-full items-center justify-center rounded-md bg-red-500 px-3 py-1 text-gray-100 hover:bg-red-600 md:text-xl"
               >
                 Clear
               </button>
               <Link
                 to="/checkout"
-                className={`${
-                  closeOnEmptyCart ? "bg-red-500" : "bg-dark-blue"
-                } rounded-md px-3 py-1 text-white hover:bg-second`}
-                onClick={
-                  closeOnEmptyCart ? (e) => e.preventDefault() : undefined
-                }
+                className="flex w-full items-center justify-center rounded-md bg-second px-3 py-1 text-gray-100 hover:bg-dark-blue-light md:text-xl"
               >
-                {closeOnEmptyCart ? "Cart Empty" : "Checkout"}
+                Checkout
               </Link>
             </div>
           </div>
