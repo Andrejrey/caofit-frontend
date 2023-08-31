@@ -26,7 +26,7 @@ const Home = () => {
           <h2 className="font-semibold">
             Empower Your Nutrition - Track and Thrive!
           </h2>
-          <hr class="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
+          <hr className="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
           <p className="mt-3 text-base px-3">
             Discover a new way of food tracking with our revolutionary app!
             Effortlessly monitor what you eat and uncover the secrets of your
@@ -39,7 +39,7 @@ const Home = () => {
           <h2 className="font-semibold">
             Nutrition Diary - Your Journey of Empowerment
           </h2>
-          <hr class="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
+          <hr className="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
           <p className="mt-3 text-base px-3">
             Transform your health with CaoFIT's nutrition tracking. Get accurate
             insights into your diet. Make informed choices for weight management
@@ -56,7 +56,7 @@ const Home = () => {
           <h2 className="font-semibold">
             Ultimate Destination for Health Enthusiasts
           </h2>
-          <hr class="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
+          <hr className="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
           <p className="mt-3 text-base px-3">
             Discover an array of curated selection of top-tier protein products,
             which fuel your workouts or support your recovery. Step into the
