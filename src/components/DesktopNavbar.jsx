@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/logo/text-dark.png";
 import CartModal from "./CartModal";
 
@@ -9,6 +13,11 @@ function DesktopNavbar({
   toggleCartModal,
   cartItems,
   clearCart,
+  isAuthenticated,
+  logOut,
+  setIsOpen,
+  isOpen,
+  user,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartModalOpen, setCartModalOpen] = useState(false);
@@ -74,36 +83,78 @@ function DesktopNavbar({
           >
             Home
           </Link>
-          <Link
-            to={"/shop"}
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Shopping
-          </Link>
-          <Link
-            to="/calculator"
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Calculator
-          </Link>
-          <Link
-            to="/diary"
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Diary
-          </Link>
+          <>
+            <Link
+              to={"/shop"}
+              className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
+            >
+              Shopping
+            </Link>
+            <Link
+              to="/calculator"
+              className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
+            >
+              Calculator
+            </Link>
+            <Link
+              to="/auth/diary"
+              className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
+            >
+              Diary
+            </Link>
+          </>
           <Link
             to="/contact"
             className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
           >
             Contact
           </Link>
-          <Link
-            to="/login"
-            className="shadow-outline text-bold mt-2 cursor-pointer rounded-lg bg-first px-4 py-2 text-sm font-semibold text-blue-900 hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Login
-          </Link>
+          {!isAuthenticated && (
+            <Link
+              to="/login"
+              className="shadow-outline text-bold mt-2 cursor-pointer rounded-lg bg-first px-4 py-2 text-sm font-semibold text-blue-900 hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
+            >
+              Login
+            </Link>
+          )}
+          {user && isAuthenticated && (
+            <div className="relative mt-2 ml-5 font-semibold text-sm">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center hover:text-yellow-400 h-5"
+              >
+                <p>
+                  {user &&
+                    user.first_name.charAt(0).toUpperCase() +
+                      user.first_name.slice(1)}
+                </p>
+                {!isOpen ? <ArrowRightIcon /> : <ArrowDropDownIcon />}
+              </button>
+              {isOpen && (
+                <div className="bg-second rounded-md absolute right-0 mt-2">
+                  <div className="flex items-center pt-3 pb-2 pl-3 pr-3">
+                    <AccountBoxIcon />
+                    <Link
+                      to="/auth/profile"
+                      className="block  hover:text-yellow-400 ml-2"
+                    >
+                      Profile
+                    </Link>
+                  </div>
+                  <div className="flex items-center pb-3 pt1 pl-3 pr-3">
+                    <LogoutIcon />
+                    <Link
+                      onClick={logOut}
+                      to="/"
+                      className="block text-red-600 hover:text-red-500 ml-1"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </nav>
         {selectedProductCount > 0 && (
           <div

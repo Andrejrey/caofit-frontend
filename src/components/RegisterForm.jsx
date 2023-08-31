@@ -1,19 +1,55 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
+import { registerUser } from "../utils/authUtils";
 import logo from "../assets/logo/logo-dark-removedBG.png";
+import Loading from "./Loading";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
-const RegisterForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const RegisterForm = ({
+  isAuthenticated,
+  setIsAuthenticated,
+  setToken,
+  loadingAuthRequest,
+  setLoadingAuthRequest,
+}) => {
+  const [{ first_name, last_name, email, password }, setFormState] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form submitted:", { firstName, lastName, email, password });
+  const handleChange = (e) =>
+    setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (!first_name || !last_name || !email || !password)
+        return toast.error("Please fill out all the fields");
+      setLoadingAuthRequest(true);
+      const { data, error } = await registerUser({
+        first_name,
+        last_name,
+        email,
+        password,
+      });
+      if (error) throw error;
+      setToken(data.token);
+      setIsAuthenticated(true);
+      setLoadingAuthRequest(false);
+      localStorage.setItem("token", data.token);
+    } catch (error) {
+      setLoadingAuthRequest(false);
+      toast.error(error.message);
+    }
   };
+
+  if (loadingAuthRequest) return <Loading />;
+  if (isAuthenticated) return <Navigate to="/auth" />;
 
   return (
     <div className="min-w-screen flex min-h-screen items-center justify-center bg-dark-blue-light px-5 py-5">
@@ -42,10 +78,11 @@ const RegisterForm = () => {
                     </div>
                     <input
                       type="text"
+                      name="first_name"
                       className="-ml-10 w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 outline-none focus:border-second"
                       placeholder="First Name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={first_name}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -58,11 +95,12 @@ const RegisterForm = () => {
                       <BsFillPersonFill />
                     </div>
                     <input
+                      name="last_name"
                       type="text"
                       className="-ml-10 w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 outline-none focus:border-second"
                       placeholder="Last Name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
+                      value={last_name}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -77,11 +115,12 @@ const RegisterForm = () => {
                       <MdEmail />
                     </div>
                     <input
+                      name="email"
                       type="email"
                       className="-ml-10 w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 outline-none focus:border-second"
                       placeholder="Enter Your Email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -96,11 +135,12 @@ const RegisterForm = () => {
                       <RiLockPasswordLine />
                     </div>
                     <input
+                      name="password"
                       type="password"
                       className="-ml-10 w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 outline-none focus:border-second"
                       placeholder="************"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
