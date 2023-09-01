@@ -83,13 +83,16 @@ function App() {
   const addToCart = (productId) => {
     if (cartItems.includes(productId)) {
       setCartItems(cartItems.filter((id) => id !== productId));
+      updateSelectedProductCount(selectedProductCount - 1);
     } else {
       setCartItems([...cartItems, productId]);
+      updateSelectedProductCount(selectedProductCount + 1);
     }
   };
 
   const deleteProduct = (productId) => {
     setCartItems(cartItems.filter((id) => id !== productId));
+    updateSelectedProductCount(selectedProductCount - 1);
   };
 
   const clearCart = () => {
