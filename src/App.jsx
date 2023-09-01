@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { getUser } from "./utils/authUtils";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
@@ -11,6 +12,10 @@ import LegalNotice from "./components/LegalNotice";
 import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
+import UserProfile from "./components/UserProfile";
+import ProtectedLayout from "./components/ProtectedLayout";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function App() {
@@ -19,30 +24,45 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [food, setFood] = useState([]);
   const [isCartModalOpen, setCartModalOpen] = useState(false);
-  const [diary, setDiary] = useState([]);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loadingAuthRequest, setLoadingAuthRequest] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/food_list").then((response) => {
-      setFood(response.data);
-    });
-    axios.get("http://localhost:8080/shop_items").then((response) => {
-      setShopItems(response.data);
-    });
-    axios.get("http://localhost:8080/get_user_diary").then((response) => {
-      setDiary(response.data);
-    });
+    const validateTOken = async () => {
+      try {
+        setLoadingAuthRequest(true);
+        const { data, error } = await getUser(token);
+        if (error) throw error;
+        setUser(data);
+        setIsAuthenticated(true);
+        setLoadingAuthRequest(false);
+      } catch (error) {
+        localStorage.removeItem("token");
+        setToken(null);
+        setLoadingAuthRequest(false);
+        toast.error(error.message);
+      }
+    };
+    token && validateTOken();
+  }, [token]);
 
-    const storedCartItems = localStorage.getItem("cartItems");
-    if (storedCartItems) {
-      setCartItems(JSON.parse(storedCartItems));
-    }
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/food_list`)
+      .then((response) => {
+        setFood(response.data);
+      });
+  }, []);
 
-    const storedSelectedProductCount = localStorage.getItem(
-      "selectedProductCount"
-    );
-    if (storedSelectedProductCount) {
-      setSelectedProductCount(parseInt(storedSelectedProductCount));
-    }
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items`)
+      .then((response) => {
+        setShopItems(response.data);
+      });
   }, []);
 
   useEffect(() => {
@@ -85,7 +105,17 @@ function App() {
     setCartModalOpen(false);
   };
 
-  const name = "Andrej";
+  const logOut = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setUser(null);
+    setIsAuthenticated(false);
+    setIsOpen(false);
+  };
+
+  const updateSelectedProductCount = (count) => {
+    setSelectedProductCount(count);
+  };
 
   return (
     <>
@@ -95,12 +125,39 @@ function App() {
         toggleCartModal={toggleCartModal}
         cartItems={cartItems}
         clearCart={clearCart}
+        isAuthenticated={isAuthenticated}
+        user={user}
+        logOut={logOut}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
       />
-
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <Route
+          path="/login"
+          element={
+            <LoginForm
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+              setToken={setToken}
+              loadingAuthRequest={loadingAuthRequest}
+              setLoadingAuthRequest={setLoadingAuthRequest}
+              user={user}
+            />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <RegisterForm
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+              setToken={setToken}
+              loadingAuthRequest={loadingAuthRequest}
+              setLoadingAuthRequest={setLoadingAuthRequest}
+            />
+          }
+        />
         <Route
           path="/shop"
           element={
@@ -122,12 +179,26 @@ function App() {
               decrementSelectedProductCount={decrementSelectedProductCount}
               cartItems={cartItems}
               addToCart={addToCart}
+              removeFromCart={deleteProduct}
             />
           }
         />
         <Route
-          path="/calculator"
-          element={<Calculator food={food} name={name} />}
+          path="auth"
+          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
+        >
+          <Route path="profile" element={<UserProfile user={user} />} />
+          <Route path="diary" element={<Diary />} />
+        </Route>
+        <Route
+          path="calculator"
+          element={
+            <Calculator
+              food={food}
+              token={token}
+              isAuthenticated={isAuthenticated}
+            />
+          }
         />
         <Route path="/diary" element={<Diary diary={diary} />} />
         <Route path="/legal-notice" element={<LegalNotice />} />
@@ -141,6 +212,7 @@ function App() {
         deleteProduct={deleteProduct}
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
+        updateSelectedProductCount={updateSelectedProductCount}
       />
       <Footer />
     </>

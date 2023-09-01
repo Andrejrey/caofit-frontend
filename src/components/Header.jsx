@@ -1,4 +1,3 @@
-import React from "react";
 import DesktopNavbar from "./DesktopNavbar";
 import Navbar from "./Navbar";
 
@@ -8,6 +7,11 @@ function Header({
   toggleCartModal,
   cartItems,
   clearCart,
+  isAuthenticated,
+  user,
+  logOut,
+  setIsOpen,
+  isOpen,
 }) {
   return (
     <div>
@@ -17,9 +21,21 @@ function Header({
         toggleCartModal={toggleCartModal}
         cartItems={cartItems}
         clearCart={clearCart}
+        isAuthenticated={isAuthenticated}
+        user={user}
+        logOut={logOut}
         className="hidden md:block"
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
       />
-      <Navbar className="block md:hidden" />
+      <Navbar
+        className="block md:hidden"
+        isAuthenticated={isAuthenticated}
+        user={user}
+        logOut={logOut}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+      />
     </div>
   );
 }

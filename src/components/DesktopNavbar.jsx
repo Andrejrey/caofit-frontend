@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/logo/text-dark.png";
 import CartModal from "./CartModal";
 
 function DesktopNavbar({
   selectedProductCount,
   incrementSelectedProductCount,
+  updateSelectedProductCount,
   toggleCartModal,
   cartItems,
   clearCart,
+  isAuthenticated,
+  logOut,
+  setIsOpen,
+  isOpen,
+  user,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartModalOpen, setCartModalOpen] = useState(false);
@@ -118,6 +128,7 @@ function DesktopNavbar({
         onClose={() => setCartModalOpen(false)}
         products={[]}
         selectedItems={cartItems}
+        updateSelectedProductCount={updateSelectedProductCount}
       />
     </div>
   );
