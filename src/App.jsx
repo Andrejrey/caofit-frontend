@@ -29,6 +29,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loadingAuthRequest, setLoadingAuthRequest] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [diary, setDiary] = useState([]);
 
   useEffect(() => {
     const validateTOken = async () => {
@@ -64,6 +65,12 @@ function App() {
         setShopItems(response.data);
       });
   }, []);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/get_user_diary").then((response) => {
+      setDiary(response.data);
+    });
+  });
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -188,7 +195,7 @@ function App() {
           element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
         >
           <Route path="profile" element={<UserProfile user={user} />} />
-          <Route path="diary" element={<Diary />} />
+          <Route path="diary" element={<Diary diary={diary} />} />
         </Route>
         <Route
           path="calculator"
@@ -200,8 +207,7 @@ function App() {
             />
           }
         />
-        <Route path="/diary" element={<Diary diary={diary} />} />
-        <Route path="/legal-notice" element={<LegalNotice />} />
+        <Route path="legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal
         cartItems={cartItems}

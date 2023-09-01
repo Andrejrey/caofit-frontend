@@ -97,7 +97,7 @@ function DesktopNavbar({
             Calculator
           </Link>
           <Link
-            to="/diary"
+            to="/auth/diary"
             className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
           >
             Diary
