@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import logo from "../assets/logo/logo-dark-removedBG.png";
 
 function LoginForm({
   onClose,
-  isAuthenticated,
   setIsAuthenticated,
   setToken,
   loadingAuthRequest,

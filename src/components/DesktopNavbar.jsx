@@ -163,7 +163,7 @@ function DesktopNavbar({
         </nav>
         {selectedProductCount > 0 && (
           <div
-            className="relative ml-5 flex hidden cursor-pointer items-center text-white md:block"
+            className="relative ml-5 hidden cursor-pointer items-center text-white md:block"
             onClick={openCartModal}
           >
             {cartIcon}
