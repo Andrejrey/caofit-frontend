@@ -194,13 +194,6 @@ function App() {
           }
         />
         <Route
-          path="auth"
-          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
-        >
-          <Route path="profile" element={<UserProfile user={user} />} />
-          <Route path="diary" element={<Diary diary={diary} />} />
-        </Route>
-        <Route
           path="calculator"
           element={
             <Calculator
@@ -210,6 +203,14 @@ function App() {
             />
           }
         />
+        <Route path="diary" element={<Diary diary={diary} />} />
+        <Route
+          path="auth"
+          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
+        >
+          <Route path="profile" element={<UserProfile user={user} />} />
+        </Route>
+
         <Route path="legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal
