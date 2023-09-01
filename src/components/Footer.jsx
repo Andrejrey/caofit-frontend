@@ -32,27 +32,10 @@ function Footer() {
                 Home
               </a>
               <a
-                href="shop"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                Shopping
-              </a>
-              <a
                 href="calculator"
                 className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
               >
                 Calculator
-              </a>
-            </div>
-          </div>
-          <div>
-            <p className="font-semibold text-white">Quick Links</p>
-            <div className="mt-5 flex flex-col items-start space-y-2">
-              <a
-                href="#"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                BMI
               </a>
               <a
                 href="diary"
@@ -60,11 +43,28 @@ function Footer() {
               >
                 Diary
               </a>
+            </div>
+          </div>
+          <div>
+            <p className="font-semibold text-white">Quick Links</p>
+            <div className="mt-5 flex flex-col items-start space-y-2">
+              <a
+                href="shop"
+                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+              >
+                Shopping
+              </a>
               <a
                 href="#"
                 className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
               >
                 News
+              </a>
+              <a
+                href="legal-notice"
+                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+              >
+                Legal Notice
               </a>
             </div>
           </div>

@@ -93,12 +93,6 @@ function DesktopNavbar({
             Diary
           </Link>
           <Link
-            to="/contact"
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Contact
-          </Link>
-          <Link
             to="/login"
             className="shadow-outline text-bold mt-2 cursor-pointer rounded-lg bg-first px-4 py-2 text-sm font-semibold text-blue-900 hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
           >

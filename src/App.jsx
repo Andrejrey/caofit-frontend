@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
-import Contact from "./components/Contact";
+import LegalNotice from "./components/LegalNotice";
 import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
@@ -130,7 +130,7 @@ function App() {
           element={<Calculator food={food} name={name} />}
         />
         <Route path="/diary" element={<Diary diary={diary} />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal
         cartItems={cartItems}
