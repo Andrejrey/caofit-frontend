@@ -1,23 +1,53 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { loginUser } from "../utils/authUtils";
+import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 import logo from "../assets/logo/logo-dark-removedBG.png";
 
-function LoginForm({ onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function LoginForm({
+  onClose,
+  isAuthenticated,
+  setIsAuthenticated,
+  setToken,
+  loadingAuthRequest,
+  setLoadingAuthRequest,
+}) {
+  const navigate = useNavigate();
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const [{ email, password }, setFormState] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) =>
+    setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (!email || !password)
+        return toast.error("Please fill out all the fields");
+      setLoadingAuthRequest(true);
+      const { data, error } = await loginUser({
+        email,
+        password,
+      });
+      if (error) toast.error("Incorecct email or password");
+      setToken(data.token);
+      setIsAuthenticated(true);
+      setLoadingAuthRequest(false);
+      localStorage.setItem("token", data.token);
+      navigate(-1);
+    } catch (error) {
+      setLoadingAuthRequest(false);
+      toast.error(error.message);
+    }
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-  };
+  if (loadingAuthRequest) return <Loading />;
+  // if (isAuthenticated) return <Navigate to="/auth" />;
 
   return (
     <div className="flex h-screen justify-evenly bg-second">
@@ -56,13 +86,12 @@ function LoginForm({ onClose }) {
                 />
               </svg>
               <input
-                id="email"
                 className="w-full border-none pl-2 outline-none"
                 type="email"
                 name="email"
                 placeholder="Email Address"
                 value={email}
-                onChange={handleEmailChange}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-12 flex items-center rounded-lg border-2 px-3 py-2">
@@ -82,10 +111,9 @@ function LoginForm({ onClose }) {
                 className="w-full border-none pl-2 outline-none"
                 type="password"
                 name="password"
-                id="password"
                 placeholder="Password"
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={handleChange}
               />
             </div>
             <button
@@ -109,7 +137,7 @@ function LoginForm({ onClose }) {
                 to="/register"
                 className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-yellow-700"
               >
-                Don't have an account yet?
+                Dont have an account yet?
               </Link>
             </div>
           </form>

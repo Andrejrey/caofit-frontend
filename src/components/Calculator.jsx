@@ -2,31 +2,22 @@ import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import TotalFoodNutritionalValue from "./TotalFoodNutritionalValue";
 import TotalNutritionalValue from "./TotalNutritionalValue";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
 
 const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
-const Calculator = ({ food }) => {
-  const [measureValue, setMeasureValue] = useState(null);
+const Calculator = ({ food, isAuthenticated }) => {
+  const [measureValue, setMeasureValue] = useState();
   const [selectedFood, setSelectedFood] = useState(null);
   const [totalFoodNutritionalValue, setTotalFoodNutritionalValue] = useState(
     []
   );
   const [date, setDate] = useState();
-  function loadSavedTotalFoodNutritionalValue() {
-    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (saved) {
-      setTotalFoodNutritionalValue(JSON.parse(saved));
-    }
-  }
-
   const inputRef = useRef();
-
-  useEffect(() => {
-    loadSavedTotalFoodNutritionalValue();
-  }, []);
+  const navigate = useNavigate();
 
   function setTotalFoodNutritionalValueAndSave(newTotalFoodNutritionalValue) {
     setTotalFoodNutritionalValue(newTotalFoodNutritionalValue);
@@ -35,6 +26,26 @@ const Calculator = ({ food }) => {
       JSON.stringify(newTotalFoodNutritionalValue)
     );
   }
+
+  function loadSavedTotalFoodNutritionalValue() {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (saved) {
+      setTotalFoodNutritionalValue(JSON.parse(saved));
+    }
+  }
+
+  useEffect(() => {
+    loadSavedTotalFoodNutritionalValue();
+  }, []);
+
+  function setDateAndSave(date) {
+    localStorage.setItem("date", date);
+  }
+
+  useEffect(() => {
+    const data = localStorage["date"];
+    setDate(data);
+  }, []);
 
   function addFoodCalculation() {
     if (
@@ -66,90 +77,47 @@ const Calculator = ({ food }) => {
       ]);
     }
     if (!date) {
-      toast.error("Please select a date", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please select a date");
     } else if (!selectedFood) {
-      toast.error("Please select a grocerie", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please select a grocerie");
     } else if (measureValue < 0) {
-      toast.error("Please enter a valid number", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please enter a valid number");
     } else if (!measureValue) {
-      toast.error("Please enter quantity", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please enter quantity");
     } else if (typeof measureValue !== "number") {
-      toast.error("Please enter a valid number", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please enter a valid number");
     }
     setMeasureValue("");
   }
 
   const handleSaveTotalNutritionalValueToDiary = async () => {
-    setTotalFoodNutritionalValueAndSave([]);
-    setDate("");
-    toast.success(" You have successfully saved to diary!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    try {
-      const { data } = await axios.post("http://localhost:8080/save_to_diary", {
-        total_carbs: totalCarbs,
-        total_fats: totalFat,
-        total_proteins: totalProteins,
-        total_kcal: totalKcal,
-        date: selectedDate,
-        day: selectedDayOfWeek,
-        food: totalFoodNutritionalValue,
-      });
-      return data;
-    } catch (error) {
-      console.log(error);
+    if (isAuthenticated) {
+      setTotalFoodNutritionalValueAndSave([]);
+      setDate("");
+      localStorage.removeItem("date");
+      toast.success(" You have successfully saved to diary!");
+      try {
+        const { data } = await axios.post(
+          "http://localhost:8080/diary/save_to_diary",
+          {
+            total_carbs: totalCarbs,
+            total_fats: totalFat,
+            total_proteins: totalProteins,
+            total_kcal: totalKcal,
+            date: selectedDate,
+            day: selectedDayOfWeek,
+            food: totalFoodNutritionalValue,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -177,6 +145,7 @@ const Calculator = ({ food }) => {
 
   const onChangeDateInputHandler = (event) => {
     setDate(event.target.value);
+    setDateAndSave(event.target.value);
   };
 
   const clearAllNutritionalValue = () => {
@@ -189,6 +158,10 @@ const Calculator = ({ food }) => {
     );
     setTotalFoodNutritionalValueAndSave(newTotalFoodNutritionalValue);
   }
+
+  const goToLogIn = () => {
+    navigate("/login");
+  };
 
   const splitedDate = date && date.split("-");
   const selectedDate =
@@ -302,7 +275,11 @@ const Calculator = ({ food }) => {
           )}
           {totalFoodNutritionalValue.length > 0 && (
             <button
-              onClick={handleSaveTotalNutritionalValueToDiary}
+              onClick={
+                !isAuthenticated
+                  ? goToLogIn
+                  : handleSaveTotalNutritionalValueToDiary
+              }
               className="cursor-pointer ml-5 rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
             >
               Save to diary
