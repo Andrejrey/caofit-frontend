@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ShopArticle from "./ShopArticle";
-import CartModal from "./CartModal";
 
 const Shop = ({
   products = [],
@@ -12,7 +11,6 @@ const Shop = ({
   selectedProductCount,
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [cartIsOpen, setCartIsOpen] = useState(false);
 
   useEffect(() => {
     const storedSelectedItems = localStorage.getItem("selectedItems");
@@ -20,10 +18,6 @@ const Shop = ({
       setSelectedItems(JSON.parse(storedSelectedItems));
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
-  }, [selectedItems]);
 
   const handleAddToCart = (productId) => {
     if (!selectedItems.includes(productId)) {
@@ -39,13 +33,10 @@ const Shop = ({
     addToCart(productId);
   };
 
-  const toggleCartModal = () => {
-    setCartIsOpen(!cartIsOpen);
-  };
-
-  const closeCartModal = () => {
-    setCartIsOpen(false);
-  };
+  useEffect(() => {
+    // Update the cart items with the selected items
+    setCartItems(selectedItems);
+  }, [selectedItems, setCartItems]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -64,19 +55,10 @@ const Shop = ({
             removeFromCart={handleRemoveFromCart}
             cartItems={cartItems}
             selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
             selectedProductCount={selectedProductCount}
           />
         ))}
       </div>
-      <CartModal
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-        isOpen={cartIsOpen}
-        onClose={closeCartModal}
-        selectedItems={selectedItems}
-        products={products}
-      />
     </div>
   );
 };

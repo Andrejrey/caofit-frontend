@@ -5,8 +5,6 @@ const ShopArticle = ({
   cartItems,
   addToCart,
   removeFromCart,
-  selectedItems,
-  setSelectedItems,
   selectedProductCount,
 }) => {
   const isProductInCart = cartItems && cartItems.includes(product.id);
@@ -14,10 +12,8 @@ const ShopArticle = ({
   const handleToggleCart = () => {
     if (isProductInCart) {
       removeFromCart(product.id);
-      setSelectedItems(selectedItems.filter((id) => id !== product.id));
     } else {
       addToCart(product.id);
-      setSelectedItems([...selectedItems, product.id]);
     }
   };
 
@@ -49,7 +45,7 @@ const ShopArticle = ({
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="mt-1 p-2 ">
+          <div className="mt-1 p-2">
             <h2 className="font-bold text-slate-900">{product.item_name}</h2>
             <p className="text-slate-700">{product.item_flavour}</p>
             <div className="mt-3 flex items-center justify-between">
@@ -61,16 +57,18 @@ const ShopArticle = ({
                   isProductInCart
                     ? "bg-second text-white hover:bg-dark-blue"
                     : "bg-first hover:bg-yellow-400"
-                } px-4 text-blue-900 duration-100 `}
+                } px-4 text-blue-900 duration-100`}
                 onClick={handleToggleCart}
               >
                 {cartIcon}
                 <button className="text-sm md:text-xs">
                   {isProductInCart ? "Remove" : "Add to Cart"}
                 </button>
-                <span className="ml-2 text-sm md:text-xs">
-                  {isProductInCart ? selectedProductCount : null}
-                </span>
+                {isProductInCart && (
+                  <span className="ml-2 text-sm md:text-xs">
+                    {selectedProductCount}
+                  </span>
+                )}
               </div>
             </div>
           </div>
