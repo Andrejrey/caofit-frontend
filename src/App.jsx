@@ -8,7 +8,7 @@ import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
-import Contact from "./components/Contact";
+import LegalNotice from "./components/LegalNotice";
 import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
@@ -55,9 +55,6 @@ function App() {
       .then((response) => {
         setFood(response.data);
       });
-  }, []);
-
-  useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items`)
       .then((response) => {
@@ -76,13 +73,16 @@ function App() {
   const addToCart = (productId) => {
     if (cartItems.includes(productId)) {
       setCartItems(cartItems.filter((id) => id !== productId));
+      updateSelectedProductCount(selectedProductCount - 1);
     } else {
       setCartItems([...cartItems, productId]);
+      updateSelectedProductCount(selectedProductCount + 1);
     }
   };
 
   const deleteProduct = (productId) => {
     setCartItems(cartItems.filter((id) => id !== productId));
+    updateSelectedProductCount(selectedProductCount - 1);
   };
 
   const clearCart = () => {
@@ -184,13 +184,6 @@ function App() {
           }
         />
         <Route
-          path="auth"
-          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
-        >
-          <Route path="profile" element={<UserProfile user={user} />} />
-          <Route path="diary" element={<Diary />} />
-        </Route>
-        <Route
           path="calculator"
           element={
             <Calculator
@@ -200,10 +193,15 @@ function App() {
             />
           }
         />
+        <Route path="diary" element={<Diary user={user} token={token} />} />
+        <Route
+          path="auth"
+          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
+        >
+          <Route path="profile" element={<UserProfile user={user} />} />
+        </Route>
 
-        <Route path="/contact" element={<Contact />} />
-
-        <Route path="*" element={<NotFound />} />
+        <Route path="legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal
         cartItems={cartItems}

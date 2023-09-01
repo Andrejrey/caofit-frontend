@@ -91,7 +91,7 @@ function DesktopNavbar({
               to={"/shop"}
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
-              Shopping
+              Shop
             </Link>
             <Link
               onClick={() => setIsOpen(false)}
@@ -100,20 +100,16 @@ function DesktopNavbar({
             >
               Calculator
             </Link>
+          </>
+          {isAuthenticated && (
             <Link
               onClick={() => setIsOpen(false)}
-              to="/auth/diary"
+              to="/diary"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Diary
             </Link>
-          </>
-          <Link
-            to="/contact"
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Contact
-          </Link>
+          )}
           {!isAuthenticated && (
             <Link
               to="/login"
@@ -137,7 +133,7 @@ function DesktopNavbar({
               </button>
               {isOpen && (
                 <div className="bg-second rounded-md absolute right-0 mt-2">
-                  <div className="flex items-center pt-3 pb-2 pl-3 pr-3">
+                  <div className="flex items-start pt-3 pb-2 pl-3 pr-3">
                     <AccountBoxIcon />
                     <Link
                       to="/auth/profile"
@@ -151,7 +147,7 @@ function DesktopNavbar({
                     <Link
                       onClick={logOut}
                       to="/"
-                      className="block text-red-600 hover:text-red-500 ml-1"
+                      className="block hover:text-yellow-400 ml-1"
                     >
                       Logout
                     </Link>
@@ -168,20 +164,11 @@ function DesktopNavbar({
           >
             {cartIcon}
             <span className="absolute right-0 top-2 flex h-5 w-5 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-full bg-first text-blue-900">
-              {selectedProductCount}
+              {selectedProductCount > 0 ? selectedProductCount : 0}
             </span>
           </div>
         )}
       </div>
-      <CartModal
-        cartItems={cartItems}
-        clearCart={clearCart}
-        isOpen={cartModalOpen}
-        onClose={() => setCartModalOpen(false)}
-        products={[]}
-        selectedItems={cartItems}
-        updateSelectedProductCount={updateSelectedProductCount}
-      />
     </div>
   );
 }

@@ -37,7 +37,7 @@ function CartModal({
   const increaseQuantity = (productId) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
-      [productId]: prevQuantities[productId] + 1,
+      [productId]: (prevQuantities[productId] || 0) + 1,
     }));
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + getProductPrice(productId)
@@ -56,8 +56,23 @@ function CartModal({
       );
       updateSelectedProductCount((prevCount) => prevCount - 1);
     } else {
+      const updatedQuantities = { ...quantities };
+      delete updatedQuantities[productId];
+
+      const removedProduct = products.find((p) => p.id === productId);
+      if (removedProduct) {
+        setTotalPrice(
+          (prevTotalPrice) =>
+            prevTotalPrice -
+            removedProduct.item_price * (quantities[productId] || 0)
+        );
+      }
+
       deleteProduct(productId);
-      updateSelectedProductCount(selectedProductCount - quantities[productId]);
+      updateSelectedProductCount(
+        (prevCount) => prevCount - (quantities[productId] || 0)
+      );
+      setQuantities(updatedQuantities);
     }
   };
 
@@ -68,7 +83,7 @@ function CartModal({
 
   const totalItems = cartItems.length;
   const closeOnEmptyCart =
-    totalItems === 0 || (totalItems === 1 && quantities[cartItems[0]] === 0);
+    totalItems === 0 || (totalItems === 1 && !quantities[cartItems[0]]);
 
   const handleCloseModal = () => {
     setTimeout(() => {
@@ -84,9 +99,32 @@ function CartModal({
     handleCloseModal();
   };
 
+  const handleRemoveFromCart = (productId) => {
+    const productQuantity = quantities[productId] || 0;
+
+    if (productQuantity > 1) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [productId]: prevQuantities[productId] - 1,
+      }));
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice - getProductPrice(productId)
+      );
+      updateSelectedProductCount((prevCount) => prevCount - 1);
+    } else {
+      const updatedQuantities = { ...quantities };
+      delete updatedQuantities[productId];
+      setQuantities(updatedQuantities);
+      updateSelectedProductCount((prevCount) => prevCount - 1);
+    }
+
+    deleteProduct(productId);
+  };
+
   if (!isOpen) {
     return null;
   }
+
   return (
     <div
       className={`fixed inset-0 z-50 overflow-y-auto ${
@@ -141,7 +179,7 @@ function CartModal({
                           >
                             <IoRemove />
                           </button>
-                          <span>{quantities[product.id]}</span>
+                          <span>{quantities[product.id] || 0}</span>
                           <button
                             className="rounded-lg bg-gray-100 px-2 py-1"
                             onClick={() => increaseQuantity(product.id)}
@@ -150,12 +188,7 @@ function CartModal({
                           </button>
                           <button
                             className="h-8 w-8 text-red-500"
-                            onClick={() => {
-                              deleteProduct(product.id);
-                              updateSelectedProductCount(
-                                selectedProductCount - quantities[product.id]
-                              );
-                            }}
+                            onClick={() => handleRemoveFromCart(product.id)}
                           >
                             <FaTrash className="h-5 w-5 transform hover:text-red-600" />
                           </button>

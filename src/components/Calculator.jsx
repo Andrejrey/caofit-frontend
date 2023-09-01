@@ -10,12 +10,12 @@ import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
 const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
 const Calculator = ({ food, isAuthenticated }) => {
-  const [measureValue, setMeasureValue] = useState();
+  const [measureValue, setMeasureValue] = useState("");
   const [selectedFood, setSelectedFood] = useState(null);
   const [totalFoodNutritionalValue, setTotalFoodNutritionalValue] = useState(
     []
   );
-  const [date, setDate] = useState();
+  const [date, setDate] = useState("");
   const inputRef = useRef();
   const navigate = useNavigate();
 
