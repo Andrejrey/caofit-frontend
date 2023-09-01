@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 export const getUser = async (token) => {
   try {
     const res = await fetch(`${import.meta.env.VITE_APP_CAOFIT_API}/users/me`, {

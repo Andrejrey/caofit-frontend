@@ -59,7 +59,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop__items`)
+      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items`)
       .then((response) => {
         setShopItems(response.data);
       });
@@ -105,6 +105,18 @@ function App() {
     setCartModalOpen(false);
   };
 
+  const logOut = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setUser(null);
+    setIsAuthenticated(false);
+    setIsOpen(false);
+  };
+
+  const updateSelectedProductCount = (count) => {
+    setSelectedProductCount(count);
+  };
+
   return (
     <>
       <Header
@@ -115,11 +127,10 @@ function App() {
         clearCart={clearCart}
         isAuthenticated={isAuthenticated}
         user={user}
-        // logOut={logOut}
+        logOut={logOut}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
       />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -203,7 +214,7 @@ function App() {
         deleteProduct={deleteProduct}
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
-        // updateSelectedProductCount={updateSelectedProductCount}
+        updateSelectedProductCount={updateSelectedProductCount}
       />
       <Footer />
     </>
