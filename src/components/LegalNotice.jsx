@@ -59,6 +59,7 @@ const LegalNotice = () => {
           <h2 className="text-lg font-semibold mb-2">Images sources</h2>
           <li className="ml-5">Background images by Freepik</li>
           <li className="ml-5">Icon images by Flaticon</li>
+          <li className="ml-5">Product images by ESN & foodspring</li>
         </div>
       </div>
     </div>
