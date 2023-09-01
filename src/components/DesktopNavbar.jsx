@@ -159,25 +159,16 @@ function DesktopNavbar({
         </nav>
         {selectedProductCount > 0 && (
           <div
-            className="relative ml-5 flex hidden cursor-pointer items-center text-white md:block"
+            className="relative ml-5 hidden flex cursor-pointer items-center text-white md:block"
             onClick={openCartModal}
           >
             {cartIcon}
             <span className="absolute right-0 top-2 flex h-5 w-5 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-full bg-first text-blue-900">
-              {selectedProductCount}
+              {selectedProductCount > 0 ? selectedProductCount : 0}
             </span>
           </div>
         )}
       </div>
-      <CartModal
-        cartItems={cartItems}
-        clearCart={clearCart}
-        isOpen={cartModalOpen}
-        onClose={() => setCartModalOpen(false)}
-        products={[]}
-        selectedItems={cartItems}
-        updateSelectedProductCount={updateSelectedProductCount}
-      />
     </div>
   );
 }
