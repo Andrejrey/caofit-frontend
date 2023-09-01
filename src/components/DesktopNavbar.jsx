@@ -79,6 +79,7 @@ function DesktopNavbar({
           } md:flex md:flex-row md:justify-end`}
         >
           <Link
+            onClick={() => setIsOpen(false)}
             className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             to={"/"}
           >
@@ -86,18 +87,21 @@ function DesktopNavbar({
           </Link>
           <>
             <Link
+              onClick={() => setIsOpen(false)}
               to={"/shop"}
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Shopping
             </Link>
             <Link
+              onClick={() => setIsOpen(false)}
               to="/calculator"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Calculator
             </Link>
             <Link
+              onClick={() => setIsOpen(false)}
               to="/auth/diary"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
