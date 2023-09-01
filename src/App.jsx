@@ -105,8 +105,6 @@ function App() {
     setCartModalOpen(false);
   };
 
-  const name = "Andrej";
-
   return (
     <>
       <Header
@@ -117,7 +115,7 @@ function App() {
         clearCart={clearCart}
         isAuthenticated={isAuthenticated}
         user={user}
-        logOut={logOut}
+        // logOut={logOut}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
       />
@@ -205,7 +203,7 @@ function App() {
         deleteProduct={deleteProduct}
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
-        updateSelectedProductCount={updateSelectedProductCount}
+        // updateSelectedProductCount={updateSelectedProductCount}
       />
       <Footer />
     </>
