@@ -22,6 +22,8 @@ export default {
           "url('src/assets/background/green-weights-blue-background-with-copy-space.jpg')",
         ImprintBg:
           "url('src/assets/background/weights-meter-bottle-water-with-copy-space.jpg')",
+        LoginBg:
+          "url('src/assets/background/top-view-weights-meter-with-copy-space.jpg')",
       },
     },
   },
