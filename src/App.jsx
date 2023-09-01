@@ -29,7 +29,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [loadingAuthRequest, setLoadingAuthRequest] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [diary, setDiary] = useState([]);
 
   useEffect(() => {
     const validateTOken = async () => {
@@ -56,21 +55,12 @@ function App() {
       .then((response) => {
         setFood(response.data);
       });
-  }, []);
-
-  useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items`)
       .then((response) => {
         setShopItems(response.data);
       });
   }, []);
-
-  useEffect(() => {
-    axios.get("http://localhost:8080/get_user_diary").then((response) => {
-      setDiary(response.data);
-    });
-  });
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -203,7 +193,7 @@ function App() {
             />
           }
         />
-        <Route path="diary" element={<Diary diary={diary} />} />
+        <Route path="diary" element={<Diary user={user} token={token} />} />
         <Route
           path="auth"
           element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
