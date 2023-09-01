@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import logo from "../assets/logo/CaoFit_light_logo_without_text.svg";
 

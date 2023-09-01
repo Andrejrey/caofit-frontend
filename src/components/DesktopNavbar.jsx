@@ -108,12 +108,6 @@ function DesktopNavbar({
               Diary
             </Link>
           </>
-          <Link
-            to="/contact"
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Contact
-          </Link>
           {!isAuthenticated && (
             <Link
               to="/login"
@@ -163,7 +157,7 @@ function DesktopNavbar({
         </nav>
         {selectedProductCount > 0 && (
           <div
-            className="relative ml-5 hidden flex cursor-pointer items-center text-white md:block"
+            className="relative ml-5 hidden cursor-pointer items-center text-white md:block"
             onClick={openCartModal}
           >
             {cartIcon}
