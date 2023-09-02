@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { loginUser } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import logo from "../assets/logo/logo-dark-removedBG.png";
+import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
 
 function LoginForm({
   onClose,
@@ -50,7 +50,7 @@ function LoginForm({
   // if (isAuthenticated) return <Navigate to="/auth" />;
 
   return (
-    <div className="flex h-screen justify-evenly bg-second">
+    <div className="flex h-screen justify-evenly bg-LoginBg bg-cover bg-right">
       <div className="flex items-center justify-center">
         <img
           src={logo}
@@ -58,7 +58,7 @@ function LoginForm({
           className="hidden w-80 items-center justify-center lg:block"
         />
       </div>
-      <div className="flex w-full items-center justify-center space-y-8 bg-second lg:w-1/2">
+      <div className="flex w-full items-center justify-center space-y-8 lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
           <form
             onSubmit={handleSubmit}

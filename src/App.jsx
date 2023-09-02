@@ -9,6 +9,7 @@ import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
 import Contact from "./components/Contact";
+import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
@@ -56,9 +57,6 @@ function App() {
       .then((response) => {
         setFood(response.data);
       });
-  }, []);
-
-  useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items`)
       .then((response) => {
@@ -183,13 +181,6 @@ function App() {
           }
         />
         <Route
-          path="auth"
-          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
-        >
-          <Route path="profile" element={<UserProfile user={user} />} />
-          <Route path="diary" element={<Diary />} />
-        </Route>
-        <Route
           path="calculator"
           element={
             <Calculator
@@ -199,10 +190,15 @@ function App() {
             />
           }
         />
+        <Route path="diary" element={<Diary user={user} token={token} />} />
+        <Route
+          path="auth"
+          element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
+        >
+          <Route path="profile" element={<UserProfile user={user} />} />
+        </Route>
 
-        <Route path="/contact" element={<Contact />} />
-
-        <Route path="*" element={<NotFound />} />
+        <Route path="legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal
         cartItems={cartItems}

@@ -71,6 +71,7 @@ function DesktopNavbar({
           } md:flex md:flex-row md:justify-end`}
         >
           <Link
+            onClick={() => setIsOpen(false)}
             className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             to={"/"}
           >
@@ -78,30 +79,29 @@ function DesktopNavbar({
           </Link>
           <>
             <Link
+              onClick={() => setIsOpen(false)}
               to={"/shop"}
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
-              Shopping
+              Shop
             </Link>
             <Link
+              onClick={() => setIsOpen(false)}
               to="/calculator"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Calculator
             </Link>
+          </>
+          {isAuthenticated && (
             <Link
-              to="/auth/diary"
+              onClick={() => setIsOpen(false)}
+              to="/diary"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Diary
             </Link>
-          </>
-          <Link
-            to="/contact"
-            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-          >
-            Contact
-          </Link>
+          )}
           {!isAuthenticated && (
             <Link
               to="/login"
@@ -124,8 +124,8 @@ function DesktopNavbar({
                 {!isOpen ? <ArrowRightIcon /> : <ArrowDropDownIcon />}
               </button>
               {isOpen && (
-                <div className="absolute right-0 mt-2 rounded-md bg-second">
-                  <div className="flex items-center pb-2 pl-3 pr-3 pt-3">
+                <div className="bg-second rounded-md absolute right-0 mt-2">
+                  <div className="flex items-start pt-3 pb-2 pl-3 pr-3">
                     <AccountBoxIcon />
                     <Link
                       to="/auth/profile"
@@ -139,7 +139,7 @@ function DesktopNavbar({
                     <Link
                       onClick={logOut}
                       to="/"
-                      className="ml-1 block text-red-600 hover:text-red-500"
+                      className="block text-red-600 hover:text-red-500 ml-1"
                     >
                       Logout
                     </Link>

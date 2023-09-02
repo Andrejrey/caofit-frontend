@@ -26,8 +26,8 @@ const RegisterForm = ({
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
       if (!first_name || !last_name || !email || !password)
         return toast.error("Please fill out all the fields");
       setLoadingAuthRequest(true);
