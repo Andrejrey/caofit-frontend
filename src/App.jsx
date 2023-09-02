@@ -8,7 +8,6 @@ import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
-import Contact from "./components/Contact";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
@@ -17,6 +16,7 @@ import ProtectedLayout from "./components/ProtectedLayout";
 import ProductDetails from "./components/ProductDetails";
 import { toast } from "react-toastify";
 import axios from "axios";
+import LegalNotice from "./components/LegalNotice";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
