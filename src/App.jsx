@@ -9,7 +9,6 @@ import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
 import Contact from "./components/Contact";
-import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";

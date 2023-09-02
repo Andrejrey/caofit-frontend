@@ -124,8 +124,8 @@ function DesktopNavbar({
                 {!isOpen ? <ArrowRightIcon /> : <ArrowDropDownIcon />}
               </button>
               {isOpen && (
-                <div className="bg-second rounded-md absolute right-0 mt-2">
-                  <div className="flex items-start pt-3 pb-2 pl-3 pr-3">
+                <div className="absolute right-0 mt-2 rounded-md bg-second">
+                  <div className="flex items-start pb-2 pl-3 pr-3 pt-3">
                     <AccountBoxIcon />
                     <Link
                       to="/auth/profile"
@@ -139,7 +139,7 @@ function DesktopNavbar({
                     <Link
                       onClick={logOut}
                       to="/"
-                      className="block text-red-600 hover:text-red-500 ml-1"
+                      className="ml-1 block text-red-600 hover:text-red-500"
                     >
                       Logout
                     </Link>
