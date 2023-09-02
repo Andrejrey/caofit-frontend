@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { IoAdd, IoRemove } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 
 function CartModal({
   cartItems = [],
@@ -56,23 +58,32 @@ function CartModal({
       );
       updateSelectedProductCount((prevCount) => prevCount - 1);
     } else {
+      handleRemoveFromCart(productId);
+    }
+  };
+
+  const handleRemoveFromCart = (productId) => {
+    const productQuantity = quantities[productId] || 0;
+
+    if (productQuantity > 0) {
       const updatedQuantities = { ...quantities };
       delete updatedQuantities[productId];
+      setQuantities(updatedQuantities);
 
       const removedProduct = products.find((p) => p.id === productId);
       if (removedProduct) {
+        const removedQuantity = productQuantity || 1;
         setTotalPrice(
           (prevTotalPrice) =>
-            prevTotalPrice -
-            removedProduct.item_price * (quantities[productId] || 0)
+            prevTotalPrice - removedProduct.item_price * removedQuantity
         );
       }
 
+      updateSelectedProductCount((prevCount) => prevCount - productQuantity);
       deleteProduct(productId);
-      updateSelectedProductCount(
-        (prevCount) => prevCount - (quantities[productId] || 0)
-      );
-      setQuantities(updatedQuantities);
+      if (Object.keys(updatedQuantities).length === 0) {
+        handleCloseModal();
+      }
     }
   };
 
@@ -86,39 +97,13 @@ function CartModal({
     totalItems === 0 || (totalItems === 1 && !quantities[cartItems[0]]);
 
   const handleCloseModal = () => {
-    setTimeout(() => {
-      onClose();
-    }, 300);
+    onClose();
   };
 
   const handleClearCart = () => {
     clearCart();
     updateSelectedProductCount(0);
-    localStorage.removeItem("cartItems");
-    localStorage.removeItem("selectedProductCount");
     handleCloseModal();
-  };
-
-  const handleRemoveFromCart = (productId) => {
-    const productQuantity = quantities[productId] || 0;
-
-    if (productQuantity > 1) {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [productId]: prevQuantities[productId] - 1,
-      }));
-      setTotalPrice(
-        (prevTotalPrice) => prevTotalPrice - getProductPrice(productId)
-      );
-      updateSelectedProductCount((prevCount) => prevCount - 1);
-    } else {
-      const updatedQuantities = { ...quantities };
-      delete updatedQuantities[productId];
-      setQuantities(updatedQuantities);
-      updateSelectedProductCount((prevCount) => prevCount - 1);
-    }
-
-    deleteProduct(productId);
   };
 
   if (!isOpen) {
