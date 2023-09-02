@@ -10,7 +10,7 @@ const DiaryAccordion = ({ data }) => {
     return new Date(year, month - 1, day); // Monate in JavaScript sind 0-basiert
   };
 
-  // Funktion zur Sortierung der Daten nach Datum
+  // Funktion zur Sortierung der Accordion Items nach Datum
   const sortedData = data.slice().sort((a, b) => {
     const dateA = parseDate(a.date);
     const dateB = parseDate(b.date);
