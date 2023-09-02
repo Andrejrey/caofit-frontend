@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShopArticle = ({
   product,
@@ -9,12 +10,18 @@ const ShopArticle = ({
 }) => {
   const isProductInCart = cartItems && cartItems.includes(product.id);
 
+  const navigate = useNavigate();
+
   const handleToggleCart = () => {
     if (isProductInCart) {
       removeFromCart(product.id);
     } else {
       addToCart(product.id);
     }
+  };
+
+  const navigateToProductDetails = () => {
+    navigate(`/shop/${product.id}`, { state: { product } });
   };
 
   const cartIcon = (
@@ -37,7 +44,10 @@ const ShopArticle = ({
   return (
     <section>
       <div>
-        <article className="h-full transform rounded-xl bg-white p-3 shadow-lg transition hover:scale-105 hover:shadow-xl">
+        <article
+          className="h-full transform cursor-pointer rounded-xl bg-white p-3 shadow-lg transition hover:scale-105 hover:shadow-xl"
+          onClick={navigateToProductDetails}
+        >
           <div className="relative flex h-40 items-end overflow-hidden rounded-xl">
             <img
               src={product.item_image}
@@ -58,7 +68,10 @@ const ShopArticle = ({
                     ? "bg-second text-white hover:bg-dark-blue"
                     : "bg-first hover:bg-yellow-400"
                 } px-4 text-blue-900 duration-100`}
-                onClick={handleToggleCart}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleToggleCart();
+                }}
               >
                 {cartIcon}
                 <button className="text-sm md:text-xs">

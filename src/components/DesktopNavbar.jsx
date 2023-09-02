@@ -1,37 +1,21 @@
-import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 import { Link } from "react-router-dom";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../assets/logo/text-dark.png";
-import CartModal from "./CartModal";
 
 function DesktopNavbar({
   selectedProductCount,
-  incrementSelectedProductCount,
-  updateSelectedProductCount,
   toggleCartModal,
-  cartItems,
-  clearCart,
   isAuthenticated,
   logOut,
   setIsOpen,
   isOpen,
   user,
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [cartModalOpen, setCartModalOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
-  };
-
-  const openCartModal = () => {
-    toggleCartModal();
-    setCartModalOpen(true);
-  };
-
   const cartIcon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +32,14 @@ function DesktopNavbar({
       />
     </svg>
   );
+
+  const toggleMenu = () => {
+    setIsOpen((prevMenuOpen) => !prevMenuOpen);
+  };
+
+  const openCartModal = () => {
+    toggleCartModal();
+  };
 
   return (
     <div className="w-full bg-dark-blue text-white">
@@ -75,7 +67,7 @@ function DesktopNavbar({
         </div>
         <nav
           className={`flex-grow flex-col ${
-            menuOpen ? "flex" : "hidden"
+            isOpen ? "flex" : "hidden"
           } md:flex md:flex-row md:justify-end`}
         >
           <Link
@@ -119,10 +111,10 @@ function DesktopNavbar({
             </Link>
           )}
           {user && isAuthenticated && (
-            <div className="relative mt-2 ml-5 font-semibold text-sm">
+            <div className="relative ml-5 mt-2 text-sm font-semibold">
               <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center hover:text-yellow-400 h-5"
+                onClick={toggleMenu}
+                className="flex h-5 items-center hover:text-yellow-400"
               >
                 <p>
                   {user &&
@@ -132,22 +124,22 @@ function DesktopNavbar({
                 {!isOpen ? <ArrowRightIcon /> : <ArrowDropDownIcon />}
               </button>
               {isOpen && (
-                <div className="bg-second rounded-md absolute right-0 mt-2">
-                  <div className="flex items-start pt-3 pb-2 pl-3 pr-3">
+                <div className="absolute right-0 mt-2 rounded-md bg-second">
+                  <div className="flex items-start pb-2 pl-3 pr-3 pt-3">
                     <AccountBoxIcon />
                     <Link
                       to="/auth/profile"
-                      className="block  hover:text-yellow-400 ml-2"
+                      className="ml-2  block hover:text-yellow-400"
                     >
                       Profile
                     </Link>
                   </div>
-                  <div className="flex items-center pb-3 pt1 pl-3 pr-3">
+                  <div className="pt1 flex items-center pb-3 pl-3 pr-3">
                     <LogoutIcon />
                     <Link
                       onClick={logOut}
                       to="/"
-                      className="block hover:text-yellow-400 ml-1"
+                      className="ml-1 block text-red-600 hover:text-red-500"
                     >
                       Logout
                     </Link>
@@ -174,3 +166,4 @@ function DesktopNavbar({
 }
 
 export default DesktopNavbar;
+``;
