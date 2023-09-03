@@ -5,7 +5,7 @@ const TotalFoodNutritionalValue = ({
   deleteFoodNutritionalValueId,
 }) => {
   return (
-    <div className="mb-2 p-3 rounded-md bg-white flex flex-row flex-nowrap justify-end items-center">
+    <div className="mb-2 mr-2 p-3 rounded-md bg-white flex flex-row flex-nowrap justify-end items-center">
       <div className="w-full grid grid-cols-6 gap-x-3 items-center text-dark-blue-light text-sm font-semibold">
         <div className="col-span-2 flex flex-row flex-nowrap">
           <img

@@ -6,7 +6,7 @@ const TotalNutritionalValue = ({
   totalProteins,
 }) => {
   return (
-    <div className="mb-2 p-3 shadow-lg rounded-md bg-dark-blue-light">
+    <div className="mb-2 mr-2 p-3 shadow-lg rounded-md bg-dark-blue-light">
       <div className="mr-[40px] grid grid-cols-6 gap-x-3 items-center text-white text-sm font-bold">
         <div className="col-span-2 flex flex-row flex-nowrap items-center">
           <img
