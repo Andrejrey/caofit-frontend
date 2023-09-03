@@ -26,7 +26,7 @@ function Navbar() {
       <a
         href="shop"
         className="whitespace-no-wrap flex flex-grow flex-col items-center 
-		justify-center overflow-hidden text-sm text-yellow-400 transition-colors
+		justify-center overflow-hidden text-sm text-white transition-colors
 		duration-100 ease-in-out hover:text-yellow-500"
       >
         <svg

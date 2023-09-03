@@ -6,22 +6,23 @@ const TotalNutritionalValue = ({
   totalProteins,
 }) => {
   return (
-    <div className="grid grid-cols-8 gap-4 items-center mb-5  shadow-lg rounded-xl p-3 font-semibold text-dark-blue-light bg-gray-100">
-      <img src="src\assets\groceryIcon.png" alt="" className="w-8 mr-3" />
-      <LocalGroceryStoreIcon className="text-dark-blue-light" />
-      <p className="mr-3 p-1 rounded-lg font-extrabold">Total</p>
-      <p className="mr-3 p-1 rounded-lg ">
-        {Math.round(totalCarbs * 100) / 100}g
-      </p>
-      <p className="mr-3 p-1 rounded-lg ">
-        {Math.round(totalFat * 100) / 100}g
-      </p>
-      <p className="mr-3 p-1 rounded-lg ">
-        {Math.round(totalKcal * 100) / 100}
-      </p>
-      <p className="mr-3 p-1 rounded-lg ">
-        {Math.round(totalProteins * 100) / 100}g
-      </p>
+    <div className="mb-2 mr-2 p-3 shadow-lg rounded-md bg-dark-blue-light">
+      <div className="mr-[40px] grid grid-cols-6 gap-x-3 items-center text-white text-sm font-bold">
+        <div className="col-span-2 flex flex-row flex-nowrap items-center">
+          <img
+            src="src\assets\groceryIcon.png"
+            alt="Total image"
+            className="w-8 h-8 mr-2"
+          />
+          <p className="font-bold">Total</p>
+        </div>
+        <div className="text-right">{Math.round(totalCarbs * 100) / 100}g</div>
+        <div className="text-right">{Math.round(totalFat * 100) / 100}g</div>
+        <div className="text-right">
+          {Math.round(totalProteins * 100) / 100}g
+        </div>
+        <div className="text-right">{Math.round(totalKcal * 100) / 100}</div>
+      </div>
     </div>
   );
 };
