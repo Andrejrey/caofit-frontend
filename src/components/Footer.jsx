@@ -20,7 +20,7 @@ function Footer() {
               </div>
               <div>
                 <Link
-                  to="/calculator/"
+                  to="/calculator"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Calculator
@@ -36,7 +36,7 @@ function Footer() {
               </div>
               <div>
                 <Link
-                  to="/diary/"
+                  to="/diary"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Diary
@@ -52,7 +52,7 @@ function Footer() {
               </div>
               <div>
                 <Link
-                  to="/shop/"
+                  to="/shop"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Shop
@@ -60,7 +60,7 @@ function Footer() {
               </div>
               <div>
                 <Link
-                  to="/legal-notice/"
+                  to="/legal-notice"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Legal Notice

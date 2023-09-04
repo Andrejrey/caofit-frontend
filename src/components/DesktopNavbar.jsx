@@ -80,14 +80,14 @@ function DesktopNavbar({
           <>
             <Link
               onClick={() => setIsOpen(false)}
-              to={"/shop/"}
+              to={"/shop"}
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Shop
             </Link>
             <Link
               onClick={() => setIsOpen(false)}
-              to="/calculator/"
+              to="/calculator"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Calculator
@@ -96,7 +96,7 @@ function DesktopNavbar({
           {isAuthenticated && (
             <Link
               onClick={() => setIsOpen(false)}
-              to="/diary/"
+              to="/diary"
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Diary
@@ -104,7 +104,7 @@ function DesktopNavbar({
           )}
           {!isAuthenticated && (
             <Link
-              to="/login/"
+              to="/login"
               className="shadow-outline text-bold mt-2 cursor-pointer rounded-lg bg-first px-4 py-2 text-sm font-semibold text-blue-900 hover:bg-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Login
@@ -128,7 +128,7 @@ function DesktopNavbar({
                   <div className="flex items-start pb-2 pl-3 pr-3 pt-3">
                     <AccountBoxIcon />
                     <Link
-                      to="/auth/profile/"
+                      to="/auth/profile"
                       className="ml-2  block hover:text-yellow-400"
                     >
                       Profile
