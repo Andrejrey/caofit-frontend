@@ -24,7 +24,7 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
 
   const formatDescription = (description) => {
     if (!description) return "";
-    return description.replace(/\{|\}|"|,/g, "").replace(/\./g, ". ");
+    return description.replace(/[{}"]/g, "").trim();
   };
 
   const handleToggleCart = () => {
@@ -42,33 +42,26 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
       {loading ? (
         <div>Loading...</div>
       ) : shopItem ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <div className="col-span-2 lg:col-span-3">
-            <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-lg md:flex-row">
-              <div className="w-full md:w-1/2">
-                <img
-                  src={shopItem[0].item_image}
-                  alt={shopItem[0].item_name}
-                  className="h-auto w-full rounded-lg"
-                />
-              </div>
-              <div className="ml-0 mt-4 w-full md:ml-4 md:mt-0 md:w-1/2">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  {shopItem[0].item_name}
-                </h1>
-                <p className="mb-5 text-gray-600">{shopItem[0].item_flavour}</p>
-                <p className="text-gray-800">
-                  {formatDescription(shopItem[0].item_description)}
-                </p>
-              </div>
-            </div>
+        <div className="lg:flex lg:items-center lg:justify-center lg:space-x-4">
+          <div className="lg:w-1/3">
+            <img
+              src={shopItem[0].item_image}
+              alt={shopItem[0].item_name}
+              className="h-auto w-full rounded-lg shadow-lg"
+            />
           </div>
-          <div className="lg:col-span-1">
+          <div className="lg:w-1/2">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                Product Details:
-              </h3>
-              <ul className="space-y-2">
+              <h1 className="mb-2 text-4xl font-semibold text-gray-900">
+                {shopItem[0].item_name}
+              </h1>
+              <p className="mb-4 text-xl text-gray-600">
+                {shopItem[0].item_flavour}
+              </p>
+              <div className="text-gray-800">
+                {formatDescription(shopItem[0].item_description)}
+              </div>
+              <ul className="mt-6 space-y-2">
                 <li>
                   <span className="font-semibold">Size:</span>{" "}
                   {shopItem[0].item_size}
@@ -83,11 +76,11 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
                 </li>
               </ul>
               <button
-                className={`mt-4 w-full rounded-lg ${
+                className={`mt-8 w-full rounded-lg ${
                   isProductInCart
                     ? "bg-red-500 hover:bg-red-600"
                     : "bg-second hover:bg-dark-blue-light"
-                } py-2 text-white`}
+                } py-3 text-lg font-semibold text-white`}
                 onClick={handleToggleCart}
               >
                 {isProductInCart ? "Remove from Cart" : "Add to Cart"}
