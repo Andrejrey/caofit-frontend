@@ -61,7 +61,7 @@ function LoginForm({
           </p>
         </div>
       </div>
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-full items-center justify-center space-y-8 lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
           <form
             onSubmit={handleSubmit}
