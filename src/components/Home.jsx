@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
+import logo from "../assets/logo/caoFit_dark_logo_without_text.svg";
 import strong from "../assets/icons/muscle.png";
 import book from "../assets/icons/open-book.png";
 import shopping from "../assets/icons/shopping-cart.png";
