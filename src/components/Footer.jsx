@@ -19,52 +19,52 @@ function Footer() {
                 <p className="font-semibold text-white border-b">Quick Links</p>
               </div>
               <div>
-                <a
-                  href="calculator"
+                <Link
+                  to="calculator"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Calculator
-                </a>
+                </Link>
               </div>
               <div>
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Home
-                </a>
+                </Link>
               </div>
               <div>
-                <a
-                  href="diary"
+                <Link
+                  to="diary"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Diary
-                </a>
+                </Link>
               </div>
               <div>
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   News
-                </a>
+                </Link>
               </div>
               <div>
-                <a
-                  href="shop"
+                <Link
+                  to="shop"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Shop
-                </a>
+                </Link>
               </div>
               <div>
-                <a
-                  href="legal-notice"
+                <Link
+                  to="legal-notice"
                   className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
                 >
                   Legal Notice
-                </a>
+                </Link>
               </div>
             </div>
           </div>
