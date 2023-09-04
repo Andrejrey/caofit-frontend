@@ -202,7 +202,7 @@ function App() {
           path="auth"
           element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
         >
-          <Route path="/profile/" element={<UserProfile user={user} />} />
+          <Route path="profile/" element={<UserProfile user={user} />} />
         </Route>
         <Route path="/legal-notice/" element={<LegalNotice />} />
       </Routes>
