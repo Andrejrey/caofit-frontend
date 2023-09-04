@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import { getUser } from "./utils/authUtils";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
@@ -8,30 +8,31 @@ import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Calculator from "./components/Calculator";
 import Diary from "./components/Diary";
-import LegalNotice from "./components/LegalNotice";
-import ShopArticle from "./components/ShopArticle";
 import CartModal from "./components/CartModal";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import UserProfile from "./components/UserProfile";
 import ProtectedLayout from "./components/ProtectedLayout";
+import ProductDetails from "./components/ProductDetails";
 import { toast } from "react-toastify";
 import axios from "axios";
+import LegalNotice from "./components/LegalNotice";
 
 function App() {
-  const [selectedProductCount, setSelectedProductCount] = useState(0);
-  const [shopItems, setShopItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  const [food, setFood] = useState([]);
-  const [isCartModalOpen, setCartModalOpen] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loadingAuthRequest, setLoadingAuthRequest] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedProductCount, setSelectedProductCount] = useState(0);
+  const [shopItems, setShopItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [food, setFood] = useState([]);
+  const [isCartModalOpen, setCartModalOpen] = useState(false);
+  const { id } = useParams();
 
   useEffect(() => {
-    const validateTOken = async () => {
+    const validateToken = async () => {
       try {
         setLoadingAuthRequest(true);
         const { data, error } = await getUser(token);
@@ -46,7 +47,7 @@ function App() {
         toast.error(error.message);
       }
     };
-    token && validateTOken();
+    token && validateToken();
   }, [token]);
 
   useEffect(() => {
@@ -61,8 +62,6 @@ function App() {
         setShopItems(response.data);
       });
   }, []);
-
-  console.log(food && food);
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -117,6 +116,10 @@ function App() {
 
   const updateSelectedProductCount = (count) => {
     setSelectedProductCount(count);
+  };
+  const removeFromCart = (productId) => {
+    setCartItems(cartItems.filter((id) => id !== productId));
+    updateSelectedProductCount(selectedProductCount - 1);
   };
 
   return (
@@ -178,12 +181,10 @@ function App() {
         <Route
           path="/shop/:id"
           element={
-            <ShopArticle
-              incrementSelectedProductCount={incrementSelectedProductCount}
-              decrementSelectedProductCount={decrementSelectedProductCount}
-              cartItems={cartItems}
+            <ProductDetails
               addToCart={addToCart}
-              removeFromCart={deleteProduct}
+              removeFromCart={removeFromCart}
+              cartItems={cartItems}
             />
           }
         />

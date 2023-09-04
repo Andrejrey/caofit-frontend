@@ -5,110 +5,115 @@ import logo from "../assets/logo/CaoFit_light_logo_without_text.svg";
 function Footer() {
   return (
     <footer className="relative z-0 bg-dark-blue">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-          <div className="sm:col-span-2">
-            <h1 className="max-w-lg text-xl font-semibold tracking-tight text-white xl:text-2xl">
-              Subscribe to our newsletter to get updates.
-            </h1>
-            <div className="mx-auto mt-6 flex flex-col space-y-3 md:flex-row md:space-y-0">
-              <input
-                id="email"
-                type="text"
-                className="rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-yellow-500 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-opacity-40"
-                placeholder="Email Address"
-              />
-              <button className="w-full transform rounded-lg bg-first px-6 py-2.5 text-sm font-medium tracking-wider text-black transition-colors duration-300 hover:bg-yellow-500 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-opacity-80 md:mx-4 md:w-auto">
-                Subscribe
-              </button>
-            </div>
-          </div>
-          <div>
-            <p className="font-semibold text-white">Quick Links</p>
-            <div className="mt-5 flex flex-col items-start space-y-2">
-              <a
-                href="#"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                Home
-              </a>
-              <a
-                href="calculator"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                Calculator
-              </a>
-              <a
-                href="diary"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                Diary
-              </a>
-            </div>
-          </div>
-          <div>
-            <p className="font-semibold text-white">Quick Links</p>
-            <div className="mt-5 flex flex-col items-start space-y-2">
-              <a
-                href="shop"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                Shopping
-              </a>
-              <a
-                href="#"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                News
-              </a>
-              <a
-                href="legal-notice"
-                className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
-              >
-                Legal Notice
-              </a>
-            </div>
-          </div>
-        </div>
-        <hr className="my-6 border-gray-200 md:my-8" />
-        <div className="flex items-center justify-evenly">
-          <a href="/" className="flex-col">
+      <div className="sm:flex sm:justify-center px-6 py-10">
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="h-fit flex flex-row justify-center items-center md:col-span-3 lg:col-span-1">
             <img className="h-32 w-32 ml-6" src={logo} alt="Logo" />
-            <p className="text-white text-center font-normal text-4xl">
-              C a o <span className="text-first font-bold">F I T</span>
+            <p className="text-white text-center font-normal text-3xl ml-2">
+              C a o <span className="text-first font-semibold ">F I T</span>
             </p>
-          </a>
-          <div className="-mx-2 flex">
-            <a
-              href="https://github.com/claudia-sikorski"
-              className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
-              aria-label="Github"
-            >
-              <FaGithub className="h-8 w-8 fill-current" />
-              <span className="flex items-center justify-center font-sans text-xl">
-                C
-              </span>
-            </a>
-            <a
-              href="https://github.com/Andrejrey"
-              className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
-              aria-label="Github"
-            >
-              <FaGithub className="h-8 w-8 fill-current" />
-              <span className="flex items-center justify-center font-sans text-xl">
-                A
-              </span>
-            </a>
-            <a
-              href="https://github.com/iomid23"
-              className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
-              aria-label="Github"
-            >
-              <FaGithub className="h-8 w-8 fill-current" />
-              <span className="flex items-center justify-center font-sans text-xl">
-                O
-              </span>
-            </a>
+          </div>
+          <div className="sm:w-[500px] md:w-[320px]">
+            <div className="grid grid-cols-2 space-y-2">
+              <div className="col-span-2">
+                <p className="font-semibold text-white border-b">Quick Links</p>
+              </div>
+              <div>
+                <Link
+                  to="calculator"
+                  className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+                >
+                  Calculator
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="/"
+                  className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+                >
+                  Home
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="diary"
+                  className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+                >
+                  Diary
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="#"
+                  className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+                >
+                  News
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="shop"
+                  className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+                >
+                  Shop
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="legal-notice"
+                  className="text-white transition-colors duration-300 hover:text-yellow-500 hover:underline"
+                >
+                  Legal Notice
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="sm:w-[500px] md:w-[320px]">
+            <div className="grid grid-cols-1 space-y-2 justify-center items-center mb-3">
+              <div>
+                <p className="font-semibold text-white border-b mb-2">
+                  The Crew Members
+                </p>
+              </div>
+              <div className="flex flex-row justify-center">
+                <div className="flex flex-col items-center w-fit">
+                  <a
+                    href="https://github.com/claudia-sikorski"
+                    className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
+                    aria-label="Github"
+                  >
+                    <FaGithub className="h-14 w-14 fill-current" />
+                    <span className="flex items-center justify-center font-sans text-xl">
+                      C
+                    </span>
+                  </a>
+                </div>
+                <div className="flex flex-col items-center w-fit">
+                  <a
+                    href="https://github.com/Andrejrey"
+                    className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
+                    aria-label="Github"
+                  >
+                    <FaGithub className="h-14 w-14 fill-current" />
+                    <span className="flex items-center justify-center font-sans text-xl">
+                      A
+                    </span>
+                  </a>
+                </div>
+                <div className="flex flex-col items-center w-fit">
+                  <a
+                    href="https://github.com/iomid23"
+                    className="mx-2 text-white transition-colors duration-300 hover:text-yellow-500"
+                    aria-label="Github"
+                  >
+                    <FaGithub className="h-14 w-14 fill-current" />
+                    <span className="flex items-center justify-center font-sans text-xl">
+                      O
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

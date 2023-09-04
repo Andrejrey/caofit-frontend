@@ -186,30 +186,38 @@ const Calculator = ({ food, isAuthenticated }) => {
       : "";
 
   return (
-    <div className="flex justify-center lg:items-center lg:bg-diaryBg bg-cover bg-right">
-      <div className="h-full ml-5 mr-5 mt-8 mb-8 w-9/12 bg-gray-200 p-8 rounded-md">
-        <h1 className="text-5xl font-extrabold text-dark-blue">
-          CaoFIT
-          <span className="text-3xl font-bold text-dark-blue-light">
-            Calculator
-          </span>
-        </h1>
-        <div className="flex items-center mt-5">
+    <div className="flex flex-col h-fit lg:h-screen lg:items-center lg:bg-diaryBg lg:bg-cover lg:bg-right">
+      <div className="bg-gray-200 sm:h-fit lg:h-[90vh] lg:rounded-md lg:shadow-xl lg:my-8 lg:w-3/5 2xl:w-2/5">
+        <div className="px-2 py-2">
+          <h1 className="text-5xl font-extrabold text-dark-blue">
+            CaoFIT
+            <span className="text-3xl font-bold text-dark-blue-light">
+              Calculator
+            </span>
+          </h1>
+        </div>
+        <div className="px-2 py-2">
+          <div className="flex flex-row flex-nowrap items-center pb-2">
+            <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
+              <p className="font-bold text-dark-blue pb-0.5">1</p>
+            </div>
+            <p className="text-dark-blue font-semibold">Select a date:</p>
+          </div>
           <input
             onChange={onChangeDateInputHandler}
             type="date"
             value={date}
             className="rounded-lg border border-dark-blue-light p-1"
           />
-          {date && (
-            <p className="ml-5 text-lg font-bold">
-              {selectedDayOfWeek}{" "}
-              <span className="font-semibold">{selectedDate}</span>
-            </p>
-          )}
         </div>
-        <div className="mt-5 flex rounded-md ">
-          <div className="flex">
+        <div className="px-2 py-2 flex flex-col">
+          <div className="flex flex-row flex-nowrap items-center pb-2">
+            <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
+              <p className="font-bold text-dark-blue pb-0.5">2</p>
+            </div>
+            <p className="text-dark-blue font-semibold">Add your food:</p>
+          </div>
+          <div className="flex flex-col md:flex-row">
             {food && (
               <Select
                 options={food.map((f) => {
@@ -218,57 +226,77 @@ const Calculator = ({ food, isAuthenticated }) => {
                     label: f.name.charAt(0).toUpperCase() + f.name.slice(1),
                   };
                 })}
-                className="mr-5 w-72"
+                className="w-[300px] mb-2 md:mr-3"
                 onChange={onChangeSelectHandler}
               />
             )}
-            <input
-              onChange={onChangeInputHandler}
-              value={measureValue}
-              type="text"
-              className="mr-5 block h-9 w-36 rounded-lg border border-first bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-dark-blue dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder={selectedFood && selectedFood.unit}
-              ref={inputRef}
-            />
-            <button
-              className="cursor-pointer rounded-lg bg-first pl-3 pr-3 font-semibold text-dark-blue-light hover:bg-yellow-400"
-              onClick={addFoodCalculation}
-            >
-              Add
-            </button>
+            <div className="flex flex-row flex-nowrap">
+              <input
+                onChange={onChangeInputHandler}
+                value={measureValue}
+                type="text"
+                className="mr-2 block h-9 w-[237px] rounded-lg border border-first bg-gray-50 p-2.5 text-sm focus:border-yellow-400 focus:ring-yellow-400"
+                placeholder={selectedFood && selectedFood.unit}
+                ref={inputRef}
+              />
+              <button
+                className="transform cursor-pointer rounded-lg bg-first h-[36px] pl-3 pr-3 font-semibold text-dark-blue hover:bg-yellow-400"
+                onClick={addFoodCalculation}
+              >
+                Add
+              </button>
+            </div>
           </div>
-          <div className="flex justify-center items-center"></div>
         </div>
-        <div className="grid grid-cols-8 gap-4 font-extrabold items-center mb-3 mt-5 shadow-lg rounded-xl p-3 text-dark-blue-light bg-white">
-          <img src={logo} alt="" className="w-16" />
-          <div className="font-extrabold">Grocerie</div>
-          <p>Quantity</p>
-          <p>Carbs</p>
-          <p>Fat</p>
-          <p>Kcal</p>
-          <p>Proteins</p>
-          <div></div>
-        </div>
-        {totalFoodNutritionalValue.map((t, i) => {
-          return (
-            <TotalFoodNutritionalValue
-              totalFood={t}
-              key={i}
-              deleteFoodNutritionalValueId={deleteFoodNutritionalValueId}
+        <div className="px-2 py-2 flex flex-col">
+          <div className="flex flex-row flex-nowrap items-center pb-2">
+            <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
+              <p className="font-bold text-dark-blue pb-0.5">3</p>
+            </div>
+            <p className="text-dark-blue font-semibold">
+              Save the food in your diary:
+            </p>
+          </div>
+
+          <div className="lg:overflow-y-scroll lg:h-[45vh] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
+            <div className="mb-2 p-3 shadow-lg rounded-md bg-slate-200 mr-2">
+              <div className="mr-[40px] grid grid-cols-6 gap-x-3 text-dark-blue-light text-sm font-bold">
+                <div className="col-span-2"></div>
+                <div className="text-right">carbs</div>
+                <div className="text-right">fat</div>
+                <div className="text-right">proteins</div>
+                <div className="text-right">kcal</div>
+              </div>
+            </div>
+            {totalFoodNutritionalValue.length === 0 ? (
+              <div className="mb-2 mr-2 p-3 rounded-md bg-white flex flex-row flex-nowrap justify-center items-center">
+                <p className="text-dark-blue italic">» No food added yet «</p>
+              </div>
+            ) : (
+              ""
+            )}
+            {totalFoodNutritionalValue.map((t, i) => {
+              return (
+                <TotalFoodNutritionalValue
+                  totalFood={t}
+                  key={i}
+                  deleteFoodNutritionalValueId={deleteFoodNutritionalValueId}
+                />
+              );
+            })}
+            <TotalNutritionalValue
+              totalCarbs={totalCarbs}
+              totalFat={totalFat}
+              totalKcal={totalKcal}
+              totalProteins={totalProteins}
             />
-          );
-        })}
-        <TotalNutritionalValue
-          totalCarbs={totalCarbs}
-          totalFat={totalFat}
-          totalKcal={totalKcal}
-          totalProteins={totalProteins}
-        />
+          </div>
+        </div>
         <div className="flex justify-end p-3 rounded-md">
           {totalFoodNutritionalValue.length > 1 && (
             <button
               onClick={clearAllNutritionalValue}
-              className="cursor-pointer rounded-lg bg-dark-blue-light p-2 font-semibold text-white hover:bg-dark-blue"
+              className="cursor-pointer rounded-lg bg-[#b3b3b3] p-2 font-semibold text-white hover:bg-dark-blue"
             >
               Clear all
             </button>
@@ -280,7 +308,7 @@ const Calculator = ({ food, isAuthenticated }) => {
                   ? goToLogIn
                   : handleSaveTotalNutritionalValueToDiary
               }
-              className="cursor-pointer ml-5 rounded-lg bg-first p-2 font-semibold text-dark-blue-light hover:bg-yellow-400"
+              className="cursor-pointer ml-5 rounded-lg bg-first p-2 font-semibold text-dark-blue hover:bg-yellow-400"
             >
               Save to diary
             </button>
