@@ -172,7 +172,6 @@ function App() {
           path="/shop/:id"
           element={
             <ProductDetails
-              product={shopItems.find((item) => item.id === id)}
               addToCart={addToCart}
               removeFromCart={removeFromCart}
               cartItems={cartItems}

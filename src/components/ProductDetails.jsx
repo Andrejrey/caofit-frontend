@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 
 const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   const location = useLocation();
   const product = location.state?.product;
   const [loading, setLoading] = useState(true);
+  const [shopItem, setShopItem] = useState(null);
   const isProductInCart = cartItems.includes(product?.id);
+  const { id } = useParams();
 
   useEffect(() => {
-    if (product) {
-      setLoading(false);
-    }
-  }, [product]);
+    setLoading(true);
+    axios
+      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items/${id}`)
+      .then((response) => {
+        setShopItem(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, [id]);
 
   const handleToggleCart = () => {
-    if (product) {
+    if (shopItem) {
       if (isProductInCart) {
-        removeFromCart(product.id);
+        removeFromCart(shopItem.id);
       } else {
-        addToCart(product.id);
+        addToCart(shopItem.id);
       }
     }
   };
@@ -27,23 +38,25 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
     <div className="container mx-auto px-4 py-8">
       {loading ? (
         <div>Loading...</div>
-      ) : (
+      ) : shopItem ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-3">
             <div className="rounded-lg bg-white p-6 shadow-lg">
               <div className="pb-4/5 relative">
                 <img
-                  src={product.item_image}
-                  alt={product.item_name}
+                  src={shopItem.item_image}
+                  alt={shopItem.item_name}
                   className="absolute inset-0 h-full w-full rounded-lg object-cover"
                 />
               </div>
               <div className="mt-4">
                 <h2 className="text-2xl font-semibold text-gray-900">
-                  {product.item_name}
+                  {shopItem.item_name}
                 </h2>
-                <p className="text-gray-600">{product.item_flavour}</p>
-                <p className="mt-2 text-gray-800">{product.item_description}</p>
+                <p className="text-gray-600">{shopItem.item_flavour}</p>
+                <p className="mt-2 text-gray-800">
+                  {shopItem.item_description}
+                </p>
               </div>
             </div>
           </div>
@@ -57,14 +70,14 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
               <ul className="space-y-2">
                 <li>
                   <span className="font-semibold">Size:</span>{" "}
-                  {product.item_size}
+                  {shopItem.item_size}
                 </li>
                 <li>
                   <span className="font-semibold">Price:</span> $
-                  {product.item_price}
+                  {shopItem.item_price}
                 </li>
                 <li>
-                  <span className="font-semibold">Stock:</span> {product.stock}{" "}
+                  <span className="font-semibold">Stock:</span> {shopItem.stock}{" "}
                   available
                 </li>
               </ul>
@@ -81,6 +94,8 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
             </div>
           </div>
         </div>
+      ) : (
+        <div>Error loading data</div>
       )}
     </div>
   );
