@@ -24,7 +24,7 @@ function Navbar() {
       </a>
 
       <a
-        href="/shop/"
+        href="/shop"
         className="whitespace-no-wrap flex flex-grow flex-col items-center 
 		justify-center overflow-hidden text-sm text-white transition-colors
 		duration-100 ease-in-out hover:text-yellow-500"
@@ -48,7 +48,7 @@ function Navbar() {
       </a>
 
       <a
-        href="/calculator/"
+        href="/calculator"
         className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
@@ -70,7 +70,7 @@ function Navbar() {
       </a>
 
       <a
-        href="/diary/"
+        href="/diary"
         className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
