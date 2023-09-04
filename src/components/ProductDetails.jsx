@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
-  const location = useLocation();
-  const product = location.state?.product;
+  const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [shopItem, setShopItem] = useState({});
-  const isProductInCart = cartItems.includes(product?.id);
-  const { id } = useParams();
-
-  // console.log(shopItem && shopItem[0].item_image);
+  const isProductInCart = cartItems.includes(shopItem.id);
 
   useEffect(() => {
     setLoading(true);
@@ -24,10 +20,21 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, cartItems]);
+
+  const formatDescription = (description) => {
+    if (!description || !Array.isArray(description)) return "";
+    const formattedDescription = description.join(". ") + ".";
+    const cleanedDescription = formattedDescription
+      .replace(/[{},"]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return cleanedDescription;
+  };
 
   const handleToggleCart = () => {
-    if (shopItem) {
+    if (shopItem && shopItem.id) {
       if (isProductInCart) {
         removeFromCart(shopItem.id);
       } else {
@@ -37,57 +44,48 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   };
 
   return (
-    <div className="container h-screen mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       {loading ? (
         <div>Loading...</div>
-      ) : shopItem ? (
+      ) : shopItem && shopItem.id ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-3">
-            <div className="flex items-center rounded-lg bg-white h-fit p-6 shadow-lg">
-              <div>
-                <div className="mt-4">
-                  <h1 className="text-2xl font-semibold text-gray-900">
-                    {shopItem[0].item_name}
-                  </h1>
-                  <p className="text-gray-600 mb-5">
-                    {shopItem[0].item_flavour}
-                  </p>
-                </div>
-                <div>
-                  <img
-                    src={shopItem[0].item_image}
-                    alt={shopItem[0].item_name}
-                    className="inset-0 h-96 w-auto rounded-lg"
-                  />
-                </div>
+            <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-lg md:flex-row">
+              <div className="w-full md:w-1/2">
+                <img
+                  src={shopItem.item_image}
+                  alt={shopItem.item_name}
+                  className="h-auto w-full rounded-lg"
+                />
               </div>
-              <div className="m-5">
-                {" "}
-                <p className="mt-2 w-96 text-gray-800">
-                  {shopItem[0].item_description.split("")}
+              <div className="ml-0 mt-4 w-full md:ml-4 md:mt-0 md:w-1/2">
+                <h1 className="text-2xl font-semibold text-gray-900">
+                  {shopItem.item_name}
+                </h1>
+                <p className="mb-5 text-gray-600">{shopItem.item_flavour}</p>
+                <p className="text-gray-800">
+                  {formatDescription(shopItem.item_description)}
                 </p>
               </div>
             </div>
           </div>
           <div className="lg:col-span-1">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <div className="mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Product Details
-                </h3>
-              </div>
+              <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                Product Details
+              </h3>
               <ul className="space-y-2">
                 <li>
                   <span className="font-semibold">Size:</span>{" "}
-                  {shopItem[0].item_size}
+                  {shopItem.item_size}
                 </li>
                 <li>
                   <span className="font-semibold">Price:</span> $
-                  {shopItem[0].item_price}
+                  {shopItem.item_price}
                 </li>
                 <li>
-                  <span className="font-semibold">Stock:</span>{" "}
-                  {shopItem[0].stock} available
+                  <span className="font-semibold">Stock:</span> {shopItem.stock}{" "}
+                  available
                 </li>
               </ul>
               <button
