@@ -36,16 +36,6 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
     }
   };
 
-  // const descritpion = shopItem && shopItem[0].item_description;
-  // console.log(shopItem && shopItem[0].item_description.slice(1, -1));
-
-  // const clearedDescription =
-  //   shopItem && shopItem[0].item_description.slice(1, -1);
-
-  // const finalDescription = clearedDescription.split('","');
-
-  // console.log(finalDescription && finalDescription);
-
   return (
     <div className="container h-screen mx-auto px-4 py-8">
       {loading ? (

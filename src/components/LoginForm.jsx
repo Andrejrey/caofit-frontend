@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { loginUser } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
+import logo from "../assets/logo/CaoFit_light_logo_without_text.svg";
 
 function LoginForm({
   onClose,
@@ -51,11 +51,17 @@ function LoginForm({
   return (
     <div className="flex h-screen justify-evenly bg-LoginBg bg-cover bg-right">
       <div className="flex items-center justify-center">
-        <img
-          src={logo}
-          alt="logo"
-          className="hidden w-80 items-center justify-center lg:block"
-        />
+        <div className="bg-dark-blue rounded-full p-14 flex flex-col items-center">
+          {" "}
+          <img
+            src={logo}
+            alt="logo"
+            className="pl-4 hidden w-80 items-center justify-center lg:block"
+          />
+          <p className="text-white text-5xl">
+            C a o <span className="text-first">F I T</span>
+          </p>
+        </div>
       </div>
       <div className="flex w-full items-center justify-center space-y-8 lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
