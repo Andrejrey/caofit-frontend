@@ -10,7 +10,7 @@ const TotalNutritionalValue = ({
       <div className="mr-[40px] grid grid-cols-6 gap-x-3 items-center text-white text-sm font-bold">
         <div className="col-span-2 flex flex-row flex-nowrap items-center">
           <img
-            src="src\assets\groceryIcon.png"
+            src="/assets/icons/groceryIcon.png"
             alt="Total image"
             className="w-8 h-8 mr-2"
           />

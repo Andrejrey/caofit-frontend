@@ -17,13 +17,13 @@ export default {
       },
       backgroundImage: {
         diaryBg:
-          "url('src/assets/background/top-view-salad-plate-with-copy-space.jpg')",
+          "url('/assets/background/top-view-salad-plate-with-copy-space.jpg')",
         homeBg:
-          "url('src/assets/background/green-weights-blue-background-with-copy-space.jpg')",
+          "url('/assets/background/green-weights-blue-background-with-copy-space.jpg')",
         ImprintBg:
-          "url('src/assets/background/weights-meter-bottle-water-with-copy-space.jpg')",
+          "url('/assets/background/weights-meter-bottle-water-with-copy-space.jpg')",
         LoginBg:
-          "url('src/assets/background/top-view-weights-meter-with-copy-space.jpg')",
+          "url('/assets/background/top-view-weights-meter-with-copy-space.jpg')",
       },
     },
   },
