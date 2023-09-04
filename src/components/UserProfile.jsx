@@ -6,7 +6,7 @@ import shopping from "../assets/icons/shopping-cart.png";
 
 const UserProfile = ({ user }) => {
   return user ? (
-    <div className="flex flex-col justify-center items-center mt-5 mb-5">
+    <div className="flex h-screen flex-col justify-center items-center mt-5 mb-5">
       <h1>
         Name:{" "}
         <span className="text-dark-blue-light font-bold">

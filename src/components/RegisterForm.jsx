@@ -49,7 +49,7 @@ const RegisterForm = ({
   };
 
   if (loadingAuthRequest) return <Loading />;
-  if (isAuthenticated) return <Navigate to="/auth" />;
+  if (isAuthenticated) return <Navigate to="/auth/profile" />;
 
   return (
     <div className="min-w-screen flex min-h-screen items-center justify-center bg-dark-blue-light px-5 py-5">
