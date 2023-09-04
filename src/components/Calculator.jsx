@@ -5,7 +5,6 @@ import TotalNutritionalValue from "./TotalNutritionalValue";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import logo from "../assets/logo/CaoFit_dark_logo_without_text.svg";
 
 const LOCAL_STORAGE_KEY = "food:savedTotalFoodNutritionalValue";
 
