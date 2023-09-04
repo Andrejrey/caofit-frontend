@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center bg-homeBg bg-cover bg-top lg:items-start xl:bg-center">
       <div className="mx-3 mt-20 flex justify-center lg:w-3/5 xl:ml-10 xl:w-1/2 2xl:ml-80 2xl:w-1/3">
-        <div className="group mb-8 inline-block h-48 w-48 transform rounded-full bg-dark-blue p-4 transition-transform hover:scale-105 hover:bg-second">
+        <div className="mb-8 flex h-48 w-48 transform animate-bounce items-center justify-center rounded-full bg-dark-blue p-4 transition-transform hover:scale-105 hover:bg-second">
           <img
             src={logo}
             alt="logo"
