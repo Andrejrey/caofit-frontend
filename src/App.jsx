@@ -62,6 +62,8 @@ function App() {
       });
   }, []);
 
+  console.log(food && food);
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     localStorage.setItem(
@@ -131,6 +133,7 @@ function App() {
         setIsOpen={setIsOpen}
         isOpen={isOpen}
       />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -146,6 +149,7 @@ function App() {
             />
           }
         />
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/register"
           element={
@@ -200,7 +204,6 @@ function App() {
         >
           <Route path="profile" element={<UserProfile user={user} />} />
         </Route>
-
         <Route path="legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal
