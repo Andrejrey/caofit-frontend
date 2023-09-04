@@ -87,8 +87,6 @@ const Shop = ({
             addToCart={handleAddToCart}
             removeFromCart={handleRemoveFromCart}
             cartItems={cartItems}
-            selectedItems={selectedItems}
-            selectedProductCount={selectedProductCount}
           />
         ))}
       </div>
