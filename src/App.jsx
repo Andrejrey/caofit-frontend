@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import { getUser } from "./utils/authUtils";
 import Header from "./components/Header";
@@ -62,6 +62,14 @@ function App() {
         setShopItems(response.data);
       });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem(
+      "selectedProductCount",
+      selectedProductCount.toString()
+    );
+  }, [cartItems, selectedProductCount]);
 
   const addToCart = (productId) => {
     if (cartItems.includes(productId)) {
@@ -128,6 +136,7 @@ function App() {
         setIsOpen={setIsOpen}
         isOpen={isOpen}
       />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -143,6 +152,7 @@ function App() {
             />
           }
         />
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/register"
           element={
@@ -172,7 +182,6 @@ function App() {
           path="/shop/:id"
           element={
             <ProductDetails
-              product={shopItems.find((item) => item.id === id)}
               addToCart={addToCart}
               removeFromCart={removeFromCart}
               cartItems={cartItems}
@@ -196,7 +205,6 @@ function App() {
         >
           <Route path="profile" element={<UserProfile user={user} />} />
         </Route>
-
         <Route path="legal-notice" element={<LegalNotice />} />
       </Routes>
       <CartModal

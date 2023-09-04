@@ -1,24 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
-  const location = useLocation();
-  const product = location.state?.product;
+  const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const isProductInCart = cartItems.includes(product?.id);
+  const [shopItem, setShopItem] = useState({});
+  const isProductInCart = cartItems.includes(shopItem.id);
 
   useEffect(() => {
-    if (product) {
-      setLoading(false);
+    setLoading(true);
+    axios
+      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items/${id}`)
+      .then((response) => {
+        setShopItem(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, [id, cartItems]);
+
+  const formatDescription = (description) => {
+    if (!description) {
+      return "";
+    } else {
+      return description.replace(/{|}|"|,/g, "").replace(/./g, ". ");
     }
-  }, [product]);
+  };
+
+  // console.log(shopItem[0].item_description);
 
   const handleToggleCart = () => {
-    if (product) {
+    if (shopItem && shopItem.id) {
       if (isProductInCart) {
-        removeFromCart(product.id);
+        removeFromCart(shopItem.id);
       } else {
-        addToCart(product.id);
+        addToCart(shopItem.id);
       }
     }
   };
@@ -27,45 +46,45 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
     <div className="container mx-auto px-4 py-8">
       {loading ? (
         <div>Loading...</div>
-      ) : (
+      ) : shopItem && shopItem[0].id ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-3">
-            <div className="rounded-lg bg-white p-6 shadow-lg">
-              <div className="pb-4/5 relative">
+            <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-lg md:flex-row">
+              <div className="w-full md:w-1/2">
                 <img
-                  src={product.item_image}
-                  alt={product.item_name}
-                  className="absolute inset-0 h-full w-full rounded-lg object-cover"
+                  src={shopItem[0].item_image}
+                  alt={shopItem[0].item_name}
+                  className="h-auto w-full rounded-lg"
                 />
               </div>
-              <div className="mt-4">
-                <h2 className="text-2xl font-semibold text-gray-900">
-                  {product.item_name}
-                </h2>
-                <p className="text-gray-600">{product.item_flavour}</p>
-                <p className="mt-2 text-gray-800">{product.item_description}</p>
+              <div className="ml-0 mt-4 w-full md:ml-4 md:mt-0 md:w-1/2">
+                <h1 className="text-2xl font-semibold text-gray-900">
+                  {shopItem[0].item_name}
+                </h1>
+                <p className="mb-5 text-gray-600">{shopItem[0].item_flavour}</p>
+                <p className="text-gray-800">
+                  {formatDescription(shopItem[0].item_description)}
+                </p>
               </div>
             </div>
           </div>
           <div className="lg:col-span-1">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <div className="mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Product Details
-                </h3>
-              </div>
+              <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                Product Details
+              </h3>
               <ul className="space-y-2">
                 <li>
                   <span className="font-semibold">Size:</span>{" "}
-                  {product.item_size}
+                  {shopItem[0].item_size}
                 </li>
                 <li>
                   <span className="font-semibold">Price:</span> $
-                  {product.item_price}
+                  {shopItem[0].item_price}
                 </li>
                 <li>
-                  <span className="font-semibold">Stock:</span> {product.stock}{" "}
-                  available
+                  <span className="font-semibold">Stock:</span>{" "}
+                  {shopItem[0].stock} available
                 </li>
               </ul>
               <button
@@ -81,6 +100,8 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
             </div>
           </div>
         </div>
+      ) : (
+        <div>Error loading data</div>
       )}
     </div>
   );
