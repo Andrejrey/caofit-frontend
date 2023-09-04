@@ -5,8 +5,8 @@ import axios from "axios";
 const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [shopItem, setShopItem] = useState({});
-  const isProductInCart = cartItems.includes(shopItem.id);
+  const [shopItem, setShopItem] = useState([]);
+  const isProductInCart = cartItems.includes(shopItem[0]?.id);
 
   useEffect(() => {
     setLoading(true);
@@ -20,24 +20,19 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  }, [id, cartItems]);
+  }, [id]);
 
   const formatDescription = (description) => {
-    if (!description) {
-      return "";
-    } else {
-      return description.replace(/{|}|"|,/g, "").replace(/./g, ". ");
-    }
+    if (!description) return "";
+    return description.replace(/\{|\}|"|,/g, "").replace(/\./g, ". ");
   };
 
-  // console.log(shopItem[0].item_description);
-
   const handleToggleCart = () => {
-    if (shopItem && shopItem.id) {
+    if (shopItem[0]) {
       if (isProductInCart) {
-        removeFromCart(shopItem.id);
+        removeFromCart(shopItem[0].id);
       } else {
-        addToCart(shopItem.id);
+        addToCart(shopItem[0].id);
       }
     }
   };
@@ -46,7 +41,7 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
     <div className="container mx-auto px-4 py-8">
       {loading ? (
         <div>Loading...</div>
-      ) : shopItem && shopItem[0].id ? (
+      ) : shopItem ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-3">
             <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-lg md:flex-row">
@@ -71,7 +66,7 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
           <div className="lg:col-span-1">
             <div className="rounded-lg bg-white p-6 shadow-lg">
               <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                Product Details
+                Product Details:
               </h3>
               <ul className="space-y-2">
                 <li>
