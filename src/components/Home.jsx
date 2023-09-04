@@ -13,7 +13,7 @@ const Home = () => {
           <img
             src={logo}
             alt="logo"
-            className=" h-48 w-auto animate-pulse hover:animate-spin"
+            className="h-48 w-auto animate-pulse hover:animate-spin"
           />
         </div>
       </div>

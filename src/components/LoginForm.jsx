@@ -33,7 +33,7 @@ function LoginForm({
         email,
         password,
       });
-      if (error) toast.error("Incorecct email or password");
+      if (error) toast.error("Incorrect email or password");
       setToken(data.token);
       setIsAuthenticated(true);
       setLoadingAuthRequest(false);
@@ -46,24 +46,22 @@ function LoginForm({
   };
 
   if (loadingAuthRequest) return <Loading />;
-  // if (isAuthenticated) return <Navigate to="/auth" />;
 
   return (
-    <div className="flex h-screen justify-evenly bg-LoginBg bg-cover bg-right">
+    <div className="flex h-screen flex-col justify-evenly bg-LoginBg bg-cover bg-right lg:flex-row">
       <div className="flex items-center justify-center">
-        <div className="bg-dark-blue rounded-full p-14 flex flex-col items-center">
-          {" "}
+        <div className="flex  flex-col items-center rounded-full bg-dark-blue p-14 lg:ml-12">
           <img
             src={logo}
             alt="logo"
-            className="pl-4 hidden w-80 items-center justify-center lg:block"
+            className="h-auto w-auto items-center justify-center lg:hidden"
           />
-          <p className="text-white text-5xl">
+          <p className="text-5xl text-white">
             C a o <span className="text-first">F I T</span>
           </p>
         </div>
       </div>
-      <div className="flex w-full items-center justify-center space-y-8 lg:w-1/2">
+      <div className="flex w-full items-center justify-center">
         <div className="w-full px-8 md:px-32 lg:px-24">
           <form
             onSubmit={handleSubmit}
