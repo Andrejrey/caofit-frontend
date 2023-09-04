@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { getUser } from "./utils/authUtils";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
@@ -29,7 +29,6 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [food, setFood] = useState([]);
   const [isCartModalOpen, setCartModalOpen] = useState(false);
-  const { id } = useParams();
 
   useEffect(() => {
     const validateToken = async () => {
@@ -140,7 +139,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/login"
+          path="/login/"
           element={
             <LoginForm
               isAuthenticated={isAuthenticated}
@@ -154,7 +153,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
         <Route
-          path="/register"
+          path="/register/"
           element={
             <RegisterForm
               isAuthenticated={isAuthenticated}
@@ -166,7 +165,7 @@ function App() {
           }
         />
         <Route
-          path="/shop"
+          path="/shop/"
           element={
             <Shop
               products={shopItems}
@@ -179,7 +178,7 @@ function App() {
           }
         />
         <Route
-          path="/shop/:id"
+          path="/shop/:id/"
           element={
             <ProductDetails
               addToCart={addToCart}
@@ -189,7 +188,7 @@ function App() {
           }
         />
         <Route
-          path="calculator"
+          path="/calculator/"
           element={
             <Calculator
               food={food}
@@ -198,14 +197,14 @@ function App() {
             />
           }
         />
-        <Route path="diary" element={<Diary user={user} token={token} />} />
+        <Route path="/diary/" element={<Diary user={user} token={token} />} />
         <Route
           path="auth"
           element={<ProtectedLayout isAuthenticated={isAuthenticated} />}
         >
-          <Route path="profile" element={<UserProfile user={user} />} />
+          <Route path="/profile/" element={<UserProfile user={user} />} />
         </Route>
-        <Route path="legal-notice" element={<LegalNotice />} />
+        <Route path="/legal-notice/" element={<LegalNotice />} />
       </Routes>
       <CartModal
         cartItems={cartItems}
