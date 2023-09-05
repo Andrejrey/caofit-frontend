@@ -217,6 +217,7 @@ function App() {
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
         updateSelectedProductCount={updateSelectedProductCount}
+        setCartItems={setCartItems}
       />
       <Footer />
     </>
