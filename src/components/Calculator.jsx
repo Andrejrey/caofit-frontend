@@ -96,7 +96,7 @@ const Calculator = ({ food, isAuthenticated }) => {
       localStorage.removeItem("date");
       toast.success(" You have successfully saved to diary!");
       try {
-        const { data } = await axios.post(
+        const { data, error } = await axios.post(
           "http://localhost:8080/diary/save_to_diary",
           {
             total_carbs: totalCarbs,
@@ -113,9 +113,10 @@ const Calculator = ({ food, isAuthenticated }) => {
             },
           }
         );
+        if (error) throw new Error(error.message);
         return data;
       } catch (error) {
-        console.log(error);
+        toast.error(error.message);
       }
     }
   };
