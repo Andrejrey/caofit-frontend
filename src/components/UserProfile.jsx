@@ -6,9 +6,9 @@ import shopping from "../assets/icons/shopping-cart.png";
 
 const UserProfile = ({ user }) => {
   return user ? (
-    <div className="flex h-screen flex-col justify-center items-start bg-homeBg bg-cover bg-top">
+    <div className="flex flex-col justify-center items-start bg-homeBg bg-cover bg-top">
       <div className="text-center text-dark-blue mx-3 mb-10 lg:w-3/5 xl:w-1/2 xl:ml-10 2xl:w-1/3 2xl:ml-80">
-        <h1 className="text-3xl">
+        <h1 className="text-3xl mt-6">
           Name:{" "}
           <span className="text-dark-blue-light font-bold">
             {user.first_name}
@@ -46,10 +46,10 @@ const UserProfile = ({ user }) => {
           </h2>
           <hr className="h-px my-1 mx-10 bg-dark-blue border-0"></hr>
           <p className="mt-3 text-base px-3">
-            Transform your health with CaoFIT's nutrition tracking. Get accurate
-            insights into your diet. Make informed choices for weight management
-            or overall wellness. Visualize progress, spot patterns, and optimize
-            nutrition effortlessly.
+            Transform your health with CaoFIT&apos;s nutrition tracking. Get
+            accurate insights into your diet. Make informed choices for weight
+            management or overall wellness. Visualize progress, spot patterns,
+            and optimize nutrition effortlessly.
           </p>
           <Link
             className="transform mt-5 rounded-lg w-fit self-center bg-first px-6 py-3 font-semibold text-dark-blue shadow-md transition duration-300 hover:scale-105 hover:bg-yellow-400"

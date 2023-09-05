@@ -3,7 +3,7 @@ const Loading = () => {
     <div className="h-screen flex flex-col justify-center items-center bg-homeBg bg-cover bg-top">
       <div className="flex p-1 items-center mb-5 text-white text-4xl font-semibold bg-dark-blue-light rounded-lg">
         <img
-          src="src\assets\logo\caoFit_light_logo_without_text.svg"
+          src="/public/assets/logo/caoFit_light_logo_without_text.svg"
           alt=""
           className="w-24"
         />

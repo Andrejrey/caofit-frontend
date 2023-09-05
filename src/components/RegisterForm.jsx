@@ -3,7 +3,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { registerUser } from "../utils/authUtils";
-import logo from "../assets/logo/caoFit_light_logo_without_text.svg";
+import logo from "/public/assets/logo/caoFit_light_logo_without_text.svg";
 import Loading from "./Loading";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
@@ -58,12 +58,8 @@ const RegisterForm = ({
         style={{ maxWidth: "1000px" }}
       >
         <div className="w-full md:flex">
-          <div className="hidden w-1/2 items-center justify-center bg-second px-10 py-10 md:block ">
-            <img
-              src={logo}
-              alt={logo}
-              className="flex items-center justify-center"
-            />
+          <div className="hidden w-1/2 justify-center items-center bg-second px-10 py-10 md:block ">
+            <img src={logo} alt={logo} className="mt-12" />
           </div>
           <div className="w-full px-5 py-10 md:w-1/2 md:px-10">
             <div className="mb-10 text-center">

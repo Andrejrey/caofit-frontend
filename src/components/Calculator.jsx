@@ -257,7 +257,7 @@ const Calculator = ({ food, isAuthenticated }) => {
             </p>
           </div>
 
-          <div className="lg:overflow-y-scroll lg:h-[45vh] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
+          <div className="lg:overflow-y-scroll lg:h-[40vh] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
             <div className="mb-2 p-3 shadow-lg rounded-md bg-slate-200 mr-2">
               <div className="mr-[40px] grid grid-cols-6 gap-x-3 text-dark-blue-light text-sm font-bold">
                 <div className="col-span-2"></div>
