@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { parse } from "postgres-array";
 
 const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [shopItem, setShopItem] = useState([]);
+  const [shopItem, setShopItem] = useState({});
+  const [itemDescription, setItemDescription] = useState([]);
   const isProductInCart = cartItems.includes(shopItem[0]?.id);
 
   useEffect(() => {
@@ -14,6 +16,7 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
       .get(`${import.meta.env.VITE_APP_CAOFIT_API}/shop_items/${id}`)
       .then((response) => {
         setShopItem(response.data);
+        setItemDescription(response.data[0].item_description);
         setLoading(false);
       })
       .catch((error) => {
@@ -22,9 +25,13 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
       });
   }, [id]);
 
-  const formatDescription = (description) => {
-    if (!description) return "";
-    return description.replace(/[{}"]/g, "").trim();
+  const formatDescription = (object) => {
+    const cleanedString = object.slice(1, -1);
+    const newArray = cleanedString.split('","');
+    console.log(newArray);
+    return newArray.map((item) => (
+      <li className="list-disc">{item.replace(/"/g, "")}</li>
+    ));
   };
 
   const handleToggleCart = () => {
@@ -59,7 +66,7 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
                 {shopItem[0].item_flavour}
               </p>
               <div className="text-gray-800">
-                {formatDescription(shopItem[0].item_description)}
+                <ul className="ml-5">{formatDescription(itemDescription)}</ul>
               </div>
               <ul className="mt-6 space-y-2">
                 <li>
