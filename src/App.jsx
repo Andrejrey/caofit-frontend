@@ -174,6 +174,7 @@ function App() {
               addToCart={addToCart}
               cartItems={cartItems}
               setCartItems={setCartItems}
+              selectedProductCount={selectedProductCount}
             />
           }
         />

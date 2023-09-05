@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ShopArticle from "./ShopArticle";
 
 const Shop = ({
@@ -8,7 +8,6 @@ const Shop = ({
   addToCart,
   cartItems,
   setCartItems,
-  selectedProductCount,
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortOption, setSortOption] = useState("popular");
