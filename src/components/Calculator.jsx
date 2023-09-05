@@ -91,10 +91,6 @@ const Calculator = ({ food, isAuthenticated }) => {
 
   const handleSaveTotalNutritionalValueToDiary = async () => {
     if (isAuthenticated) {
-      setTotalFoodNutritionalValueAndSave([]);
-      setDate("");
-      localStorage.removeItem("date");
-      toast.success(" You have successfully saved to diary!");
       try {
         const { data, error } = await axios.post(
           "http://localhost:8080/diary/save_to_diary",
@@ -113,6 +109,10 @@ const Calculator = ({ food, isAuthenticated }) => {
             },
           }
         );
+        setTotalFoodNutritionalValueAndSave([]);
+        setDate("");
+        localStorage.removeItem("date");
+        toast.success(" You have successfully saved to diary!");
         if (error) throw new Error(error.message);
         return data;
       } catch (error) {
