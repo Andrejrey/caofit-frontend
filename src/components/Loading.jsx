@@ -1,12 +1,10 @@
+import logo from "/public/assets/logo/caoFit_light_logo_without_text.svg";
+
 const Loading = () => {
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-homeBg bg-cover bg-top">
       <div className="flex p-1 items-center mb-5 text-white text-4xl font-semibold bg-dark-blue-light rounded-lg">
-        <img
-          src="/public/assets/logo/caoFit_light_logo_without_text.svg"
-          alt=""
-          className="w-24"
-        />
+        <img src={logo} alt="logo" className="w-24" />
         <p className="p-3">
           C a o <span className="text-first font-bold">F I T</span>
         </p>
