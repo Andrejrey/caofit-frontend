@@ -8,10 +8,10 @@ function CartModal({
   isOpen,
   onClose,
   products = [],
-  deleteProduct,
   clearCart,
   isMobile,
   updateSelectedProductCount,
+  setCartItems = { setCartItems },
 }) {
   const [quantities, setQuantities] = useState(
     JSON.parse(localStorage.getItem("cartItems")) || {}
@@ -72,27 +72,32 @@ function CartModal({
     const productQuantity = quantities[productId] || 0;
 
     if (productQuantity > 0) {
-      const updatedQuantities = { ...quantities };
       const removedProduct = products.find((p) => p.id === productId);
 
       if (removedProduct) {
         const removedQuantity = productQuantity;
-        setTotalPrice(
-          (prevTotalPrice) =>
-            prevTotalPrice - removedProduct.item_price * removedQuantity
-        );
-        updatedQuantities[productId] -= removedQuantity;
-        if (updatedQuantities[productId] <= 0) {
-          delete updatedQuantities[productId];
-        }
-        setQuantities(updatedQuantities);
-      }
+        const removedPrice = removedProduct.item_price * removedQuantity;
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - removedPrice);
+        setQuantities((prevQuantities) => {
+          const updatedQuantities = { ...prevQuantities };
+          updatedQuantities[productId] -= removedQuantity;
 
-      updateSelectedProductCount((prevCount) => prevCount - productQuantity);
-      if (Object.keys(updatedQuantities).length === 0) {
-        handleCloseModal();
+          if (updatedQuantities[productId] <= 0) {
+            delete updatedQuantities[productId];
+          }
+
+          return updatedQuantities;
+        });
+
+        updateSelectedProductCount((prevCount) => prevCount - removedQuantity);
+        setCartItems((prevCartItems) =>
+          prevCartItems.filter((id) => id !== productId)
+        );
+
+        if (Object.keys(quantities).length === 0) {
+          onClose();
+        }
       }
-      deleteProduct(productId);
     }
   };
 
