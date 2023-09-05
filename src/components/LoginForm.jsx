@@ -50,7 +50,7 @@ function LoginForm({
   return (
     <div className="flex h-screen flex-col justify-evenly bg-LoginBg bg-cover bg-right lg:flex-row">
       <div className="flex items-center justify-center">
-        <div className="flex  flex-col items-center rounded-full bg-dark-blue p-14 lg:ml-12">
+        <div className="flex flex-col items-center rounded-full bg-dark-blue p-14 lg:ml-12">
           <img
             src={logo}
             alt="logo"
