@@ -1,9 +1,9 @@
+import React from "react";
 import DesktopNavbar from "./DesktopNavbar";
 import Navbar from "./Navbar";
 
 function Header({
   selectedProductCount,
-  incrementSelectedProductCount,
   toggleCartModal,
   cartItems,
   clearCart,
@@ -17,8 +17,6 @@ function Header({
     <div>
       <DesktopNavbar
         selectedProductCount={selectedProductCount}
-        incrementSelectedProductCount={incrementSelectedProductCount}
-        toggleCartModal={toggleCartModal}
         cartItems={cartItems}
         clearCart={clearCart}
         isAuthenticated={isAuthenticated}
@@ -27,6 +25,7 @@ function Header({
         className="hidden md:block"
         setIsOpen={setIsOpen}
         isOpen={isOpen}
+        toggleCartModal={toggleCartModal}
       />
       <Navbar
         className="block md:hidden"
