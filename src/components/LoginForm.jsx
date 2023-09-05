@@ -33,7 +33,9 @@ function LoginForm({
         email,
         password,
       });
-      if (error) toast.error("Incorrect email or password");
+      console.log(error, "e");
+      if (error) throw new Error(error.message);
+      console.log("test");
       setToken(data.token);
       setIsAuthenticated(true);
       setLoadingAuthRequest(false);

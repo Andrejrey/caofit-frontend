@@ -6,8 +6,8 @@ export const getUser = async (token) => {
       },
     });
     if (!res.ok) {
-      const { error } = await res.json();
-      throw new Error(error);
+      const error = await res.json();
+      throw new Error(error.message);
     }
     const data = await res.json();
     return { data };
@@ -29,8 +29,8 @@ export const registerUser = async (credentials) => {
       }
     );
     if (!res.ok) {
-      const { error } = await res.json();
-      throw new Error(error);
+      const error = await res.json();
+      throw new Error(error.message);
     }
     const data = await res.json();
     return { data };
@@ -52,8 +52,8 @@ export const loginUser = async (credentials) => {
       }
     );
     if (!res.ok) {
-      const { error } = await res.json();
-      throw new Error(error);
+      const error = await res.json();
+      throw new Error(error.message);
     }
     const data = await res.json();
     return { data };
