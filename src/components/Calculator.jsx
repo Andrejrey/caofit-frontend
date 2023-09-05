@@ -93,7 +93,7 @@ const Calculator = ({ food, isAuthenticated }) => {
     if (isAuthenticated) {
       try {
         const { data, error } = await axios.post(
-          "http://localhost:8080/diary/save_to_diary",
+          `${import.meta.env.VITE_APP_CAOFIT_API}/diary/save_to_diary`,
           {
             total_carbs: totalCarbs,
             total_fats: totalFat,
