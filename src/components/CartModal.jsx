@@ -122,7 +122,6 @@ function CartModal({
     return null;
   }
   const handleCheckout = () => {
-    closeCartModal();
     navigate("/checkout");
   };
 

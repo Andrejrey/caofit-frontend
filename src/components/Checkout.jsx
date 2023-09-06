@@ -1,4 +1,5 @@
 function Checkout({ cartItems }) {
+  console.log(cartItems);
   const renderCartItems = () => {
     return cartItems.map((item, index) => (
       <div key={index} className="mb-6 border-b border-gray-200 pb-6">
@@ -130,7 +131,6 @@ function Checkout({ cartItems }) {
                         className="form-radio h-5 w-5 text-indigo-500"
                         name="type"
                         id="type1"
-                        checked
                       />
                       <img
                         src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
