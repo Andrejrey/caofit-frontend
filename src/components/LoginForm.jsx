@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 
 function LoginForm({
-  onClose,
   setIsAuthenticated,
   setToken,
   loadingAuthRequest,
@@ -111,13 +110,6 @@ function LoginForm({
               className="mb-2 mt-5 block w-full rounded-lg bg-first py-2 font-semibold text-black transition-all duration-500 hover:-translate-y-1 hover:bg-yellow-400"
             >
               Login
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="mb-2 mt-3 block w-full rounded-lg bg-dark-blue py-2 font-semibold text-white transition-all duration-500 hover:-translate-y-1 hover:bg-dark-blue-light"
-            >
-              Close
             </button>
             <div className="mt-4 flex justify-between">
               <span className="ml-2 cursor-pointer text-sm transition-all duration-500 hover:-translate-y-1 hover:text-yellow-700">
