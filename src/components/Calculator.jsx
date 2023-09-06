@@ -92,7 +92,7 @@ const Calculator = ({ food, isAuthenticated }) => {
   const handleSaveTotalNutritionalValueToDiary = async () => {
     if (isAuthenticated) {
       try {
-        const { data, error } = await axios.post(
+        const { data } = await axios.post(
           `${import.meta.env.VITE_APP_CAOFIT_API}/diary/save_to_diary`,
           {
             total_carbs: totalCarbs,
@@ -112,8 +112,7 @@ const Calculator = ({ food, isAuthenticated }) => {
         setTotalFoodNutritionalValueAndSave([]);
         setDate("");
         localStorage.removeItem("date");
-        toast.success("You have successfully saved to diary!");
-        if (error) throw new Error(error.message);
+        toast.success(" You have successfully saved to diary!");
         return data;
       } catch (error) {
         toast.error(error.message);

@@ -216,7 +216,16 @@ function App() {
           <Route path="profile" element={<UserProfile user={user} />} />
         </Route>
         <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
+        <Route
+          path="/checkout"
+          element={
+            <Checkout
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+              setSelectedProductCount={setSelectedProductCount}
+            />
+          }
+        />
       </Routes>
       <CartModal
         cartItems={cartItems}
