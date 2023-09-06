@@ -326,7 +326,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
           role="status"
           className="flex h-screen flex-col items-center justify-center"
         >
-          <div>
+          <div className="flex flex-col items-center justify-center">
             <svg
               aria-hidden="true"
               className="mr-2 h-32 w-32 animate-spin fill-first text-gray-200 dark:text-dark-blue-light"
@@ -343,6 +343,9 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
                 fill="currentFill"
               />
             </svg>
+            <div className="mt-3 flex items-center justify-center rounded-lg text-dark-blue-light">
+              <span className="font-bold">Payment in progress...</span>
+            </div>
           </div>
         </div>
       )}
