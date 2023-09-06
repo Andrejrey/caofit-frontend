@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
   const navigate = useNavigate();
@@ -9,10 +10,33 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
   const [taxes, setTaxes] = useState(0);
   const [total, setTotal] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [itemInfo, setItemInfo] = useState([]);
 
   useEffect(() => {
-    const subtotalAmount = cartItems.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
+    const fetchItemInfo = async () => {
+      try {
+        const itemInfoArray = await Promise.all(
+          cartItems.map(async (itemId) => {
+            const response = await axios.get(
+              `${import.meta.env.VITE_APP_CAOFIT_API}/shop_items/${itemId}`
+            );
+            return response.data[0];
+          })
+        );
+        setItemInfo(itemInfoArray);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    fetchItemInfo();
+  }, [cartItems]);
+
+  useEffect(() => {
+    const subtotalAmount = itemInfo.reduce((acc, item) => {
+      return acc + item.item_price;
     }, 0);
     setSubtotal(subtotalAmount);
 
@@ -22,7 +46,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
 
     const totalAmount = subtotalAmount + taxesAmount;
     setTotal(totalAmount);
-  }, [cartItems]);
+  }, [itemInfo]);
 
   const handlePay = () => {
     if (
@@ -43,23 +67,24 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
   };
 
   const renderCartItems = () => {
-    return cartItems.map((item, index) => (
+    return itemInfo.map((item, index) => (
       <div key={index} className="mb-6 border-b border-gray-200 pb-6">
         <div className="-mx-3 flex items-center">
           <div className="px-3">
             <img
-              src={item.image}
-              alt={item.name}
-              className="h-24 w-24 rounded-lg object-cover"
+              src={item.item_image}
+              alt={item.item_name}
+              className="h-36 w-36 rounded-lg object-contain "
             />
           </div>
           <div className="flex-grow px-3">
-            <h6 className="font-semibold text-gray-600">{item.name}</h6>
-            <p className="text-gray-400">Quantity: {item.quantity}</p>
+            <h6 className="font-semibold text-gray-600">{item.item_name}</h6>
+            <p className="text-gray-600">{item.item_flavour}</p>
+            <p className="text-gray-400">Quantity: 1</p>
           </div>
           <div className="px-3">
             <span className="text-xl font-semibold text-gray-600">
-              ${item.price}
+              ${item.item_price}
             </span>
             <span className="text-sm font-semibold text-gray-600">.00</span>
           </div>
@@ -277,7 +302,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
                         <img
                           src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
                           width="80"
-                          className="ml-3"
+                          className="ml-3 object-contain"
                           alt="PayPal"
                         />
                       </label>
@@ -286,7 +311,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
                   <div>
                     <button
                       onClick={handlePay}
-                      className="mx-auto block w-full max-w-xs rounded-lg bg-indigo-500 px-3 py-2 font-semibold text-white hover:bg-indigo-700 focus:bg-indigo-700"
+                      className="mx-auto block w-full max-w-xs rounded-lg bg-dark-blue px-3 py-2 font-semibold text-white hover:bg-second focus:bg-dark-blue-light"
                     >
                       <i className="mdi mdi-lock-outline mr-1"></i> PAY NOW
                     </button>
@@ -299,12 +324,12 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
       ) : (
         <div
           role="status"
-          className="flex flex-col h-screen justify-center items-center"
+          className="flex h-screen flex-col items-center justify-center"
         >
           <div>
             <svg
               aria-hidden="true"
-              className="w-32 h-32 mr-2 text-gray-200 animate-spin dark:text-dark-blue-light fill-first"
+              className="mr-2 h-32 w-32 animate-spin fill-first text-gray-200 dark:text-dark-blue-light"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -318,9 +343,6 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
                 fill="currentFill"
               />
             </svg>
-          </div>
-          <div className="mt-3 text-dark-blue-light rounded-lg">
-            <span className="font-bold">is loading...</span>
           </div>
         </div>
       )}
