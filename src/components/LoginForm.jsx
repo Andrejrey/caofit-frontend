@@ -48,19 +48,7 @@ function LoginForm({
   if (loadingAuthRequest) return <Loading />;
 
   return (
-    <div className="flex h-screen flex-col justify-evenly bg-LoginBg bg-cover bg-right lg:flex-row">
-      <div className="flex items-center justify-center">
-        <div className="flex flex-col items-center rounded-full bg-dark-blue p-14 lg:ml-12">
-          <img
-            src={logo}
-            alt="logo"
-            className="h-auto w-auto items-center justify-center lg:hidden"
-          />
-          <p className="text-5xl text-white">
-            C a o <span className="text-first">F I T</span>
-          </p>
-        </div>
-      </div>
+    <div className="flex h-screen min-h-[600px] flex-col justify-evenly bg-LoginBg bg-cover bg-right lg:flex-row">
       <div className="flex w-full items-center justify-center space-y-8 lg:w-1/2">
         <div className="w-full px-8 md:px-32 lg:px-24">
           <form
@@ -68,10 +56,10 @@ function LoginForm({
             className="rounded-md bg-white p-5 shadow-2xl"
           >
             <h1 className="mb-1 text-2xl font-bold text-gray-800">
-              Hello Again
+              Hello my Friend
             </h1>
             <p className="mb-8 text-sm font-normal text-gray-600">
-              Welcome Back
+              Please sign in.
             </p>
             <div className="mb-8 flex items-center rounded-lg border-2 px-3 py-2">
               <svg
