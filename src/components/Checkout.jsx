@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function Checkout({ cartItems }) {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
@@ -7,18 +7,18 @@ function Checkout({ cartItems }) {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    // Calculate subtotal
+   
     const subtotalAmount = cartItems.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
     setSubtotal(subtotalAmount);
 
-    // Calculate taxes (19%)
+   
     const taxRate = 0.19;
     const taxesAmount = subtotalAmount * taxRate;
     setTaxes(taxesAmount);
 
-    // Calculate total (subtotal + taxes)
+  
     const totalAmount = subtotalAmount + taxesAmount;
     setTotal(totalAmount);
   }, [cartItems]);
