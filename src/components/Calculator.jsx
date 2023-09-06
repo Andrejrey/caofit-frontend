@@ -112,7 +112,7 @@ const Calculator = ({ food, isAuthenticated }) => {
         setTotalFoodNutritionalValueAndSave([]);
         setDate("");
         localStorage.removeItem("date");
-        toast.success(" You have successfully saved to diary!");
+        toast.success("You have successfully saved to diary!");
         if (error) throw new Error(error.message);
         return data;
       } catch (error) {
