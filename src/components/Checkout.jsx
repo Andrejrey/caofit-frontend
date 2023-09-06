@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 function Checkout({ cartItems }) {
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
+
   const renderCartItems = () => {
     return cartItems.map((item, index) => (
       <div key={index} className="mb-6 border-b border-gray-200 pb-6">
@@ -24,14 +28,6 @@ function Checkout({ cartItems }) {
       </div>
     ));
   };
-
-  // Calculate subtotal, taxes, and total
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-  const taxes = subtotal * 0.1; // Assuming 10% tax rate, adjust as needed
-  const total = subtotal + taxes;
 
   return (
     <div className="min-w-screen min-h-screen bg-gray-50 py-5">
@@ -69,17 +65,15 @@ function Checkout({ cartItems }) {
                     <span className="text-gray-600">Subtotal</span>
                   </div>
                   <div className="pl-3">
-                    <span className="font-semibold">
-                      ${subtotal.toFixed(2)}
-                    </span>
+                    <span className="font-semibold">$190.91</span>
                   </div>
                 </div>
                 <div className="flex w-full items-center">
                   <div className="flex-grow">
-                    <span className="text-gray-600">Taxes (GST)</span>
+                    <span className="text-gray-600">Taxes</span>
                   </div>
                   <div className="pl-3">
-                    <span className="font-semibold">${taxes.toFixed(2)}</span>
+                    <span className="font-semibold">$19.09</span>
                   </div>
                 </div>
               </div>
@@ -92,7 +86,7 @@ function Checkout({ cartItems }) {
                     <span className="text-sm font-semibold text-gray-400">
                       AUD
                     </span>{" "}
-                    <span className="font-semibold">${total.toFixed(2)}</span>
+                    <span className="font-semibold">$210.00</span>
                   </div>
                 </div>
               </div>
@@ -128,9 +122,11 @@ function Checkout({ cartItems }) {
                       <input
                         type="radio"
                         className="form-radio h-5 w-5 text-indigo-500"
-                        name="type"
+                        name="paymentMethod"
                         id="type1"
-                        checked
+                        value="card"
+                        checked={selectedPaymentMethod === "card"}
+                        onChange={() => setSelectedPaymentMethod("card")}
                       />
                       <img
                         src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
@@ -188,9 +184,6 @@ function Checkout({ cartItems }) {
                       </div>
                       <div className="w-1/4 px-2">
                         <select className="form-select mb-1 w-full cursor-pointer rounded-md border border-gray-200 px-3 py-2 transition-colors focus:border-indigo-500 focus:outline-none">
-                          <option value="2020">2020</option>
-                          <option value="2021">2021</option>
-                          <option value="2022">2022</option>
                           <option value="2023">2023</option>
                           <option value="2024">2024</option>
                           <option value="2025">2025</option>
@@ -198,6 +191,9 @@ function Checkout({ cartItems }) {
                           <option value="2027">2027</option>
                           <option value="2028">2028</option>
                           <option value="2029">2029</option>
+                          <option value="2030">2030</option>
+                          <option value="2031">2031</option>
+                          <option value="2032">2032</option>
                         </select>
                       </div>
                       <div className="w-1/4 px-2">
@@ -223,8 +219,11 @@ function Checkout({ cartItems }) {
                     <input
                       type="radio"
                       className="form-radio h-5 w-5 text-indigo-500"
-                      name="type"
+                      name="paymentMethod"
                       id="type2"
+                      value="paypal"
+                      checked={selectedPaymentMethod === "paypal"}
+                      onChange={() => setSelectedPaymentMethod("paypal")}
                     />
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
