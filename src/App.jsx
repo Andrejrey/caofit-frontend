@@ -14,6 +14,7 @@ import NotFound from "./components/NotFound";
 import UserProfile from "./components/UserProfile";
 import ProtectedLayout from "./components/ProtectedLayout";
 import ProductDetails from "./components/ProductDetails";
+import Checkout from "./components/Checkout";
 import { toast } from "react-toastify";
 import axios from "axios";
 import LegalNotice from "./components/LegalNotice";
@@ -206,6 +207,7 @@ function App() {
           <Route path="profile" element={<UserProfile user={user} />} />
         </Route>
         <Route path="/legal-notice" element={<LegalNotice />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <CartModal
         cartItems={cartItems}
