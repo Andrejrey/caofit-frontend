@@ -34,7 +34,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
       setPaymentLoading(true);
       setTimeout(() => {
         setPaymentLoading(false);
-        toast.success("Payment successful");
+        toast.success("Order successful. You will receive an email shortly.");
         setCartItems([]);
         setSelectedProductCount(0);
         navigate("/shop");
