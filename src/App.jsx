@@ -198,7 +198,16 @@ function App() {
             />
           }
         />
-        <Route path="/diary" element={<Diary user={user} token={token} />} />
+        <Route
+          path="/diary"
+          element={
+            <Diary
+              user={user}
+              token={token}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
         <Route
           path="auth"
           element={<ProtectedLayout isAuthenticated={isAuthenticated} />}

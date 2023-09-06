@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DiaryAccordionItem from "./DiaryAccordionItem";
 
-const DiaryAccordion = ({ data }) => {
+const DiaryAccordion = ({ data, isAuthenticated, getDiaryData }) => {
   const [open, setOpen] = useState(null); // 1, 2, 3, ...
 
   // Funktion zur Konvertierung von "DD/MM/YYYY" in ein vergleichbares Datum
@@ -41,6 +41,8 @@ const DiaryAccordion = ({ data }) => {
                 handleToggleOpen={handleToggleOpen}
                 setOpen={setOpen}
                 open={open}
+                isAuthenticated={isAuthenticated}
+                getDiaryData={getDiaryData}
               />
             );
           })}

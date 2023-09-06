@@ -1,6 +1,9 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { OverviewListing } from "./OverviewListing";
 import { OverviewPieChart } from "./OverviewPieChart";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const DiaryAccordionItem = ({
   id,
@@ -14,7 +17,32 @@ const DiaryAccordionItem = ({
   handleToggleOpen,
   open,
   setOpen,
+  isAuthenticated,
+  getDiaryData,
 }) => {
+  const deleteDiaryEntry = async (id) => {
+    console.log(id);
+    if (isAuthenticated) {
+      try {
+        const { data } = await axios.delete(
+          `${
+            import.meta.env.VITE_APP_CAOFIT_API
+          }/diary/delete_user_diary/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        toast.success(`You sucessfully deleted your data from ${date}.`);
+        getDiaryData();
+        return;
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
   return (
     <div className={`group ${id === open ? "is-active mr-2" : "mr-2"}`}>
       {/* Accordion Item (Header: Day, Date) */}
@@ -23,7 +51,18 @@ const DiaryAccordionItem = ({
         onClick={() => handleToggleOpen(id)}
       >
         <h2>{`${day}, ${date}`}</h2>
-        <ChevronDownIcon className="w-5 h-5 rotate-0 group-[.is-active]:rotate-[180deg]" />
+        <div className="flex flex-row flex-nowrap">
+          <button
+            className="flex items-center justify-center w-12 text-red-400 hover:text-red-600 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteDiaryEntry(id);
+            }}
+          >
+            <DeleteIcon />
+          </button>
+          <ChevronDownIcon className="w-5 h-5 rotate-0 group-[.is-active]:rotate-[180deg]" />
+        </div>
       </div>
       {/* Accordion Content (Charts) */}
       <div className="overflow-hidden h-0 group-[.is-active]:h-fit mb-2">
