@@ -187,7 +187,7 @@ const Calculator = ({ food, isAuthenticated }) => {
 
   return (
     <div className="flex flex-col h-fit lg:h-screen lg:min-h-[800px] lg:items-center lg:bg-diaryBg lg:bg-cover lg:bg-right">
-      <div className="bg-gray-200 sm:h-fit lg:min-h-[600px] lg:mb-5 lg:rounded-md lg:shadow-xl lg:my-8 lg:w-3/5 2xl:w-2/5">
+      <div className="bg-gray-200 sm:h-fit lg:min-h-[600px] lg:mb-5 lg:rounded-md lg:shadow-xl lg:my-8 lg:w-3/5 2xl:w-3/5">
         <div className="px-2 py-2">
           <h1 className="text-5xl font-extrabold text-dark-blue">
             CaoFIT
@@ -220,7 +220,7 @@ const Calculator = ({ food, isAuthenticated }) => {
               </div>
               <p className="text-dark-blue font-semibold">Add your food:</p>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row">
               {food && (
                 <Select
                   options={food.map((f) => {
