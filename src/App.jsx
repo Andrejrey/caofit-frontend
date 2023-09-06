@@ -216,7 +216,7 @@ function App() {
           <Route path="profile" element={<UserProfile user={user} />} />
         </Route>
         <Route path="/legal-notice" element={<LegalNotice />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
       </Routes>
       <CartModal
         cartItems={cartItems}
