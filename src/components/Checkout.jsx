@@ -1,7 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Checkout({ cartItems }) {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
+  const [subtotal, setSubtotal] = useState(0);
+  const [taxes, setTaxes] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+   
+    const subtotalAmount = cartItems.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    }, 0);
+    setSubtotal(subtotalAmount);
+
+   
+    const taxRate = 0.19;
+    const taxesAmount = subtotalAmount * taxRate;
+    setTaxes(taxesAmount);
+
+  
+    const totalAmount = subtotalAmount + taxesAmount;
+    setTotal(totalAmount);
+  }, [cartItems]);
 
   const renderCartItems = () => {
     return cartItems.map((item, index) => (
@@ -65,15 +85,17 @@ function Checkout({ cartItems }) {
                     <span className="text-gray-600">Subtotal</span>
                   </div>
                   <div className="pl-3">
-                    <span className="font-semibold">$190.91</span>
+                    <span className="font-semibold">
+                      ${subtotal.toFixed(2)}
+                    </span>
                   </div>
                 </div>
                 <div className="flex w-full items-center">
                   <div className="flex-grow">
-                    <span className="text-gray-600">Taxes</span>
+                    <span className="text-gray-600">Taxes (19%)</span>
                   </div>
                   <div className="pl-3">
-                    <span className="font-semibold">$19.09</span>
+                    <span className="font-semibold">${taxes.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -86,7 +108,7 @@ function Checkout({ cartItems }) {
                     <span className="text-sm font-semibold text-gray-400">
                       AUD
                     </span>{" "}
-                    <span className="font-semibold">$210.00</span>
+                    <span className="font-semibold">${total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -122,9 +144,8 @@ function Checkout({ cartItems }) {
                       <input
                         type="radio"
                         className="form-radio h-5 w-5 text-indigo-500"
-                        name="paymentMethod"
+                        name="type"
                         id="type1"
-                        value="card"
                         checked={selectedPaymentMethod === "card"}
                         onChange={() => setSelectedPaymentMethod("card")}
                       />
@@ -219,9 +240,8 @@ function Checkout({ cartItems }) {
                     <input
                       type="radio"
                       className="form-radio h-5 w-5 text-indigo-500"
-                      name="paymentMethod"
+                      name="type"
                       id="type2"
-                      value="paypal"
                       checked={selectedPaymentMethod === "paypal"}
                       onChange={() => setSelectedPaymentMethod("paypal")}
                     />
