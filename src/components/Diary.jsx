@@ -2,22 +2,26 @@ import DiaryAccordion from "./DiaryAccordion";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Diary = ({ user, token }) => {
+const Diary = ({ user, token, isAuthenticated }) => {
   const [diary, setDiary] = useState([]);
 
   useEffect(() => {
     if (user && token) {
-      axios
-        .get(`${import.meta.env.VITE_APP_CAOFIT_API}/diary/get_user_diary`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setDiary(response.data);
-        });
+      getDiaryData();
     }
   }, [user, token]);
+
+  const getDiaryData = () => {
+    axios
+      .get(`${import.meta.env.VITE_APP_CAOFIT_API}/diary/get_user_diary`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setDiary(response.data);
+      });
+  };
 
   return (
     <div className="flex flex-col lg:h-screen lg:items-center lg:bg-diaryBg lg:bg-cover lg:bg-right">
@@ -30,7 +34,11 @@ const Diary = ({ user, token }) => {
             </span>
           </h1>
         </div>
-        <DiaryAccordion data={diary} />
+        <DiaryAccordion
+          data={diary}
+          isAuthenticated={isAuthenticated}
+          getDiaryData={getDiaryData}
+        />
       </div>
     </div>
   );
