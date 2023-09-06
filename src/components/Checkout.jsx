@@ -74,11 +74,12 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
             <img
               src={item.item_image}
               alt={item.item_name}
-              className="h-24 w-24 rounded-lg object-cover"
+              className="h-36 w-36 rounded-lg object-contain "
             />
           </div>
           <div className="flex-grow px-3">
             <h6 className="font-semibold text-gray-600">{item.item_name}</h6>
+            <p className="text-gray-600">{item.item_flavour}</p>
             <p className="text-gray-400">Quantity: 1</p>
           </div>
           <div className="px-3">
@@ -310,7 +311,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
                   <div>
                     <button
                       onClick={handlePay}
-                      className="mx-auto block w-full max-w-xs rounded-lg bg-indigo-500 px-3 py-2 font-semibold text-white hover:bg-indigo-700 focus:bg-indigo-700"
+                      className="mx-auto block w-full max-w-xs rounded-lg bg-dark-blue px-3 py-2 font-semibold text-white hover:bg-second focus:bg-dark-blue-light"
                     >
                       <i className="mdi mdi-lock-outline mr-1"></i> PAY NOW
                     </button>
