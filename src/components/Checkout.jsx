@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
   const navigate = useNavigate();
@@ -9,10 +10,33 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
   const [taxes, setTaxes] = useState(0);
   const [total, setTotal] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [itemInfo, setItemInfo] = useState([]);
 
   useEffect(() => {
-    const subtotalAmount = cartItems.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
+    const fetchItemInfo = async () => {
+      try {
+        const itemInfoArray = await Promise.all(
+          cartItems.map(async (itemId) => {
+            const response = await axios.get(
+              `${import.meta.env.VITE_APP_CAOFIT_API}/shop_items/${itemId}`
+            );
+            return response.data[0];
+          })
+        );
+        setItemInfo(itemInfoArray);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    fetchItemInfo();
+  }, [cartItems]);
+
+  useEffect(() => {
+    const subtotalAmount = itemInfo.reduce((acc, item) => {
+      return acc + item.item_price;
     }, 0);
     setSubtotal(subtotalAmount);
 
@@ -22,7 +46,7 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
 
     const totalAmount = subtotalAmount + taxesAmount;
     setTotal(totalAmount);
-  }, [cartItems]);
+  }, [itemInfo]);
 
   const handlePay = () => {
     if (
@@ -43,23 +67,23 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
   };
 
   const renderCartItems = () => {
-    return cartItems.map((item, index) => (
+    return itemInfo.map((item, index) => (
       <div key={index} className="mb-6 border-b border-gray-200 pb-6">
         <div className="-mx-3 flex items-center">
           <div className="px-3">
             <img
-              src={item.image}
-              alt={item.name}
+              src={item.item_image}
+              alt={item.item_name}
               className="h-24 w-24 rounded-lg object-cover"
             />
           </div>
           <div className="flex-grow px-3">
-            <h6 className="font-semibold text-gray-600">{item.name}</h6>
-            <p className="text-gray-400">Quantity: {item.quantity}</p>
+            <h6 className="font-semibold text-gray-600">{item.item_name}</h6>
+            <p className="text-gray-400">Quantity: 1</p>
           </div>
           <div className="px-3">
             <span className="text-xl font-semibold text-gray-600">
-              ${item.price}
+              ${item.item_price}
             </span>
             <span className="text-sm font-semibold text-gray-600">.00</span>
           </div>
@@ -299,28 +323,21 @@ function Checkout({ cartItems, setCartItems, setSelectedProductCount }) {
       ) : (
         <div
           role="status"
-          className="flex flex-col h-screen justify-center items-center"
+          className="flex h-screen flex-col items-center justify-center"
         >
           <div>
             <svg
               aria-hidden="true"
-              className="w-32 h-32 mr-2 text-gray-200 animate-spin dark:text-dark-blue-light fill-first"
+              className="mr-2 h-32 w-32 animate-spin fill-first text-gray-200 dark:text-dark-blue-light"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 74.9023 29.0977 94.9185 53.4092 94.9185C61.5568 94.9185 68.5437 92.3988 74.2142 88.0722L68.4363 82.2943C64.3252 86.4054 58.3109 86.4054 54.1999 82.2943C50.0888 78.1832 50.0888 72.169 54.1999 68.0579L73.1536 49.1042L54.1999 30.1505C50.0888 26.0395 50.0888 20.0252 54.1999 15.9141C58.3109 11.8031 64.3252 11.8031 68.4363 15.9141L74.2142 21.6921C68.5437 17.3655 61.5568 14.8458 53.4092 14.8458C29.0977 14.8458 9.08144 34.862 9.08144 50.5908Z"
                 fill="currentColor"
               />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
             </svg>
-          </div>
-          <div className="mt-3 text-dark-blue-light rounded-lg">
-            <span className="font-bold">is loading...</span>
           </div>
         </div>
       )}
