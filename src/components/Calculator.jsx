@@ -186,8 +186,8 @@ const Calculator = ({ food, isAuthenticated }) => {
       : "";
 
   return (
-    <div className="flex flex-col h-fit lg:h-screen lg:items-center lg:bg-diaryBg lg:bg-cover lg:bg-right">
-      <div className="bg-gray-200 sm:h-fit lg:h-[90vh] lg:rounded-md lg:shadow-xl lg:my-8 lg:w-3/5 2xl:w-2/5">
+    <div className="flex flex-col h-fit lg:h-screen lg:min-h-[800px] lg:items-center lg:bg-diaryBg lg:bg-cover lg:bg-right">
+      <div className="bg-gray-200 sm:h-fit lg:min-h-[600px] lg:mb-5 lg:rounded-md lg:shadow-xl lg:my-8 lg:w-3/5 2xl:w-2/5">
         <div className="px-2 py-2">
           <h1 className="text-5xl font-extrabold text-dark-blue">
             CaoFIT
@@ -196,58 +196,63 @@ const Calculator = ({ food, isAuthenticated }) => {
             </span>
           </h1>
         </div>
-        <div className="px-2 py-2">
-          <div className="flex flex-row flex-nowrap items-center pb-2">
-            <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
-              <p className="font-bold text-dark-blue pb-0.5">1</p>
+        <div className="mr-2 px-2 py-2 grid grid-cols-3 grid-flow-row">
+          {/* No 1: Select a date */}
+          <div className="mb-2">
+            <div className="flex flex-row flex-nowrap items-center pb-2">
+              <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
+                <p className="font-bold text-dark-blue pb-0.5">1</p>
+              </div>
+              <p className="text-dark-blue font-semibold">Select a date:</p>
             </div>
-            <p className="text-dark-blue font-semibold">Select a date:</p>
+            <input
+              onChange={onChangeDateInputHandler}
+              type="date"
+              value={date}
+              className="rounded-lg border border-dark-blue-light p-1"
+            />
           </div>
-          <input
-            onChange={onChangeDateInputHandler}
-            type="date"
-            value={date}
-            className="rounded-lg border border-dark-blue-light p-1"
-          />
+          {/* No 2: Add your food */}
+          <div className="flex flex-col col-span-2">
+            <div className="flex flex-row flex-nowrap items-center pb-2">
+              <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
+                <p className="font-bold text-dark-blue pb-0.5">2</p>
+              </div>
+              <p className="text-dark-blue font-semibold">Add your food:</p>
+            </div>
+            <div className="flex flex-col">
+              {food && (
+                <Select
+                  options={food.map((f) => {
+                    return {
+                      value: f,
+                      label: f.name.charAt(0).toUpperCase() + f.name.slice(1),
+                    };
+                  })}
+                  className="w-full max-w-[350px] mb-2 md:mr-3"
+                  onChange={onChangeSelectHandler}
+                />
+              )}
+              <div className="flex flex-row flex-nowrap">
+                <input
+                  onChange={onChangeInputHandler}
+                  value={measureValue}
+                  type="text"
+                  className="mr-2 block h-9 w-full max-w-[286px] rounded-lg border border-first bg-gray-50 p-2.5 text-sm focus:border-yellow-400 focus:ring-yellow-400"
+                  placeholder={selectedFood && selectedFood.unit}
+                  ref={inputRef}
+                />
+                <button
+                  className="transform cursor-pointer rounded-lg bg-first h-[36px] pl-3 pr-3 font-semibold text-dark-blue hover:bg-yellow-400"
+                  onClick={addFoodCalculation}
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="px-2 py-2 flex flex-col">
-          <div className="flex flex-row flex-nowrap items-center pb-2">
-            <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
-              <p className="font-bold text-dark-blue pb-0.5">2</p>
-            </div>
-            <p className="text-dark-blue font-semibold">Add your food:</p>
-          </div>
-          <div className="flex flex-col md:flex-row">
-            {food && (
-              <Select
-                options={food.map((f) => {
-                  return {
-                    value: f,
-                    label: f.name.charAt(0).toUpperCase() + f.name.slice(1),
-                  };
-                })}
-                className="w-[300px] mb-2 md:mr-3"
-                onChange={onChangeSelectHandler}
-              />
-            )}
-            <div className="flex flex-row flex-nowrap">
-              <input
-                onChange={onChangeInputHandler}
-                value={measureValue}
-                type="text"
-                className="mr-2 block h-9 w-[237px] rounded-lg border border-first bg-gray-50 p-2.5 text-sm focus:border-yellow-400 focus:ring-yellow-400"
-                placeholder={selectedFood && selectedFood.unit}
-                ref={inputRef}
-              />
-              <button
-                className="transform cursor-pointer rounded-lg bg-first h-[36px] pl-3 pr-3 font-semibold text-dark-blue hover:bg-yellow-400"
-                onClick={addFoodCalculation}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* No 3: Save the food in your diary */}
         <div className="px-2 py-2 flex flex-col">
           <div className="flex flex-row flex-nowrap items-center pb-2">
             <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
@@ -257,8 +262,7 @@ const Calculator = ({ food, isAuthenticated }) => {
               Save the food in your diary:
             </p>
           </div>
-
-          <div className="lg:overflow-y-scroll lg:h-[40vh] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
+          <div className="lg:overflow-y-scroll lg:h-[40vh] lg:min-h-[300px] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
             <div className="mb-2 p-3 shadow-lg rounded-md bg-slate-200 mr-2">
               <div className="mr-[40px] grid grid-cols-6 gap-x-3 text-dark-blue-light text-sm font-bold">
                 <div className="col-span-2"></div>
