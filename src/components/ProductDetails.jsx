@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { parse } from "postgres-array";
 
 const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   const { id } = useParams();
@@ -20,7 +19,6 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
         setLoading(false);
       });
   }, [id]);
@@ -28,7 +26,6 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   const formatDescription = (object) => {
     const cleanedString = object.slice(1, -1);
     const newArray = cleanedString.split('","');
-    console.log(newArray);
     return newArray.map((item, i) => (
       <li key={i} className="list-disc">
         {item.replace(/"/g, "")}
