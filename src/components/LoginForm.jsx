@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { loginUser } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import logo from "../assets/logo/caoFit_light_logo_without_text.svg";
+import logo from "/public/assets/logo/caoFit_light_logo_without_text.svg";
 
 function LoginForm({
   onClose,
@@ -33,7 +33,7 @@ function LoginForm({
         email,
         password,
       });
-      if (error) toast.error("Incorrect email or password");
+      if (error) throw new Error(error.message);
       setToken(data.token);
       setIsAuthenticated(true);
       setLoadingAuthRequest(false);
@@ -50,7 +50,7 @@ function LoginForm({
   return (
     <div className="flex h-screen flex-col justify-evenly bg-LoginBg bg-cover bg-right lg:flex-row">
       <div className="flex items-center justify-center">
-        <div className="flex  flex-col items-center rounded-full bg-dark-blue p-14 lg:ml-12">
+        <div className="flex flex-col items-center rounded-full bg-dark-blue p-14 lg:ml-12">
           <img
             src={logo}
             alt="logo"

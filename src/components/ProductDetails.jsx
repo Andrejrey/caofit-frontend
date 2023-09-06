@@ -28,8 +28,11 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
   const formatDescription = (object) => {
     const cleanedString = object.slice(1, -1);
     const newArray = cleanedString.split('","');
-    return newArray.map((item) => (
-      <li className="list-disc">{item.replace(/"/g, "")}</li>
+    console.log(newArray);
+    return newArray.map((item, i) => (
+      <li key={i} className="list-disc">
+        {item.replace(/"/g, "")}
+      </li>
     ));
   };
 

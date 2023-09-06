@@ -1,39 +1,45 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { IoAdd, IoRemove } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 
 function CartModal({
   cartItems = [],
   isOpen,
   onClose,
-  selectedItems = [],
   products = [],
-  deleteProduct,
   clearCart,
   isMobile,
-  selectedProductCount,
   updateSelectedProductCount,
+  setCartItems = { setCartItems },
 }) {
-  const [quantities, setQuantities] = useState({});
+  const [quantities, setQuantities] = useState(
+    JSON.parse(localStorage.getItem("cartItems")) || {}
+  );
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    const initialQuantities = {};
+    localStorage.setItem("cartItems", JSON.stringify(quantities));
+  }, [quantities]);
+
+  useEffect(() => {
+    let initialQuantities = { ...quantities };
     let initialTotalPrice = 0;
 
     cartItems.forEach((itemId) => {
       const product = products.find((p) => p.id === itemId);
       if (product) {
-        initialQuantities[itemId] = 1;
-        initialTotalPrice += product.item_price;
+        if (!initialQuantities[itemId]) {
+          initialQuantities[itemId] = 1;
+        }
+        initialTotalPrice +=
+          getProductPrice(itemId) * initialQuantities[itemId];
       }
     });
 
     setQuantities(initialQuantities);
     setTotalPrice(initialTotalPrice);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems, products]);
 
   const increaseQuantity = (productId) => {
@@ -44,7 +50,7 @@ function CartModal({
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + getProductPrice(productId)
     );
-    updateSelectedProductCount(selectedProductCount + 1);
+    updateSelectedProductCount((prevCount) => prevCount + 1);
   };
 
   const decreaseQuantity = (productId) => {
@@ -66,25 +72,40 @@ function CartModal({
     const productQuantity = quantities[productId] || 0;
 
     if (productQuantity > 0) {
-      const updatedQuantities = { ...quantities };
-      delete updatedQuantities[productId];
-      setQuantities(updatedQuantities);
-
       const removedProduct = products.find((p) => p.id === productId);
-      if (removedProduct) {
-        const removedQuantity = productQuantity || 1;
-        setTotalPrice(
-          (prevTotalPrice) =>
-            prevTotalPrice - removedProduct.item_price * removedQuantity
-        );
-      }
 
-      updateSelectedProductCount((prevCount) => prevCount - productQuantity);
-      deleteProduct(productId);
-      if (Object.keys(updatedQuantities).length === 0) {
-        handleCloseModal();
+      if (removedProduct) {
+        const removedQuantity = productQuantity;
+        const removedPrice = removedProduct.item_price * removedQuantity;
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - removedPrice);
+        setQuantities((prevQuantities) => {
+          const updatedQuantities = { ...prevQuantities };
+          updatedQuantities[productId] -= removedQuantity;
+
+          if (updatedQuantities[productId] <= 0) {
+            delete updatedQuantities[productId];
+          }
+
+          return updatedQuantities;
+        });
+
+        updateSelectedProductCount((prevCount) => prevCount - removedQuantity);
+        setCartItems((prevCartItems) =>
+          prevCartItems.filter((id) => id !== productId)
+        );
+
+        if (Object.keys(quantities).length === 0) {
+          onClose();
+        }
       }
     }
+  };
+
+  const handleClearCart = () => {
+    setQuantities({});
+    clearCart();
+    updateSelectedProductCount(0);
+    handleCloseModal();
   };
 
   const getProductPrice = (productId) => {
@@ -92,18 +113,8 @@ function CartModal({
     return product ? product.item_price : 0;
   };
 
-  const totalItems = cartItems.length;
-  const closeOnEmptyCart =
-    totalItems === 0 || (totalItems === 1 && !quantities[cartItems[0]]);
-
   const handleCloseModal = () => {
     onClose();
-  };
-
-  const handleClearCart = () => {
-    clearCart();
-    updateSelectedProductCount(0);
-    handleCloseModal();
   };
 
   if (!isOpen) {
@@ -136,7 +147,7 @@ function CartModal({
           <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
               <ul className="divide-y divide-gray-200">
-                {selectedItems.map((productId) => {
+                {cartItems.map((productId) => {
                   const product = products.find((p) => p.id === productId);
                   if (!product) return null;
 

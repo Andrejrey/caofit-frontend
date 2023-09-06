@@ -1,4 +1,4 @@
-import { useState, Component } from "react";
+import { useState } from "react";
 import DiaryAccordionItem from "./DiaryAccordionItem";
 
 const DiaryAccordion = ({ data }) => {
@@ -14,7 +14,7 @@ const DiaryAccordion = ({ data }) => {
   const sortedData = data.slice().sort((a, b) => {
     const dateA = parseDate(a.date);
     const dateB = parseDate(b.date);
-    return dateA - dateB;
+    return dateB - dateA;
   });
 
   // Toggle Funktion für Accordion Items

@@ -137,7 +137,7 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
         <Route
           path="/login"
           element={
@@ -174,6 +174,7 @@ function App() {
               addToCart={addToCart}
               cartItems={cartItems}
               setCartItems={setCartItems}
+              selectedProductCount={selectedProductCount}
             />
           }
         />
@@ -216,6 +217,7 @@ function App() {
         clearCart={clearCart}
         selectedProductCount={selectedProductCount}
         updateSelectedProductCount={updateSelectedProductCount}
+        setCartItems={setCartItems}
       />
       <Footer />
     </>
