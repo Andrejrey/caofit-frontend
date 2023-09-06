@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { loginUser } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import logo from "/public/assets/logo/caoFit_light_logo_without_text.svg";
 
 function LoginForm({
   onClose,
