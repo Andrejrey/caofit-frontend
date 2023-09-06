@@ -261,7 +261,7 @@ const Calculator = ({ food, isAuthenticated }) => {
               Save the food in your diary:
             </p>
           </div>
-          <div className="lg:overflow-y-scroll lg:h-[40vh] lg:min-h-[300px] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300">
+          <div>
             <div className="mb-2 p-3 shadow-lg rounded-md bg-slate-200 mr-2">
               <div className="mr-[40px] grid grid-cols-6 gap-x-3 text-dark-blue-light text-sm font-bold">
                 <div className="col-span-2"></div>
@@ -271,22 +271,24 @@ const Calculator = ({ food, isAuthenticated }) => {
                 <div className="text-right">kcal</div>
               </div>
             </div>
-            {totalFoodNutritionalValue.length === 0 ? (
-              <div className="mb-2 mr-2 p-3 rounded-md bg-white flex flex-row flex-nowrap justify-center items-center">
-                <p className="text-dark-blue italic">» No food added yet «</p>
-              </div>
-            ) : (
-              ""
-            )}
-            {totalFoodNutritionalValue.map((t, i) => {
-              return (
-                <TotalFoodNutritionalValue
-                  totalFood={t}
-                  key={i}
-                  deleteFoodNutritionalValueId={deleteFoodNutritionalValueId}
-                />
-              );
-            })}
+            <div className="lg:overflow-y-scroll lg:h-[40vh] lg:min-h-[300px] lg:scrollbar-thin lg:scrollbar-thumb-rounded-sm lg:scrollbar-thumb-second lg:scrollbar-track-slate-300 mr-2 mb-2">
+              {totalFoodNutritionalValue.length === 0 ? (
+                <div className="mb-2 mr-2 p-3 rounded-md bg-white flex flex-row flex-nowrap justify-center items-center">
+                  <p className="text-dark-blue italic">» No food added yet «</p>
+                </div>
+              ) : (
+                ""
+              )}
+              {totalFoodNutritionalValue.map((t, i) => {
+                return (
+                  <TotalFoodNutritionalValue
+                    totalFood={t}
+                    key={i}
+                    deleteFoodNutritionalValueId={deleteFoodNutritionalValueId}
+                  />
+                );
+              })}
+            </div>
             <TotalNutritionalValue
               totalCarbs={totalCarbs}
               totalFat={totalFat}

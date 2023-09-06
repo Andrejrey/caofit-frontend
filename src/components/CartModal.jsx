@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { IoAdd, IoRemove } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CartModal({
   cartItems = [],
@@ -67,6 +67,7 @@ function CartModal({
       handleRemoveFromCart(productId);
     }
   };
+  const navigate = useNavigate();
 
   const handleRemoveFromCart = (productId) => {
     const productQuantity = quantities[productId] || 0;
@@ -120,6 +121,10 @@ function CartModal({
   if (!isOpen) {
     return null;
   }
+  const handleCheckout = () => {
+    closeCartModal();
+    navigate("/checkout");
+  };
 
   return (
     <div
@@ -226,6 +231,7 @@ function CartModal({
               <Link
                 to="/checkout"
                 className="flex w-full items-center justify-center rounded-md bg-second px-3 py-1 text-gray-100 hover:bg-dark-blue-light md:text-xl"
+                onClick={handleCheckout}
               >
                 Checkout
               </Link>

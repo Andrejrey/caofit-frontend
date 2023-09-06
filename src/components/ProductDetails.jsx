@@ -81,16 +81,18 @@ const ProductDetails = ({ addToCart, removeFromCart, cartItems }) => {
                   {shopItem[0].stock} available
                 </li>
               </ul>
-              <button
-                className={`mt-8 w-full rounded-lg ${
-                  isProductInCart
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-second hover:bg-dark-blue-light"
-                } py-3 text-lg font-semibold text-white`}
-                onClick={handleToggleCart}
-              >
-                {isProductInCart ? "Remove from Cart" : "Add to Cart"}
-              </button>
+              <div className=" flex flex-col items-center justify-center">
+                <button
+                  className={`mt-8 w-full rounded-lg ${
+                    isProductInCart
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-second hover:bg-dark-blue-light"
+                  } py-3 text-lg font-semibold text-white`}
+                  onClick={handleToggleCart}
+                >
+                  {isProductInCart ? "Remove from Cart" : "Add to Cart"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
