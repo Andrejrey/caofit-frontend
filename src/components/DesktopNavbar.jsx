@@ -53,7 +53,7 @@ function DesktopNavbar({
               className="h-8 w-32 cursor-pointer object-cover"
             />
           </Link>
-          <div
+          {/* <div
             className={`relative ml-5 flex cursor-pointer items-center text-white md:hidden`}
             onClick={openCartModal}
           >
@@ -61,7 +61,7 @@ function DesktopNavbar({
             <span className="absolute right-0 top-2 flex h-5 w-5 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-full bg-first text-blue-900">
               {selectedProductCount}
             </span>
-          </div>
+          </div> */}
         </div>
         <nav
           className={`flex-grow flex-col ${
@@ -76,13 +76,13 @@ function DesktopNavbar({
             Home
           </Link>
           <>
-            <Link
+            {/* <Link
               onClick={() => setIsOpen(false)}
               to={"/shop"}
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Shop
-            </Link>
+            </Link> */}
             <Link
               onClick={() => setIsOpen(false)}
               to="/calculator"

@@ -1,4 +1,7 @@
-function Navbar() {
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+
+function Navbar({ isAuthenticated, logOut }) {
   return (
     <nav className="fixed bottom-0 z-10 flex w-full border-t bg-dark-blue p-2 md:hidden">
       <a
@@ -23,7 +26,7 @@ function Navbar() {
         </svg>
       </a>
 
-      <a
+      {/* <a
         href="/shop"
         className="whitespace-no-wrap flex flex-grow flex-col items-center 
 		justify-center overflow-hidden text-sm text-white transition-colors
@@ -45,7 +48,7 @@ function Navbar() {
         </svg>
 
         <span className="hidden text-sm capitalize">Shopping</span>
-      </a>
+      </a> */}
 
       <a
         href="/calculator"
@@ -68,28 +71,50 @@ function Navbar() {
           />
         </svg>
       </a>
-
-      <a
-        href="/diary"
-        className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
+      {isAuthenticated && (
+        <a
+          href="/diary"
+          className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="h-6 w-6"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-          />
-        </svg>
-      </a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="h-6 w-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+            />
+          </svg>
+        </a>
+      )}
+      {!isAuthenticated && (
+        <a
+          href="/login"
+          className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
+		overflow-hidden text-sm text-white transition-colors duration-100
+		ease-in-out hover:text-yellow-500"
+        >
+          <LoginIcon />
+        </a>
+      )}
+      {isAuthenticated && (
+        <a
+          onClick={logOut}
+          href="/login"
+          className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
+		overflow-hidden text-sm text-white transition-colors duration-100
+		ease-in-out hover:text-yellow-500"
+        >
+          <LogoutIcon />
+        </a>
+      )}
     </nav>
   );
 }
