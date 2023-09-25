@@ -54,7 +54,7 @@ const Home = ({ isAuthenticated }) => {
             alt="Muscle Icon"
             className="mb-2 w-12 self-center"
           />
-          <h2 className="font-semibold">
+          {/* <h2 className="font-semibold">
             Ultimate Destination for Health Enthusiasts
           </h2>
           <hr className="mx-10 my-1 h-px border-0 bg-dark-blue"></hr>
@@ -63,7 +63,7 @@ const Home = ({ isAuthenticated }) => {
             which fuel your workouts or support your recovery. Step into the
             world of CaoFIT Shop and embrace the power of protein
             supplementation!
-          </p>
+          </p> */}
         </div>
         <Link
           to={!isAuthenticated ? "/login" : "/auth/profile"}

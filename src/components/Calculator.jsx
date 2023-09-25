@@ -18,6 +18,8 @@ const Calculator = ({ food, isAuthenticated }) => {
   const inputRef = useRef();
   const navigate = useNavigate();
 
+  console.log(totalFoodNutritionalValue);
+
   function setTotalFoodNutritionalValueAndSave(newTotalFoodNutritionalValue) {
     setTotalFoodNutritionalValue(newTotalFoodNutritionalValue);
     localStorage.setItem(
