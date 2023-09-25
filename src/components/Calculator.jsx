@@ -18,8 +18,6 @@ const Calculator = ({ food, isAuthenticated }) => {
   const inputRef = useRef();
   const navigate = useNavigate();
 
-  console.log(totalFoodNutritionalValue);
-
   function setTotalFoodNutritionalValueAndSave(newTotalFoodNutritionalValue) {
     setTotalFoodNutritionalValue(newTotalFoodNutritionalValue);
     localStorage.setItem(
@@ -54,7 +52,8 @@ const Calculator = ({ food, isAuthenticated }) => {
       measureValue &&
       measureValue > 0 &&
       typeof measureValue === "number" &&
-      date
+      date &&
+      totalFoodNutritionalValue.length < 5
     ) {
       setTotalFoodNutritionalValueAndSave([
         ...totalFoodNutritionalValue,
@@ -87,6 +86,8 @@ const Calculator = ({ food, isAuthenticated }) => {
       toast.error("Please enter quantity");
     } else if (typeof measureValue !== "number") {
       toast.error("Please enter a valid number");
+    } else if (totalFoodNutritionalValue.length > 4) {
+      toast.info("In this version 5 groceries are the limit");
     }
     setMeasureValue("");
   }
