@@ -58,7 +58,7 @@ function Navbar({ isAuthenticated, logOut }) {
           <AutoStoriesIcon />
         </a>
       )}
-      {!isAuthenticated && (
+      {!isAuthenticated ? (
         <a
           href="/login"
           className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
@@ -67,8 +67,7 @@ function Navbar({ isAuthenticated, logOut }) {
         >
           <LoginIcon />
         </a>
-      )}
-      {isAuthenticated && (
+      ) : (
         <a
           onClick={logOut}
           href="/login"

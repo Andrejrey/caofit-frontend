@@ -6,7 +6,7 @@ import shopping from "../assets/icons/shopping-cart.png";
 
 const UserProfile = ({ user }) => {
   return user ? (
-    <div className="flex flex-col justify-center items-start bg-homeBg bg-cover bg-top">
+    <div className="h-screen flex flex-col justify-center items-start bg-homeBg bg-cover bg-top">
       <div className="text-center text-dark-blue mx-3 mb-10 lg:w-3/5 xl:w-1/2 xl:ml-10 2xl:w-1/3 2xl:ml-80">
         <h1 className="text-3xl mt-6">
           Name:{" "}
@@ -57,7 +57,7 @@ const UserProfile = ({ user }) => {
           >
             Diary
           </Link>
-          <img
+          {/* <img
             src={shopping}
             alt="Muscle Icon"
             className="w-12 mb-2 self-center mt-5"
@@ -77,7 +77,7 @@ const UserProfile = ({ user }) => {
             to={"/shop"}
           >
             Shop
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
