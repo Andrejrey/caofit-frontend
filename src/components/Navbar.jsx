@@ -3,18 +3,19 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import { Link } from "react-router-dom";
 
 function Navbar({ isAuthenticated, logOut }) {
   return (
     <nav className="fixed bottom-0 z-10 flex w-full border-t bg-dark-blue p-2 md:hidden">
-      <a
-        href="/"
+      <Link
+        to={"/"}
         className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
       >
         <HomeIcon />
-      </a>
+      </Link>
 
       {/* <a
         href="/shop"
@@ -40,43 +41,44 @@ function Navbar({ isAuthenticated, logOut }) {
         <span className="hidden text-sm capitalize">Shopping</span>
       </a> */}
 
-      <a
-        href="/calculator"
+      <Link
+        to={"/calculator"}
         className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
       >
         <CalculateIcon />
-      </a>
+      </Link>
       {isAuthenticated && (
-        <a
-          href="/diary"
+        <Link
+          to={"/diary"}
           className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
         >
           <AutoStoriesIcon />
-        </a>
+        </Link>
       )}
-      {!isAuthenticated ? (
-        <a
-          href="/login"
+      {!isAuthenticated && (
+        <Link
+          to={"/login"}
           className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
         >
           <LoginIcon />
-        </a>
-      ) : (
-        <a
+        </Link>
+      )}
+      {isAuthenticated && (
+        <Link
           onClick={logOut}
-          href="/login"
+          to={"/login"}
           className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
         >
           <LogoutIcon />
-        </a>
+        </Link>
       )}
     </nav>
   );
