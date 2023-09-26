@@ -75,22 +75,20 @@ function DesktopNavbar({
           >
             Home
           </Link>
-          <>
-            {/* <Link
+          {/* <Link
               onClick={() => setIsOpen(false)}
               to={"/shop"}
               className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
             >
               Shop
             </Link> */}
-            <Link
-              onClick={() => setIsOpen(false)}
-              to="/calculator"
-              className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
-            >
-              Calculator
-            </Link>
-          </>
+          <Link
+            onClick={() => setIsOpen(false)}
+            to="/calculator"
+            className="shadow-outline mt-2 rounded-lg px-4 py-2 text-sm font-semibold text-white hover:text-yellow-400 focus:outline-none md:ml-4 md:mt-0"
+          >
+            Calculator
+          </Link>
           {isAuthenticated && (
             <Link
               onClick={() => setIsOpen(false)}
