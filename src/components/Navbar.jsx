@@ -3,6 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
 function Navbar({ isAuthenticated, logOut }) {
@@ -14,32 +15,23 @@ function Navbar({ isAuthenticated, logOut }) {
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
       >
-        <HomeIcon />
+        <div className="flex flex-col items-center">
+          <HomeIcon />
+          <p>Home</p>
+        </div>
       </Link>
 
-      {/* <a
+      {/* <Link
         href="/shop"
-        className="whitespace-no-wrap flex flex-grow flex-col items-center 
-		justify-center overflow-hidden text-sm text-white transition-colors
-		duration-100 ease-in-out hover:text-yellow-500"
+        className="whitespace-no-wrap flex flex-grow flex-col items-center justify-center
+        overflow-hidden text-sm text-white transition-colors duration-100
+        ease-in-out hover:text-yellow-500"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-          />
-        </svg>
-
-        <span className="hidden text-sm capitalize">Shopping</span>
-      </a> */}
+        <div className="flex flex-col items-center">
+          <ShoppingCartIcon />
+          <p>Shop</p>
+        </div>
+      </Link> */}
 
       <Link
         to={"/calculator"}
@@ -47,7 +39,10 @@ function Navbar({ isAuthenticated, logOut }) {
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
       >
-        <CalculateIcon />
+        <div className="flex flex-col items-center">
+          <CalculateIcon />
+          <p>Calculator</p>
+        </div>
       </Link>
       {isAuthenticated && (
         <Link
@@ -56,7 +51,10 @@ function Navbar({ isAuthenticated, logOut }) {
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
         >
-          <AutoStoriesIcon />
+          <div className="flex flex-col items-center">
+            <AutoStoriesIcon />
+            <p>Diary</p>
+          </div>
         </Link>
       )}
       {!isAuthenticated && (
@@ -66,7 +64,10 @@ function Navbar({ isAuthenticated, logOut }) {
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
         >
-          <LoginIcon />
+          <div className="flex flex-col items-center">
+            <LoginIcon />
+            <p>Login</p>
+          </div>
         </Link>
       )}
       {isAuthenticated && (
@@ -77,7 +78,10 @@ function Navbar({ isAuthenticated, logOut }) {
 		overflow-hidden text-sm text-white transition-colors duration-100
 		ease-in-out hover:text-yellow-500"
         >
-          <LogoutIcon />
+          <div className="flex flex-col items-center">
+            <LogoutIcon />
+            <p>Logout</p>
+          </div>
         </Link>
       )}
     </nav>
