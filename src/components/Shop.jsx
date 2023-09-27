@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ShopArticle from "./ShopArticle";
+import Loading from "./Loading";
 
 const Shop = ({
   products = [],
@@ -89,6 +90,7 @@ const Shop = ({
           />
         ))}
       </div>
+      {!products && <Loading />}
     </div>
   );
 };

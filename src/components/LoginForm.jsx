@@ -43,8 +43,6 @@ function LoginForm({
     }
   };
 
-  if (loadingAuthRequest) return <Loading />;
-
   return (
     <div className="flex h-screen min-h-[600px] flex-col justify-evenly bg-LoginBg bg-cover bg-right lg:flex-row">
       <div className="flex w-full items-center justify-center space-y-8 lg:w-1/2">
@@ -125,6 +123,7 @@ function LoginForm({
           </form>
         </div>
       </div>
+      {loadingAuthRequest && <Loading />}
     </div>
   );
 }
