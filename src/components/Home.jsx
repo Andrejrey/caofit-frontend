@@ -8,7 +8,7 @@ const Home = ({ isAuthenticated }) => {
   return (
     <div className="flex flex-col items-center bg-homeBg bg-cover bg-top lg:items-start xl:bg-center">
       <div className="mx-3 mt-20 flex justify-center lg:w-3/5 xl:ml-10 xl:w-1/2 2xl:ml-80 2xl:w-1/3">
-        <div className="mb-8 flex h-48 w-48 transform animate-bounce items-center justify-center rounded-full bg-dark-blue p-4 transition-transform hover:scale-105 hover:bg-second">
+        <div className="mb-8 flex h-48 w-48 transform items-center justify-center rounded-full bg-dark-blue p-4 transition-transform hover:scale-105 hover:bg-second">
           <img src={logo} alt="logo" className="h-48 w-auto ml-2" />
         </div>
       </div>
@@ -48,13 +48,13 @@ const Home = ({ isAuthenticated }) => {
             and optimize nutrition effortlessly.
           </p>
         </div>
-        <div className="mb-12 flex flex-col text-lg">
+        {/* <div className="mb-12 flex flex-col text-lg">
           <img
             src={shopping}
             alt="Muscle Icon"
             className="mb-2 w-12 self-center"
           />
-          {/* <h2 className="font-semibold">
+          <h2 className="font-semibold">
             Ultimate Destination for Health Enthusiasts
           </h2>
           <hr className="mx-10 my-1 h-px border-0 bg-dark-blue"></hr>
@@ -63,8 +63,8 @@ const Home = ({ isAuthenticated }) => {
             which fuel your workouts or support your recovery. Step into the
             world of CaoFIT Shop and embrace the power of protein
             supplementation!
-          </p> */}
-        </div>
+          </p> 
+        </div> */}
         <Link
           to={!isAuthenticated ? "/login" : "/auth/profile"}
           className="w-fit transform self-center rounded-lg bg-first px-6 py-3 font-semibold text-dark-blue shadow-md transition duration-300 hover:scale-105 hover:bg-yellow-400"
