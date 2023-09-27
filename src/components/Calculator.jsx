@@ -199,9 +199,9 @@ const Calculator = ({ food, isAuthenticated }) => {
             </span>
           </h1>
         </div>
-        <div className="mr-2 px-2 py-2 grid grid-cols-3 grid-flow-row">
+        <div className="mr-2 px-2 py-2 flex flex-col md:grid md:grid-cols-3 md:grid-rows-1 grid-flow-row">
           {/* No 1: Select a date */}
-          <div className="mb-2">
+          <div className="mb-4 md:mb-2">
             <div className="flex flex-row flex-nowrap items-center pb-2">
               <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
                 <p className="font-bold text-dark-blue pb-0.5">1</p>
@@ -216,7 +216,7 @@ const Calculator = ({ food, isAuthenticated }) => {
             />
           </div>
           {/* No 2: Add your food */}
-          <div className="flex flex-col col-span-2">
+          <div className="flex flex-col md:col-span-2">
             <div className="flex flex-row flex-nowrap items-center pb-2">
               <div className="border-2 border-dark-blue bg-slate-200 rounded-full w-[20px] h-[20px] flex justify-center items-center mr-2">
                 <p className="font-bold text-dark-blue pb-0.5">2</p>
