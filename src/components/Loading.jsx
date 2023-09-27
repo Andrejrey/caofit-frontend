@@ -3,7 +3,7 @@ import FadeLoader from "react-spinners/FadeLoader";
 
 const Loading = () => {
   return (
-    <div className="absolute m-auto left-0 right-0 w-[320px] h-[330px] flex flex-col justify-center bg-second rounded-lg">
+    <div className="absolute m-auto left-0 right-0 top-0 bottom-0 w-[320px] h-[330px] flex flex-col justify-center bg-second rounded-lg">
       <div className="flex flex-row p-1 items-center justify-center mb-3 text-white text-4xl font-semibold">
         <img src={logo} alt="logo" className="w-24" />
         <p className="ml-2 text-center text-3xl font-normal text-white">
